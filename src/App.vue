@@ -1,10 +1,10 @@
 <template>
-	<div id="app">
+	<div id="app" class="antialised text-gray-900">
 		<div class="bg-gray-100 flex">
 			<div class="px-8 py-12 mx-w-md mx-auto sm:mx-w-xl lg:max-w-full lg:w-1/2 lg:py-24 lg:px-12">
         		<div class="xl:max-w-lg xl:ml-auto">
         			<img class="h-10" src="/img/logo.svg" alt="Workcation">
-        			<img class="mt-6 rounded-lg shadow-xl sm:mt-8 sm:h-64 sm:w-full sm:object-cover sm:object-center lg:hidden" src="/img/beach-work.jpg" alt="Woman Workcationing on the beach">
+        			<img class="mt-6 rounded-lg shadow-xl sm:mt-8 sm:h-72 sm:w-full sm:object-cover sm:object-center lg:hidden" src="/img/beach-work.jpg" alt="Woman Workcationing on the beach">
         			<h1 class="mt-6 sm:mt-8 text-2xl sm:text-4xl lg:text-3xl xl:text-4xl font-bold text-gray-900 leading-tight">
 		            You can work from anywhere.
 		            <br class="hidden lg:inline "><span class="text-indigo-500">Take advantage of it.</span>
@@ -35,59 +35,29 @@
 </template>
 
 <script>
-// import HelloWorld from "./components/HelloWorld.vue";
-import DestinationCard from "./components/DestinationCard";
+import axios from 'axios'
+
+import DestinationCard from "./components/DestinationCard"
 
 export default {
   name: "app",
   components: { DestinationCard },
   data() {
   	return {
-      popularDestinations: [
-        {
-        	city: 'Toronto',
-	        averagePrice: 120,
-	        propertyCount: 76,
-	        imageUrl: '/img/toronto.jpg',
-	        imageAlt: 'Toronto skyline',
-        },
-        {
-        	city: 'Malibu',
-	        averagePrice: 215,
-	        propertyCount: 43,
-	        imageUrl: '/img/malibu.jpg',
-	        imageAlt: 'Cliff in Malibu',
-        },
-        {
-        	city: 'Chicago',
-	        averagePrice: 130,
-	        propertyCount: 115,
-	        imageUrl: '/img/chicago.jpg',
-	        imageAlt: 'Chicago skyline',
-        },
-        {
-        	city: 'Seattle',
-	        averagePrice: 135,
-	        propertyCount: 63,
-	        imageUrl: '/img/seattle.jpg',
-	        imageAlt: 'Seattle skyline',
-        },
-        {
-        	city: 'Colorado',
-	        averagePrice: 85,
-	        propertyCount: 47,
-	        imageUrl: '/img/colorado.jpg',
-	        imageAlt: 'Lake in Colorado',
-        },
-        {
-        	city: 'Miami',
-	        averagePrice: 115,
-	        propertyCount: 86,
-	        imageUrl: '/img/miami.jpg',
-	        imageAlt: 'Beach in Miami',
-        },
-      ]
+      popularDestinations: [],
     }
+  },
+  methods: {
+  	fetchDestinations() {
+  		axios.get('http://demo-app-be.test/destination').then((res) => {
+  			this.popularDestinations = res.data
+  		}, (error) => {
+  			console.log(error)
+  		})
+  	},
+  },
+  mounted() {
+  	this.fetchDestinations()
   }
 };
 </script>
