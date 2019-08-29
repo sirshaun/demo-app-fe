@@ -1,6 +1,10 @@
 <template>
 	<div>
-		<div class="relative pb-5/6">
+		<div
+			class="relative pb-5/6 bg-red-400"
+			style="width: 448px; height: 373.333px"
+		>
+			<!-- max-w-sm overflow-hidden -->
 			<!-- For IE11 use background image -->
 			<!-- <div class="absolute h-full w-full bg-cover bg-center" :style="{ backgroundImage: `url('${property.imageUrl}')` }"></div> -->
 			<img
@@ -9,7 +13,7 @@
 				:alt="property.imageAlt"
 			/>
 		</div>
-		<div class="relative px-4 -mt-16">
+		<div class="relative px-4 -mt-16 max-w-md">
 			<div class="bg-white p-6 rounded-lg shadow-lg">
 				<div class="flex items-baseline">
 					<span

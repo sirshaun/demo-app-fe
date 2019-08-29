@@ -11,7 +11,7 @@
             </div>
 
             <div
-                class="min-h-screen p-8 flex items-center justify-center"
+                class="min-h-screen px-12 inline-flex items-center justify-center"
                 v-for="property in properties"
             >
                 <PropertyCard :property="property" />
