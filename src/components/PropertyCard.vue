@@ -1,9 +1,6 @@
 <template>
 	<div>
-		<div
-			class="relative pb-5/6 bg-red-400"
-			style="width: 448px; height: 373.333px"
-		>
+		<div class="relative pb-5/6" style="width: 448px; height: 373.333px">
 			<!-- max-w-sm overflow-hidden -->
 			<!-- For IE11 use background image -->
 			<!-- <div class="absolute h-full w-full bg-cover bg-center" :style="{ backgroundImage: `url('${property.imageUrl}')` }"></div> -->
