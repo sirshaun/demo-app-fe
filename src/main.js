@@ -1,12 +1,37 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Vuex from 'vuex'
 import App from './App.vue'
 import Properties from './Properties.vue'
+import Login from './components/Login.vue'
+import SignUp from './components/SignUp.vue'
+import Logout from './components/Logout.vue'
 
 import './main.css'
 
 Vue.use(VueRouter)
+Vue.use(Vuex)
 Vue.config.productionTip = false
+
+const state = {
+	isLogged: !!localStorage.getItem('token'),
+}
+
+const mutations = {
+	LOGIN_USER(state) {
+		state.isLogged = true
+	},
+
+	LOGOUT_USER(state) {
+		state.isLogged = false
+	},
+}
+
+window.Store = new Vuex.Store({
+	strict: process.env.NODE_ENV !== 'production',
+	state,
+	mutations,
+})
 
 // 1. Define route components.
 const NotFound = { template: '<p>Page not found</p>' }
@@ -18,6 +43,9 @@ const NotFound = { template: '<p>Page not found</p>' }
 const routes = [
 	{ path: '/', component: App },
 	{ path: '/destination/:id/properties', component: Properties, props: true },
+	{ path: '/login', component: Login },
+	{ path: '/sign-up', component: SignUp },
+	{ path: '/logout', component: Logout },
 ]
 
 // 3. Create the router instance and pass the `routes` option
@@ -33,7 +61,3 @@ const router = new VueRouter({
 const app = new Vue({
 	router,
 }).$mount('#app')
-
-// new Vue({
-//   render: h => h(App)
-// }).$mount("#app")
