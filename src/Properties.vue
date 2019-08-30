@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="antialised text-gray-900">
+    <div>
         <Navigation title="Featured properties" />
 
         <div class="bg-gray-200">
@@ -36,7 +36,6 @@ import Navigation from './components/Navigation'
 import PropertyCard from './components/PropertyCard'
 
 export default {
-    name: 'app',
     components: { PropertyCard, Navigation },
     props: ['id'],
     data() {

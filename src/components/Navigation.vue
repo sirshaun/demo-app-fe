@@ -25,12 +25,21 @@
 				class="w-full block flex-grow lg:flex lg:items-center lg:w-auto"
 			>
 				<div class="text-sm lg:flex-grow"></div>
-				<div>
-					<a
-						href="#"
-						class="inline-block text-sm px-4 py-2 leading-none border rounded text-indigo-500 border-indigo-500 hover:border-transparent hover:text-white hover:bg-indigo-500 mt-4 lg:mt-0"
-						>Login</a
-					>
+				<div v-show="showLogin">
+					<router-link to="/login">
+						<a
+							class="inline-block text-sm px-4 py-2 leading-none border rounded text-indigo-500 border-indigo-500 hover:border-transparent hover:text-white hover:bg-indigo-500 mt-4 lg:mt-0"
+							>Login</a
+						>
+					</router-link>
+				</div>
+				<div v-show="!showLogin">
+					<router-link to="/logout">
+						<a
+							class="inline-block text-sm px-4 py-2 leading-none border rounded text-indigo-500 border-indigo-500 hover:border-transparent hover:text-white hover:bg-indigo-500 mt-4 lg:mt-0"
+							>Logout</a
+						>
+					</router-link>
 				</div>
 			</div>
 		</nav>
@@ -40,5 +49,10 @@
 <script>
 export default {
 	props: ['title'],
+	computed: {
+		showLogin() {
+			return !Store.state.isLogged
+		},
+	},
 }
 </script>

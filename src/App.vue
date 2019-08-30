@@ -1,5 +1,5 @@
 <template>
-	<div id="app" class="antialised text-gray-900">
+	<div>
 		<div class="bg-gray-100 flex">
 			<div
 				class="px-8 py-12 mx-w-md mx-auto sm:mx-w-xl lg:max-w-full lg:w-1/2 lg:py-24 lg:px-12"
@@ -26,11 +26,11 @@
 						even when you're not on vacation.
 					</p>
 					<div class="mt-4 sm:mt-6">
-						<a
-							class="btn btn-indigo shadow-lg sm:text-base"
-							href="#"
-							>Book your escape</a
-						>
+						<router-link :to="whereTo">
+							<a class="btn btn-indigo shadow-lg sm:text-base"
+								>Book your escape</a
+							>
+						</router-link>
 						<!-- <a class="btn btn-gray sm:text-base" href="#">Learn more</a> -->
 					</div>
 				</div>
@@ -88,6 +88,11 @@ export default {
 					console.log(error)
 				}
 			)
+		},
+	},
+	computed: {
+		whereTo() {
+			return Store.state.isLogged ? '/' : '/login'
 		},
 	},
 	mounted() {
