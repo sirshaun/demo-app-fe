@@ -7,7 +7,7 @@
 				<FormError
 					v-show="formError"
 					title="Login failed!"
-					message="Check your credentials and try again"
+					:message="errorMessage"
 					@dismiss-form-error-message="dismiss"
 				/>
 				<form
@@ -36,20 +36,26 @@
 						>
 							Password
 						</label>
-						<input
-							class="shadow appearance-none border border-gray-200 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-							:class="{ 'border-red-500': emptyPassword }"
-							v-model="password"
-							id="password"
-							type="password"
-							placeholder="******************"
-						/>
-						<p
-							class="text-red-500 text-xs italic"
-							v-show="emptyPassword"
-						>
-							Please type your password.
-						</p>
+						<div class="relative">
+							<input
+								class="shadow appearance-none border border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+								:class="{ 'border-red-500': emptyPassword }"
+								v-model="password"
+								id="password"
+								:type="passwordFieldType"
+								placeholder="******************"
+							/>
+							<div
+								class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+							>
+								<img
+									class="h-10"
+									:src="passwordInlineImg"
+									alt="Eye"
+									@click="togglePasswordVisibility"
+								/>
+							</div>
+						</div>
 					</div>
 					<div class="flex items-center justify-between">
 						<span class="text-gray-900">
@@ -95,11 +101,19 @@ export default {
 			username: '',
 			password: '',
 			formError: false,
+			showPassword: false,
+			errorMessage: 'Check your credentials and try again',
 		}
 	},
 	computed: {
 		emptyPassword() {
 			return this.password.length == 0
+		},
+		passwordInlineImg() {
+			return this.showPassword ? '/img/eye-crossed.svg' : '/img/eye.svg'
+		},
+		passwordFieldType() {
+			return this.showPassword ? 'text' : 'password'
 		},
 	},
 	methods: {
@@ -122,12 +136,22 @@ export default {
 					},
 					error => {
 						this.formError = true
+
+						if (error.response.data.message) {
+							this.errorMessage = error.response.data.message
+						} else {
+							this.errorMessage =
+								'Check your credentials and try again'
+						}
 					}
 				)
 		},
 		dismiss() {
 			this.formError = false
 			this.password = ''
+		},
+		togglePasswordVisibility() {
+			this.showPassword = !this.showPassword
 		},
 	},
 	beforeCreate() {
