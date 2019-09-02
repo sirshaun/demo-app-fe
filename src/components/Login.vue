@@ -39,7 +39,6 @@
 						<div class="relative">
 							<input
 								class="shadow appearance-none border border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-								:class="{ 'border-red-500': emptyPassword }"
 								v-model="password"
 								id="password"
 								:type="passwordFieldType"
@@ -106,9 +105,6 @@ export default {
 		}
 	},
 	computed: {
-		emptyPassword() {
-			return this.password.length == 0
-		},
 		passwordInlineImg() {
 			return this.showPassword ? '/img/eye-crossed.svg' : '/img/eye.svg'
 		},
