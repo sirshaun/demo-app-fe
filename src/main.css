@@ -28,4 +28,19 @@
 	@apply bg-gray-500;
 }
 
+.btn-float {
+	@apply bg-indigo-600 text-white py-2 px-4 rounded inline-flex items-center rounded-full;
+
+	position: fixed;
+	width: 50px;
+	height: 50px;
+	bottom: 20px;
+	right: 20px;
+	/*box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);*/
+	box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.25);
+}
+.btn-float:hover {
+	@apply bg-indigo-400;
+}
+
 @tailwind utilities;

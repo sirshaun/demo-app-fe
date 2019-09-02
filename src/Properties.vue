@@ -18,14 +18,7 @@
             </div>
         </div>
 
-        <div class="p-8 text-right">
-            <router-link to="/">
-                <a
-                    class="bg-transparent hover:text-indigo-400 text-indigo-800 font-semibold py-2 px-4"
-                    >Go back</a
-                >
-            </router-link>
-        </div>
+        <BackButton />
     </div>
 </template>
 
@@ -34,9 +27,10 @@ import axios from 'axios'
 
 import Navigation from './components/Navigation'
 import PropertyCard from './components/PropertyCard'
+import BackButton from './components/BackButton'
 
 export default {
-    components: { PropertyCard, Navigation },
+    components: { PropertyCard, Navigation, BackButton },
     props: ['id'],
     data() {
         return {

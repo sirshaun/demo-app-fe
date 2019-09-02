@@ -48,7 +48,7 @@
 								class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
 							>
 								<img
-									class="h-10"
+									class="h-8"
 									:src="passwordInlineImg"
 									alt="Eye"
 									@click="togglePasswordVisibility"
