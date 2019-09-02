@@ -89,8 +89,8 @@
 
 <script>
 import axios from 'axios'
-import Navigation from './Navigation'
-import FormError from './FormError'
+import Navigation from './components/Navigation'
+import FormError from './components/FormError'
 
 export default {
 	components: { FormError, Navigation },

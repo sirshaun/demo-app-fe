@@ -3,9 +3,9 @@ import VueRouter from 'vue-router'
 import Vuex from 'vuex'
 import App from './App.vue'
 import Properties from './Properties.vue'
-import Login from './components/Login.vue'
-import SignUp from './components/SignUp.vue'
-import Logout from './components/Logout.vue'
+import Login from './Login.vue'
+import SignUp from './SignUp.vue'
+import Logout from './Logout.vue'
 
 import './main.css'
 

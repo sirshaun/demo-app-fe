@@ -38,12 +38,12 @@
 
 <script>
 import axios from 'axios'
-import Navigation from './Navigation'
-import FormError from './FormError'
-import Name from './Form/Name'
-import Contact from './Form/Contact'
-import LoginCred from './Form/LoginCred'
-import Location from './Form/Location'
+import Navigation from './components/Navigation'
+import FormError from './components/FormError'
+import Name from './components/Form/Name'
+import Contact from './components/Form/Contact'
+import LoginCred from './components/Form/LoginCred'
+import Location from './components/Form/Location'
 
 export default {
 	components: { FormError, Navigation, Name, Contact, LoginCred, Location },
