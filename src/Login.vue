@@ -128,9 +128,9 @@ export default {
 				})
 				.then(
 					response => {
-						localStorage.setItem('token', response.token)
+						localStorage.setItem('token', response.data.token)
 						Store.commit('LOGIN_USER')
-						this.$router.push('/')
+						this.$router.push('/profile')
 					},
 					error => {
 						this.formError = true
