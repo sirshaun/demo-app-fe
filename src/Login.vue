@@ -106,7 +106,9 @@ export default {
 	},
 	computed: {
 		passwordInlineImg() {
-			return this.showPassword ? '/img/eye-crossed.svg' : '/img/eye.svg'
+			return this.showPassword
+				? '/img/ikonate/eye-crossed.svg'
+				: '/img/ikonate/eye.svg'
 		},
 		passwordFieldType() {
 			return this.showPassword ? 'text' : 'password'

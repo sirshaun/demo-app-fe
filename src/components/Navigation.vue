@@ -24,7 +24,26 @@
 			<div
 				class="w-full block flex-grow lg:flex lg:items-center lg:w-auto"
 			>
-				<div class="text-sm lg:flex-grow"></div>
+				<div class="text-lg text-right lg:flex-grow">
+					<a
+						href="#"
+						class="block mt-4 lg:inline-block lg:mt-0 text-indigo-500 hover:text-indigo-200 mr-4"
+					>
+						Docs
+					</a>
+					<a
+						href="#"
+						class="block mt-4 lg:inline-block lg:mt-0 text-indigo-500 hover:text-indigo-200 mr-4"
+					>
+						Examples
+					</a>
+					<a
+						href="#"
+						class="block mt-4 lg:inline-block lg:mt-0 text-indigo-500 hover:text-indigo-200 mr-4"
+					>
+						Help
+					</a>
+				</div>
 				<div v-show="showLogin">
 					<router-link to="/login">
 						<a

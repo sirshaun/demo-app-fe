@@ -3,8 +3,9 @@ import VueRouter from 'vue-router'
 import Vuex from 'vuex'
 import App from './App.vue'
 import Properties from './Properties.vue'
-import Login from './Login.vue'
 import SignUp from './SignUp.vue'
+import Login from './Login.vue'
+import Profile from './Profile.vue'
 import Logout from './Logout.vue'
 
 import './main.css'
@@ -43,8 +44,9 @@ const NotFound = { template: '<p>Page not found</p>' }
 const routes = [
 	{ path: '/', component: App },
 	{ path: '/destination/:id/properties', component: Properties, props: true },
-	{ path: '/login', component: Login },
 	{ path: '/sign-up', component: SignUp },
+	{ path: '/login', component: Login },
+	{ path: '/profile', component: Profile },
 	{ path: '/logout', component: Logout },
 ]
 
