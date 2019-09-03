@@ -36,7 +36,7 @@
 						<hr class="mx-5" />
 						<div class="px-4 py-2 m-2">
 							<div class="font-semibold mb-4">
-								Shaun's provided
+								{{ user.first_name }} provided
 							</div>
 							<div class="flex items-center mb-2">
 								<img
@@ -72,10 +72,11 @@
 					<div class="flex flex-col bg-white border rounded shadow">
 						<div class="px-4 py-2 mx-2 my-6">
 							<div class="text-5xl font-light">
-								Hi, I'm Shaun
+								Hi, I'm {{ user.first_name }}
 							</div>
 							<div class="font-light text-md -mt-1">
-								Joined 2017 - Edit profile
+								Joined {{ dateJoined.getFullYear() }} - Edit
+								profile
 							</div>
 							<div class="text-6xl text-gray-400">“</div>
 							<div class="-mt-10 -mb-16 font-light">
@@ -91,7 +92,7 @@
 									class="h-4 mr-4"
 								/>
 								<span class="font-light">
-									Lives in Matabeleland South Province,
+									Lives in {{ user.state }} Province,
 									Zimbabwe</span
 								>
 							</div>
@@ -145,6 +146,8 @@
 				</div>
 			</div>
 		</div>
+
+		<BackButton />
 	</div>
 </template>
 
@@ -156,6 +159,56 @@ import BackButton from './components/BackButton'
 
 export default {
 	components: { Navigation, BackButton },
-	props: ['user'],
+	data() {
+		return {
+			user: {},
+		}
+	},
+	computed: {
+		dateJoined() {
+			var dateTime = this.user.created_at.split(' ')
+
+			var date = dateTime[0].split('-')
+			var yyyy = date[0]
+			var mm = date[1] - 1
+			var dd = date[2]
+
+			var time = dateTime[1].split(':')
+			var h = time[0]
+			var m = time[1]
+			var s = parseInt(time[2]) //get rid of that 00.0;
+
+			return new Date(yyyy, mm, dd, h, m, s)
+		},
+	},
+	methods: {
+		fetchProfile() {
+			axios
+				.get('http://demo-app-be.test/user/profile', {
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem(
+							'token'
+						)}`,
+					},
+				})
+				.then(
+					res => {
+						this.user = res.data.user
+					},
+					error => {
+						console.log(error)
+					}
+				)
+		},
+	},
+	mounted() {
+		if (!Store.state.isLogged) {
+			window.history.length > 1
+				? this.$router.go(-1)
+				: this.$router.push('/')
+		} else {
+			this.fetchProfile()
+		}
+	},
 }
 </script>
