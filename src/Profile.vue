@@ -144,7 +144,7 @@
 						</div>
 						<hr class="mx-5" />
 						<div class="px-4 py-2 mx-2 my-6">
-							<router-link to="/profile">
+							<router-link to="/profile/reviews">
 								<a class="text-indigo-600 hover:text-indigo-200"
 									>Reviews by you</a
 								></router-link
@@ -182,6 +182,7 @@ export default {
 	},
 	computed: {
 		dateJoined() {
+			// TODO: Fix this "error"
 			var dateTime = this.user.created_at.split(' ')
 
 			var date = dateTime[0].split('-')
