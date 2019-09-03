@@ -6,6 +6,7 @@ import Properties from './Properties.vue'
 import SignUp from './SignUp.vue'
 import Login from './Login.vue'
 import Profile from './Profile.vue'
+import Reviews from './Reviews.vue'
 import Logout from './Logout.vue'
 
 import './main.css'
@@ -47,6 +48,7 @@ const routes = [
 	{ path: '/sign-up', component: SignUp },
 	{ path: '/login', component: Login },
 	{ path: '/profile', component: Profile },
+	{ path: '/profile/reviews', component: Reviews },
 	{ path: '/logout', component: Logout },
 ]
 
