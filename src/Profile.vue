@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<Navigation title="Featured properties" />
+		<Navigation title="Profile" />
 
 		<div class="md:px-64 pt-20">
 			<div class="flex text-gray-800">
@@ -18,20 +18,29 @@
 						</div>
 						<hr class="mx-5" />
 						<div class="px-4 py-2 m-2">
-							<div class="flex items-center">
-								<img
-									src="/img/ikonate/chat-alt.svg"
-									class="h-4"
-								/>
-								&nbsp;<span class="font-thin"> 1 review</span>
-							</div>
-							<div class="flex items-center">
-								<img
-									src="/img/ikonate/verified.svg"
-									class="h-4"
-								/>
-								&nbsp;<span class="font-thin"> Verified</span>
-							</div>
+							<router-link to="/profile">
+								<a
+									class="flex items-center text-indigo-600 hover:text-indigo-200"
+								>
+									<img
+										src="/img/ikonate/chat-alt.svg"
+										class="h-4 mr-2"
+									/>
+									<span class="font-thin">1 review</span>
+								</a>
+							</router-link>
+
+							<router-link to="/profile">
+								<a
+									class="flex items-center text-indigo-600 hover:text-indigo-200"
+								>
+									<img
+										src="/img/ikonate/verified.svg"
+										class="h-4 mr-2"
+									/>
+									<span class="font-thin">Verified</span>
+								</a>
+							</router-link>
 						</div>
 						<hr class="mx-5" />
 						<div class="px-4 py-2 m-2">
@@ -41,29 +50,23 @@
 							<div class="flex items-center mb-2">
 								<img
 									src="/img/ikonate/ok-circle.svg"
-									class="h-4"
+									class="h-4 mr-2"
 								/>
-								&nbsp;<span class="font-thin">
-									Government ID</span
-								>
+								<span class="font-thin"> Government ID</span>
 							</div>
 							<div class="flex items-center mb-2">
 								<img
 									src="/img/ikonate/ok-circle.svg"
-									class="h-4"
+									class="h-4 mr-2"
 								/>
-								&nbsp;<span class="font-thin">
-									Email address</span
-								>
+								<span class="font-thin"> Email address</span>
 							</div>
 							<div class="flex items-center">
 								<img
 									src="/img/ikonate/ok-circle.svg"
-									class="h-4"
+									class="h-4 mr-2"
 								/>
-								&nbsp;<span class="font-thin">
-									Phone number</span
-								>
+								<span class="font-thin"> Phone number</span>
 							</div>
 						</div>
 					</div>
@@ -75,8 +78,13 @@
 								Hi, I'm {{ user.first_name }}
 							</div>
 							<div class="font-light text-md -mt-1">
-								Joined {{ dateJoined.getFullYear() }} - Edit
-								profile
+								Joined {{ dateJoined.getFullYear() }} ·
+								<router-link to="/profile">
+									<a
+										class="text-indigo-600 hover:text-indigo-200"
+										>Edit profile</a
+									></router-link
+								>
 							</div>
 							<div class="text-6xl text-gray-400">“</div>
 							<div class="-mt-10 -mb-16 font-light">
@@ -136,11 +144,19 @@
 						</div>
 						<hr class="mx-5" />
 						<div class="px-4 py-2 mx-2 my-6">
-							<p>Reviews by you</p>
+							<router-link to="/profile">
+								<a class="text-indigo-600 hover:text-indigo-200"
+									>Reviews by you</a
+								></router-link
+							>
 						</div>
 						<hr class="mx-5" />
 						<div class="px-4 py-2 mx-2 my-6">
-							<p>Report this profile</p>
+							<router-link to="/profile">
+								<a class="text-indigo-600 hover:text-indigo-200"
+									>Report this profile</a
+								></router-link
+							>
 						</div>
 					</div>
 				</div>
