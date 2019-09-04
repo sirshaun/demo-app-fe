@@ -2,7 +2,7 @@
 	<div>
 		<Navigation title="Profile" />
 
-		<div class="md:px-64 pt-20">
+		<div class="md:px-64 pt-20 bg-gray-200">
 			<div class="flex text-gray-800">
 				<div class="w-1/3">
 					<div
