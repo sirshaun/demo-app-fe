@@ -1,7 +1,7 @@
 <template>
 	<div class="clearfix">
 		<a @click="goBack" class="btn-float">
-			<img class="h-full" src="/img/arrow-left.svg" alt="Back" />
+			<img class="h-full" src="/img/ikonate/arrow-left.svg" alt="Back" />
 		</a>
 	</div>
 </template>

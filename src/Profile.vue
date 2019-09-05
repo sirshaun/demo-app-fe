@@ -108,7 +108,7 @@
 						<hr class="mx-5" />
 						<div class="px-4 py-2 mx-2 my-6">
 							<div class="font-semibold text-2xl mb-6">
-								1 review
+								2 reviews
 							</div>
 							<div class="">
 								<div
@@ -118,7 +118,7 @@
 								</div>
 								<div class="font-light mb-4">
 									Shaun was a pleasure to host during his
-									visit to Vancouver. Most courteous and
+									visit to Harare. Most courteous and
 									considerate, and good fun to chat with.
 								</div>
 								<div class="flex items-center">
@@ -132,6 +132,38 @@
 											class="font-semibold text-sm leading-none mb-1"
 										>
 											John, Harare, Harare
+										</p>
+										<p
+											class="text-gray-600 font-thin text-xs"
+										>
+											Joined in 2017 - Report
+										</p>
+									</div>
+								</div>
+							</div>
+							<hr class="my-6" />
+							<div class="">
+								<div
+									class="text-xs font-semibold mb-4 tracking-normal"
+								>
+									December 2018
+								</div>
+								<div class="font-light mb-4">
+									Shaun was the perfect guest! it was a
+									pleasure to host him in our apartment :)) he
+									was very communicative and understanding
+								</div>
+								<div class="flex items-center">
+									<img
+										class="w-10 h-10 rounded-full mr-4"
+										src="/img/23.png"
+										alt="Avatar"
+									/>
+									<div class="text-sm">
+										<p
+											class="font-semibold text-sm leading-none mb-1"
+										>
+											Jane, Bulawayo, Bulawayo
 										</p>
 										<p
 											class="text-gray-600 font-thin text-xs"

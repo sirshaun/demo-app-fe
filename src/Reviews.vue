@@ -26,7 +26,8 @@
 					</li>
 				</ul>
 
-				<!--  -->
+				<ReviewsAbout :user="user" v-show="showReviewsAbout" />
+				<ReviewsBy :user="user" v-show="showReviewsBy" />
 			</div>
 		</div>
 
@@ -39,9 +40,11 @@ import axios from 'axios'
 
 import Navigation from './components/Navigation.vue'
 import BackButton from './components/BackButton'
+import ReviewsAbout from './components/Profile/ReviewsAbout'
+import ReviewsBy from './components/Profile/ReviewsBy'
 
 export default {
-	components: { Navigation, BackButton },
+	components: { Navigation, BackButton, ReviewsAbout, ReviewsBy },
 	data() {
 		return {
 			user: {},
@@ -50,6 +53,18 @@ export default {
 				{ title: 'Reviews by you', active: false },
 			],
 		}
+	},
+	computed: {
+		showReviewsBy() {
+			if (typeof this.tabs[1] === 'undefined') return false
+
+			return this.tabs[1].active
+		},
+		showReviewsAbout() {
+			if (typeof this.tabs[0] === 'undefined') return false
+
+			return this.tabs[0].active
+		},
 	},
 	methods: {
 		toggleTabs(index) {
