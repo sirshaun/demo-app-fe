@@ -78,7 +78,7 @@
 								Hi, I'm {{ user.first_name }}
 							</div>
 							<div class="font-light text-md -mt-1">
-								Joined {{ dateJoined.getFullYear() }} ·
+								Joined {{ dateJoined.getFullYear() }} &bull;
 								<router-link to="/profile">
 									<a
 										class="text-indigo-600 hover:text-indigo-200"
@@ -104,6 +104,31 @@
 									Zimbabwe</span
 								>
 							</div>
+							<div class="flex items-center">
+								<img
+									src="/img/ikonate/chat.svg"
+									class="h-4 mr-4"
+								/>
+								<span class="font-light">
+									Speaks English, Ndebele, Shona</span
+								>
+							</div>
+							<div class="flex items-center">
+								<img
+									src="/img/ikonate/suitcase-alt.svg"
+									class="h-4 mr-4"
+								/>
+								<span class="font-light">
+									Work: iCode, iCreate</span
+								>
+							</div>
+						</div>
+						<hr class="mx-5" />
+						<div class="px-4 py-2 mx-2 my-6">
+							<div class="font-semibold text-2xl mb-6">
+								{{ user.first_name }}' Listings
+							</div>
+							<Slider />
 						</div>
 						<hr class="mx-5" />
 						<div class="px-4 py-2 mx-2 my-6">
@@ -204,9 +229,10 @@ import axios from 'axios'
 
 import Navigation from './components/Navigation.vue'
 import BackButton from './components/BackButton'
+import Slider from './components/Slider'
 
 export default {
-	components: { Navigation, BackButton },
+	components: { Navigation, BackButton, Slider },
 	data() {
 		return {
 			user: {},
@@ -214,7 +240,8 @@ export default {
 	},
 	computed: {
 		dateJoined() {
-			// TODO: Fix this "error"
+			if (!this.user.hasOwnProperty('created_at')) return new Date()
+
 			var dateTime = this.user.created_at.split(' ')
 
 			var date = dateTime[0].split('-')
