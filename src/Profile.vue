@@ -18,17 +18,16 @@
 						</div>
 						<hr class="mx-5" />
 						<div class="px-4 py-2 m-2">
-							<router-link to="/profile">
-								<a
-									class="flex items-center text-indigo-600 hover:text-indigo-200"
-								>
-									<img
-										src="/img/ikonate/chat-alt.svg"
-										class="h-4 mr-2"
-									/>
-									<span class="font-thin">1 review</span>
-								</a>
-							</router-link>
+							<a
+								class="flex items-center text-indigo-600 hover:text-indigo-200"
+								@click="scrollTo('profile-reviews')"
+							>
+								<img
+									src="/img/ikonate/chat-alt.svg"
+									class="h-4 mr-2"
+								/>
+								<span class="font-thin">1 review</span>
+							</a>
 
 							<router-link to="/profile">
 								<a
@@ -131,7 +130,7 @@
 							<Slider />
 						</div>
 						<hr class="mx-5" />
-						<div class="px-4 py-2 mx-2 my-6">
+						<div class="px-4 py-2 mx-2 my-6" id="profile-reviews">
 							<div class="font-semibold text-2xl mb-6">
 								2 reviews
 							</div>
@@ -275,6 +274,9 @@ export default {
 						console.log(error)
 					}
 				)
+		},
+		scrollTo(hash) {
+			location.hash = '#' + hash
 		},
 	},
 	mounted() {
