@@ -1,44 +1,59 @@
 <template>
 	<div>
 		<Navigation title="Sign Up" :showLogin="false" />
-		<div class="py-10 bg-gray-200 flex justify-center">
-			<div class="w-full max-w-6xl">
-				<FormError
-					v-show="attemptFail"
-					title="Sign up failed!"
-					message="Please try again later."
-					@dismiss-form-error-message="dismiss"
-				/>
 
-				<form
-					@submit.prevent="attemptSignup"
-					class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-				>
-					<Name @names-filled-out="appendFullName" />
-					<Contact @contact-info-filled-out="appendContactInfo" />
-					<LoginCred @login-creds-filled-out="appendLoginCreds" />
-					<Location @location-info-filled-out="appendLocationInfo" />
-					<div class="flex flex-wrap -mx-3 mt-10">
-						<div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-							<input
-								class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-								:class="{
-									'opacity-50 cursor-not-allowed': formError,
-								}"
-								type="submit"
-								value="Sign Up"
-							/>
+		<div class="bg-gray-200">
+			<h1
+				class="px-10 text-2xl sm:text-4xl lg:text-3xl xl:text-4xl font-bold text-gray-900 leading-snug"
+			>
+				Sign
+				<span class="text-indigo-500">up</span>
+			</h1>
+
+			<div class="py-10 bg-gray-200 flex justify-center">
+				<div class="w-full max-w-6xl">
+					<FormError
+						v-show="attemptFail"
+						title="Sign up failed!"
+						message="Please try again later."
+						@dismiss-form-error-message="dismiss"
+					/>
+
+					<form
+						@submit.prevent="attemptSignup"
+						class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+					>
+						<Name @names-filled-out="appendFullName" />
+						<Contact @contact-info-filled-out="appendContactInfo" />
+						<LoginCred @login-creds-filled-out="appendLoginCreds" />
+						<Location
+							@location-info-filled-out="appendLocationInfo"
+						/>
+						<div class="flex flex-wrap -mx-3 mt-10">
+							<div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+								<input
+									class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+									:class="{
+										'opacity-50 cursor-not-allowed': formError,
+									}"
+									type="submit"
+									value="Sign Up"
+								/>
+							</div>
 						</div>
-					</div>
-				</form>
+					</form>
+				</div>
 			</div>
 		</div>
+
+		<Footer />
 	</div>
 </template>
 
 <script>
 import axios from 'axios'
 import Navigation from './components/Navigation'
+import Footer from './components/Footer'
 import FormError from './components/FormError'
 import Name from './components/Form/Name'
 import Contact from './components/Form/Contact'
@@ -46,7 +61,15 @@ import LoginCred from './components/Form/LoginCred'
 import Location from './components/Form/Location'
 
 export default {
-	components: { FormError, Navigation, Name, Contact, LoginCred, Location },
+	components: {
+		FormError,
+		Navigation,
+		Name,
+		Contact,
+		LoginCred,
+		Location,
+		Footer,
+	},
 	data() {
 		return {
 			firstname: '',
