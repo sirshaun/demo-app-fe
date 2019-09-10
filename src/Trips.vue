@@ -2,7 +2,7 @@
 	<div class="">
 		<Navigation title="Profile" />
 
-		<div class="bg-gray-200">
+		<div class="bg-gray-200 pb-16">
 			<h1
 				class="px-10 text-2xl sm:text-4xl lg:text-3xl xl:text-4xl font-bold text-gray-900 leading-snug"
 			>
@@ -85,7 +85,7 @@
 				</div>
 			</div>
 
-			<hr class="my-20 mx-10" />
+			<hr class="mt-20 mb-10 mx-10" />
 
 			<div class="px-10 font-light">
 				Can’t find your reservation here?
@@ -96,6 +96,8 @@
 		</div>
 
 		<BackButton />
+
+		<Footer />
 	</div>
 </template>
 
@@ -104,9 +106,10 @@ import axios from 'axios'
 
 import Navigation from './components/Navigation.vue'
 import BackButton from './components/BackButton'
+import Footer from './components/Footer'
 
 export default {
-	components: { Navigation, BackButton },
+	components: { Navigation, BackButton, Footer },
 	data() {
 		return {
 			user: {},

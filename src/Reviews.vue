@@ -32,6 +32,8 @@
 		</div>
 
 		<BackButton />
+
+		<Footer />
 	</div>
 </template>
 
@@ -40,11 +42,12 @@ import axios from 'axios'
 
 import Navigation from './components/Navigation.vue'
 import BackButton from './components/BackButton'
+import Footer from './components/Footer'
 import ReviewsAbout from './components/Profile/ReviewsAbout'
 import ReviewsBy from './components/Profile/ReviewsBy'
 
 export default {
-	components: { Navigation, BackButton, ReviewsAbout, ReviewsBy },
+	components: { Navigation, BackButton, ReviewsAbout, ReviewsBy, Footer },
 	data() {
 		return {
 			user: {},

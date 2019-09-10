@@ -220,6 +220,8 @@
 		</div>
 
 		<BackButton />
+
+		<Footer />
 	</div>
 </template>
 
@@ -228,10 +230,11 @@ import axios from 'axios'
 
 import Navigation from './components/Navigation.vue'
 import BackButton from './components/BackButton'
+import Footer from './components/Footer'
 import Slider from './components/Slider'
 
 export default {
-	components: { Navigation, BackButton, Slider },
+	components: { Navigation, BackButton, Slider, Footer },
 	data() {
 		return {
 			user: {},
