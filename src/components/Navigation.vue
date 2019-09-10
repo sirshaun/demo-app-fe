@@ -37,13 +37,14 @@
 					>
 						Saved
 					</a>
-					<a
-						href="#"
-						class="block mt-4 lg:inline-block lg:mt-0 text-indigo-500 hover:text-indigo-200 mr-4"
-						v-show="loggedIn"
-					>
-						Trips
-					</a>
+					<router-link to="/wishlists">
+						<a
+							class="block mt-4 lg:inline-block lg:mt-0 text-indigo-500 hover:text-indigo-200 mr-4"
+							v-show="loggedIn"
+						>
+							Trips
+						</a>
+					</router-link>
 					<a
 						href="#"
 						class="block mt-4 lg:inline-block lg:mt-0 text-indigo-500 hover:text-indigo-200 mr-4"
