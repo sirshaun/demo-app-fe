@@ -44,7 +44,7 @@
 						<hr class="mx-5" />
 						<div class="px-4 py-2 m-2">
 							<div class="font-semibold mb-4">
-								{{ user.first_name }} provided
+								{{ user.username }} provided
 							</div>
 							<div class="flex items-center mb-2">
 								<img
@@ -74,7 +74,7 @@
 					<div class="flex flex-col bg-white border rounded shadow">
 						<div class="px-4 py-2 mx-2 my-6">
 							<div class="text-5xl font-light">
-								Hi, I'm {{ user.first_name }}
+								Hi, I'm {{ user.username }}
 							</div>
 							<div class="font-light text-md -mt-1">
 								Joined {{ dateJoined.getFullYear() }} &bull;
