@@ -2,7 +2,11 @@
 	<div>
 		<nav class="flex items-center justify-between flex-wrap bg-white p-6">
 			<div class="flex items-center flex-shrink-0 text-white mr-6">
-				<img class="h-10" src="/img/logo.svg" alt="Workcation" />&nbsp;
+				<img
+					class="h-10"
+					src="/img/logo-mini.svg"
+					alt="Workcation"
+				/>&nbsp;
 				<span class="font-semibold text-xl tracking-tight">{{
 					title
 				}}</span>
