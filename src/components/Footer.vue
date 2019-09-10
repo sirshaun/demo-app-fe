@@ -1,6 +1,7 @@
 <template>
 	<footer
 		class="w-full text-center border-t border-gray-400 p-4 text-gray-900"
+		:class="{ 'footer-float': floated }"
 	>
 		<div class="px-2 md:px-64">
 			<div class="flex -mx-2 pb-6 border-b border-gray-400">
@@ -102,6 +103,11 @@
 
 <script>
 export default {
-	//
+	props: {
+		floated: {
+			type: Boolean,
+			default: false,
+		},
+	},
 }
 </script>

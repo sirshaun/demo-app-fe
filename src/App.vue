@@ -43,7 +43,7 @@
 				/>
 			</div>
 		</div>
-		<div>
+		<div class="bg-gray-200">
 			<div
 				class="max-w-md sm:max-w-xl lg:max-w-6xl mx-auto px-8 lg:px-12 py-8"
 			>
@@ -62,6 +62,12 @@
 				</div>
 			</div>
 		</div>
+
+		<Footer-Button
+			:showFooter="!footerBtn"
+			@footer-btn-clicked="toggleFooter"
+		/>
+		<Footer :floated="true" v-show="!footerBtn" />
 	</div>
 </template>
 
@@ -69,13 +75,16 @@
 import axios from 'axios'
 
 import DestinationCard from './components/DestinationCard'
+import Footer from './components/Footer'
+import FooterButton from './components/FooterButton'
 
 export default {
 	name: 'app',
-	components: { DestinationCard },
+	components: { DestinationCard, FooterButton, Footer },
 	data() {
 		return {
 			popularDestinations: [],
+			footerBtn: true,
 		}
 	},
 	methods: {
@@ -88,6 +97,9 @@ export default {
 					console.log(error)
 				}
 			)
+		},
+		toggleFooter() {
+			this.footerBtn = !this.footerBtn
 		},
 	},
 	computed: {
