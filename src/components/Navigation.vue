@@ -29,15 +29,17 @@
 						href="#"
 						class="block mt-4 lg:inline-block lg:mt-0 text-indigo-500 hover:text-indigo-200 mr-4"
 					>
-						Become a host </a
-					><a
-						href="#"
-						class="block mt-4 lg:inline-block lg:mt-0 text-indigo-500 hover:text-indigo-200 mr-4"
-						v-show="loggedIn"
-					>
-						Saved
+						Become a host
 					</a>
 					<router-link to="/wishlists">
+						<a
+							class="block mt-4 lg:inline-block lg:mt-0 text-indigo-500 hover:text-indigo-200 mr-4"
+							v-show="loggedIn"
+						>
+							Saved
+						</a>
+					</router-link>
+					<router-link to="/trips">
 						<a
 							class="block mt-4 lg:inline-block lg:mt-0 text-indigo-500 hover:text-indigo-200 mr-4"
 							v-show="loggedIn"
