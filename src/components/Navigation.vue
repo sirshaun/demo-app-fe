@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<nav class="flex items-center justify-between flex-wrap bg-white p-6">
+	<div class="mb-10">
+		<nav class="nav-float">
 			<div class="flex items-center flex-shrink-0 text-white mr-6">
 				<router-link to="/">
 					<img
