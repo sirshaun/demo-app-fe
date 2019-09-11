@@ -29,7 +29,7 @@
 								Username / Email
 							</label>
 							<input
-								class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+								class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
 								v-model="username"
 								id="username"
 								type="text"
@@ -45,7 +45,7 @@
 							</label>
 							<div class="relative">
 								<input
-									class="shadow appearance-none border border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+									class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
 									v-model="password"
 									id="password"
 									:type="passwordFieldType"
