@@ -1,6 +1,6 @@
 <template>
 	<div class="">
-		<Navigation title="Profile" />
+		<Navigation />
 
 		<div class="bg-gray-200 pb-16">
 			<h1

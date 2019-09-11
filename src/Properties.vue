@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Navigation title="Featured properties" />
+        <Navigation />
 
         <div class="bg-gray-200">
             <h1

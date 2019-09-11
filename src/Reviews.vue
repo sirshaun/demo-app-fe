@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<Navigation title="Profile Reviews" />
+		<Navigation />
 
 		<div class="bg-gray-200">
 			<h1

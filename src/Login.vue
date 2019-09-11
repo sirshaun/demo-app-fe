@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<Navigation title="Login" :showLogin="false" />
+		<Navigation :showSearch="false" />
 
 		<div class="bg-gray-200">
 			<h1

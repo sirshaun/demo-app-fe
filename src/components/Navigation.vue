@@ -2,14 +2,13 @@
 	<div>
 		<nav class="flex items-center justify-between flex-wrap bg-white p-6">
 			<div class="flex items-center flex-shrink-0 text-white mr-6">
-				<img
-					class="h-10"
-					src="/img/logo-mini.svg"
-					alt="Workcation"
-				/>&nbsp;
-				<span class="font-semibold text-xl tracking-tight">{{
-					title
-				}}</span>
+				<router-link to="/">
+					<img
+						class="h-10"
+						src="/img/logo-mini.svg"
+						alt="Workcation"
+					/>
+				</router-link>
 			</div>
 			<div class="block lg:hidden">
 				<button
@@ -28,6 +27,24 @@
 			<div
 				class="w-full block flex-grow lg:flex lg:items-center lg:w-auto"
 			>
+				<div class="relative flex-grow" v-show="showSearch">
+					<input
+						class="transition focus:outline-0 border border-transparent focus:bg-white focus:border-gray-300 placeholder-gray-600 rounded-lg bg-gray-200 py-2 pr-4 pl-10 block w-3/5 appearance-none leading-normal"
+						id="search-term"
+						type="text"
+						placeholder='Try "Bulawayo"'
+						v-model="searchTerm"
+					/>
+					<div
+						class="pointer-events-none absolute inset-y-0 left-0 pl-4 flex items-center"
+					>
+						<img
+							class="h-5"
+							src="/img/ikonate/search-light-gray.svg"
+							alt=""
+						/>
+					</div>
+				</div>
 				<div class="text-lg text-right lg:flex-grow">
 					<a
 						href="#"
@@ -134,7 +151,17 @@ import NavDropdown from './NavDropdown'
 
 export default {
 	components: { NavDropdown },
-	props: ['title'],
+	props: {
+		showSearch: {
+			type: Boolean,
+			default: true,
+		},
+	},
+	data() {
+		return {
+			searchTerm: '',
+		}
+	},
 	computed: {
 		loggedIn() {
 			return Store.state.isLogged
