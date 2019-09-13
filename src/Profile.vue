@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="oped">
 		<Navigation />
 
 		<div class="md:px-64 pt-20 bg-gray-200">
@@ -14,7 +14,11 @@
 								src="/img/69.png"
 								alt="Avatar"
 							/>
-							<div class="text-center mt-3">Update photo</div>
+							<div class="text-center mt-3">
+								<a class="text-indigo-600 hover:text-indigo-200"
+									>Update photo</a
+								>
+							</div>
 						</div>
 						<hr class="mx-5" />
 						<div class="px-4 py-2 m-2">
@@ -77,50 +81,22 @@
 								Hi, I'm {{ user.username }}
 							</div>
 							<div class="font-light text-md -mt-1">
-								Joined {{ dateJoined.getFullYear() }} &bull;
-								<router-link to="/profile">
+								Joined {{ dateJoined.getFullYear() }}
+								<span v-show="!editOn"
+									>&bull;
 									<a
-										class="text-indigo-600 hover:text-indigo-200"
+										class="cursor-pointer text-indigo-600 hover:text-indigo-200"
+										@click="toggleEdit"
 										>Edit profile</a
-									></router-link
-								>
+									>
+								</span>
 							</div>
-							<div class="text-6xl text-gray-400">“</div>
-							<div class="-mt-10 -mb-16 font-light">
-								Software developer trying to spread positivity
-								and love through my projects. Zimbabwean born,
-								Australian based. Love reading books and manga
-								in the outdoors.
-							</div>
-							<div class="text-6xl text-gray-400 mb-4">_</div>
-							<div class="flex items-center">
-								<img
-									src="/img/ikonate/home-alt.svg"
-									class="h-4 mr-4"
-								/>
-								<span class="font-light">
-									Lives in {{ user.state }} Province,
-									Zimbabwe</span
-								>
-							</div>
-							<div class="flex items-center">
-								<img
-									src="/img/ikonate/chat.svg"
-									class="h-4 mr-4"
-								/>
-								<span class="font-light">
-									Speaks English, Ndebele, Shona</span
-								>
-							</div>
-							<div class="flex items-center">
-								<img
-									src="/img/ikonate/suitcase-alt.svg"
-									class="h-4 mr-4"
-								/>
-								<span class="font-light">
-									Work: iCode, iCreate</span
-								>
-							</div>
+							<Summary :user="user" v-show="!editOn" />
+							<EditSummary
+								@cancel-edit-profile="toggleEdit"
+								:user="user"
+								v-show="editOn"
+							/>
 						</div>
 						<hr class="mx-5" />
 						<div class="px-4 py-2 mx-2 my-6">
@@ -229,15 +205,25 @@
 import axios from 'axios'
 
 import Navigation from './components/Navigation.vue'
+import Summary from './components/Profile/Summary.vue'
+import EditSummary from './components/Profile/EditSummary.vue'
 import BackButton from './components/BackButton'
 import Footer from './components/Footer'
 import Slider from './components/Slider'
 
 export default {
-	components: { Navigation, BackButton, Slider, Footer },
+	components: {
+		Navigation,
+		Summary,
+		EditSummary,
+		BackButton,
+		Slider,
+		Footer,
+	},
 	data() {
 		return {
 			user: {},
+			editOn: true,
 		}
 	},
 	computed: {
@@ -280,6 +266,9 @@ export default {
 		},
 		scrollTo(hash) {
 			location.hash = '#' + hash
+		},
+		toggleEdit() {
+			this.editOn = !this.editOn
 		},
 	},
 	mounted() {

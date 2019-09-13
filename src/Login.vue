@@ -69,14 +69,16 @@
 									class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
 									type="submit"
 									value="Sign In"
-								/>&nbsp; or
-								<router-link to="/sign-up">
-									<a
-										class="bg-indigo-transparent text-indigo-500 text-sm focus:outline-none"
-										href="#"
-										>Sign Up</a
-									>
-								</router-link>
+								/>
+								<span class="ml-2 text-gray-700"
+									>or
+									<router-link to="/sign-up">
+										<a
+											class="bg-transparent text-indigo-500 ml-1 focus:outline-none"
+											>Sign Up</a
+										>
+									</router-link>
+								</span>
 							</span>
 							<a
 								class="inline-block align-baseline font-bold text-sm text-indigo-500 hover:text-indigo-800"
