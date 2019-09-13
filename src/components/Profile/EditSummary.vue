@@ -90,8 +90,6 @@
 
 <script>
 import axios from 'axios'
-import jquery from 'jquery'
-import selectize from 'selectize'
 
 import LanguageModal from './LanguageModal'
 
