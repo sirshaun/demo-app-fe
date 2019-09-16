@@ -84,7 +84,13 @@
 			</div>
 		</form>
 
-		<LanguageModal @close-language-modal="toggleModal" v-show="modalOn" />
+		<LanguageModal
+			@close-language-modal="toggleModal"
+			@update-languages-spoken="updateLanguagesSpoken"
+			v-show="modalOn"
+			:modalOn="modalOn"
+			:languagesSelected="['English']"
+		/>
 	</div>
 </template>
 
@@ -100,7 +106,7 @@ export default {
 		return {
 			about: '',
 			location: '',
-			languages: '',
+			languages: [],
 			work: '',
 			modalOn: false,
 		}
@@ -114,6 +120,13 @@ export default {
 		},
 		toggleModal() {
 			this.modalOn = !this.modalOn
+
+			const body = document.querySelector('body')
+			body.classList.toggle('modal-active')
+		},
+		updateLanguagesSpoken(data) {
+			console.log(data)
+			this.languages = data
 		},
 	},
 }
