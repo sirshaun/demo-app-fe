@@ -42,11 +42,25 @@
 					>
 						Languages I Speak
 					</label>
-					<a
-						class="cursor-pointer text-indigo-600 hover:text-indigo-200"
-						@click="toggleModal"
-						>Add more</a
-					>
+					<div class="flex items-center justify-content">
+						<div
+							class="flex items-center bg-indigo-200 text-indigo-800 font-light text-sm tracking-wide py-1 px-2 mr-2 rounded-lg"
+							v-for="lng in languages"
+						>
+							{{ lng }}
+							<img
+								class="ml-1 w-2 h-2 md:h-4 md:w-4 cursor-pointer"
+								src="/img/ikonate/close-indigo-800.svg"
+								alt=""
+								@click="removeLanguage(lng)"
+							/>
+						</div>
+						<a
+							class="cursor-pointer text-indigo-600 hover:text-indigo-200"
+							@click="toggleModal"
+							>Add more</a
+						>
+					</div>
 				</div>
 			</div>
 			<div class="flex flex-wrap -mx-3 mb-6">
@@ -89,7 +103,8 @@
 			@update-languages-spoken="updateLanguagesSpoken"
 			v-show="modalOn"
 			:modalOn="modalOn"
-			:languagesSelected="['English']"
+			:languagesSelected="this.languages"
+			:key="componentKey"
 		/>
 	</div>
 </template>
@@ -98,6 +113,8 @@
 import axios from 'axios'
 
 import LanguageModal from './LanguageModal'
+
+const body = document.querySelector('body')
 
 export default {
 	components: { LanguageModal },
@@ -109,6 +126,7 @@ export default {
 			languages: [],
 			work: '',
 			modalOn: false,
+			componentKey: 0,
 		}
 	},
 	methods: {
@@ -121,12 +139,22 @@ export default {
 		toggleModal() {
 			this.modalOn = !this.modalOn
 
-			const body = document.querySelector('body')
+			if (this.modalOn) this.forceRerender()
+
 			body.classList.toggle('modal-active')
 		},
 		updateLanguagesSpoken(data) {
 			console.log(data)
 			this.languages = data
+		},
+		removeLanguage(lng) {
+			var index = this.languages.indexOf(lng)
+			if (index > -1) {
+				this.languages.splice(index, 1)
+			}
+		},
+		forceRerender() {
+			this.componentKey += 1
 		},
 	},
 }

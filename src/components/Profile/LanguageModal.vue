@@ -14,7 +14,7 @@
 					class="absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50"
 				>
 					<img
-						class="w-4 h-4 md:h-8 md:w-8 rounded-full mx-auto"
+						class="w-4 h-4 md:h-8 md:w-8"
 						src="/img/ikonate/close-white.svg"
 						alt=""
 					/>
@@ -25,7 +25,7 @@
 				<div class="modal-content py-4 text-left px-6">
 					<div class="cursor-pointer z-50 mb-6" @click="closeModal">
 						<img
-							class="w-4 h-4 md:h-8 md:w-8 rounded-full"
+							class="w-4 h-4 md:h-8 md:w-8"
 							src="/img/ikonate/close.svg"
 							alt=""
 						/>
