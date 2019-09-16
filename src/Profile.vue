@@ -223,7 +223,7 @@ export default {
 	data() {
 		return {
 			user: {},
-			editOn: true,
+			editOn: false,
 		}
 	},
 	computed: {

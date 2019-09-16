@@ -42,7 +42,7 @@
 					>
 						Languages I Speak
 					</label>
-					<div class="flex items-center justify-content">
+					<div class="flex flex-wrap items-center justify-content">
 						<div
 							class="flex items-center bg-indigo-200 text-indigo-800 font-light text-sm tracking-wide py-1 px-2 mr-2 rounded-lg"
 							v-for="lng in languages"
