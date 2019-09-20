@@ -114,7 +114,7 @@
 							<div class="font-semibold text-2xl mb-6">
 								{{ user.first_name }}'s Listings
 							</div>
-							<Slider />
+							<Slider :slides="listings" />
 						</div>
 						<hr class="mx-5" />
 						<div class="px-4 py-2 mx-2 my-6" id="profile-reviews">
@@ -208,6 +208,7 @@ export default {
 			user: {},
 			editOn: false,
 			reviews: [],
+			listings: [],
 		}
 	},
 	computed: {
@@ -242,24 +243,8 @@ export default {
 				.then(
 					res => {
 						this.user = res.data.user
-					},
-					error => {
-						console.log(error)
-					}
-				)
-		},
-		fetchReviews() {
-			axios
-				.get('http://demo-app-be.test/user/reviews', {
-					headers: {
-						Authorization: `Bearer ${localStorage.getItem(
-							'token'
-						)}`,
-					},
-				})
-				.then(
-					res => {
-						this.reviews = res.data
+						this.reviews = res.data.reviews
+						this.listings = res.data.listings
 					},
 					error => {
 						console.log(error)
@@ -283,8 +268,6 @@ export default {
 				: this.$router.push('/')
 		} else {
 			this.fetchProfile()
-
-			this.fetchReviews()
 		}
 	},
 }

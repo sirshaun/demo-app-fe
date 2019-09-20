@@ -91,6 +91,26 @@ export default {
 				.then(
 					res => {
 						this.user = res.data.user
+						this.reviews = res.data.reviews
+						this.listings = res.data.listings
+					},
+					error => {
+						console.log(error)
+					}
+				)
+		},
+		fetchReviews() {
+			axios
+				.get('http://demo-app-be.test/user/reviews', {
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem(
+							'token'
+						)}`,
+					},
+				})
+				.then(
+					res => {
+						this.reviews = res.data
 					},
 					error => {
 						console.log(error)

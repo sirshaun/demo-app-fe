@@ -121,17 +121,35 @@ export default {
 	props: ['user'],
 	data() {
 		return {
-			about: '',
-			location: '',
-			languages: [],
-			work: '',
+			about: this.user.about,
+			location: this.user.location,
+			languages: this.user.spokenLanguages.split(', '),
+			work: this.user.work,
 			modalOn: false,
 			componentKey: 0,
 		}
 	},
 	methods: {
 		saveChanges() {
-			//
+			axios
+				.post('/user', {
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem(
+							'token'
+						)}`,
+					},
+					about: this.about,
+					location: this.location,
+					languages: this.languages.join(', '),
+					work: this.work,
+				})
+				.then(res => {
+					console.log(response)
+					// this.$emit('cancel-edit-profile')
+				})
+				.catch(error => {
+					console.log(error)
+				})
 		},
 		rollbackChanges() {
 			this.$emit('cancel-edit-profile')
