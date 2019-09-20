@@ -46,7 +46,8 @@ const NotFound = { template: '<p>Page not found</p>' }
 // `Vue.extend()`, or just a component options object.
 const routes = [
 	{ path: '/', component: App },
-	{ path: '/destination/:id/properties', component: Properties, props: true },
+	{ path: '/properties', component: Properties, props: false },
+	{ path: '/properties/:city', component: Properties, props: true },
 	{ path: '/sign-up', component: SignUp },
 	{ path: '/login', component: Login },
 	{ path: '/profile', component: Profile },

@@ -101,7 +101,7 @@
 						<hr class="mx-5" />
 						<div class="px-4 py-2 mx-2 my-6">
 							<div class="font-semibold text-2xl mb-6">
-								{{ user.first_name }}' Listings
+								{{ user.first_name }}'s Listings
 							</div>
 							<Slider />
 						</div>

@@ -31,15 +31,21 @@ import BackButton from './components/BackButton'
 
 export default {
     components: { PropertyCard, Navigation, BackButton },
-    props: ['id'],
+    props: ['city'],
     data() {
         return {
             properties: [],
+            searchTerm: '',
         }
     },
     methods: {
         fetchProperties() {
-            axios.get('http://demo-app-be.test/destination/' + this.id).then(
+            let url =
+                typeof this.city == 'undefined'
+                    ? 'http://demo-app-be.test/property/'
+                    : 'http://demo-app-be.test/property/?term=' + this.city
+
+            axios.get(url).then(
                 res => {
                     this.properties = res.data
                 },
