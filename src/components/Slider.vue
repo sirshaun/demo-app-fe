@@ -59,10 +59,18 @@
 			</div>
 			<!-- TODO: Hide arrow if there is nowhere to scroll to -->
 			<div class="glide__arrows" data-glide-el="controls">
-				<a class="glide__arrow glide__arrow--left" data-glide-dir="<">
+				<a
+					class="glide__arrow glide__arrow--left"
+					data-glide-dir="<"
+					v-show="!sliderStart"
+				>
 					<img src="/img/ikonate/chevron-left.svg" class="h-10" />
 				</a>
-				<a class="glide__arrow glide__arrow--right" data-glide-dir=">">
+				<a
+					class="glide__arrow glide__arrow--right"
+					data-glide-dir=">"
+					v-show="!sliderEnd"
+				>
 					<img src="/img/ikonate/chevron-right.svg" class="h-10" />
 				</a>
 			</div>
@@ -78,14 +86,36 @@ import Pluralize from 'pluralize'
 
 export default {
 	props: ['slides'],
+	data() {
+		return {
+			glide: {},
+			glideRun: {},
+		}
+	},
 	mounted() {
-		new Glide('.glide', {
+		this.glide = new Glide('.glide', {
 			perView: 2,
-		}).mount()
+		})
+
+		this.glide.mount()
+
+		this.glideRun = this.glide._c.Run
 	},
 	methods: {
 		pluralize(word, count = 0, inclusive) {
 			return Pluralize(word, count, inclusive)
+		},
+	},
+	computed: {
+		sliderStart() {
+			return this.glideRun.hasOwnProperty('isStart')
+				? this.glideRun.isStart()
+				: true
+		},
+		sliderEnd() {
+			return this.glideRun.hasOwnProperty('isEnd')
+				? this.glideRun.isEnd()
+				: true
 		},
 	},
 }
