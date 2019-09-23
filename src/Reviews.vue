@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div v-if="reviewsBy && reviewsAbout">
 		<Navigation />
 
 		<div class="bg-gray-200">
@@ -26,8 +26,15 @@
 					</li>
 				</ul>
 
-				<ReviewsAbout :user="user" v-show="showReviewsAbout" />
-				<ReviewsBy :user="user" v-show="showReviewsBy" />
+				<ReviewsAbout
+					:reviews="reviewsAbout"
+					v-show="showReviewsAbout"
+				/>
+				<ReviewsBy
+					:reviews="reviewsBy"
+					:expired="expired"
+					v-show="showReviewsBy"
+				/>
 			</div>
 		</div>
 
@@ -50,7 +57,9 @@ export default {
 	components: { Navigation, BackButton, ReviewsAbout, ReviewsBy, Footer },
 	data() {
 		return {
-			user: {},
+			reviewsAbout: [],
+			reviewsBy: [],
+			expired: [],
 			tabs: [
 				{ title: 'Reviews about you', active: true },
 				{ title: 'Reviews by you', active: false },
@@ -91,7 +100,7 @@ export default {
 				.then(
 					res => {
 						this.user = res.data.user
-						this.reviews = res.data.reviews
+						// this.reviews = res.data.reviews
 						this.listings = res.data.listings
 					},
 					error => {
@@ -110,7 +119,9 @@ export default {
 				})
 				.then(
 					res => {
-						this.reviews = res.data
+						this.reviewsAbout = res.data.reviewsAbout
+						this.reviewsBy = res.data.reviewsBy
+						this.expired = res.data.expired
 					},
 					error => {
 						console.log(error)
@@ -124,7 +135,8 @@ export default {
 				? this.$router.go(-1)
 				: this.$router.push('/')
 		} else {
-			this.fetchProfile()
+			// this.fetchProfile()
+			this.fetchReviews()
 		}
 	},
 }

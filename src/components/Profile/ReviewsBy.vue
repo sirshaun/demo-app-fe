@@ -25,59 +25,38 @@
 				Past Reviews You’ve Written
 			</div>
 			<div class="py-4 px-5 bg-white">
-				<div class="flex items-start">
-					<img
-						class="w-12 h-12 rounded-full mr-4"
-						src="/img/23.png"
-						alt="Avatar"
-					/>
-					<div class="text-sm">
-						<p class="font-semibold text-sm leading-none mb-3">
-							Review for John
-						</p>
-						<div class="font-light text-sm">
-							<p>
-								Lovely apartment, really great place to stay.
-								John is very welcoming and assistive. I
-								definitely enjoyed my stay here.
+				<div v-for="(review, index) in reviews">
+					<div class="flex items-start">
+						<img
+							class="w-12 h-12 rounded-full mr-4"
+							:src="review.reviewer_photo"
+							alt="Avatar"
+						/>
+						<div class="text-sm">
+							<p class="font-semibold text-sm leading-none mb-3">
+								Review for {{ review.reviewee_name }}
 							</p>
-							<div class="font-thin text-gray-600 mt-1">
-								June 2018
+							<div class="font-light text-sm">
+								<p>
+									{{ review.content }}
+								</p>
+								<div class="font-thin text-gray-600 mt-1">
+									{{ review.date }}
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<hr class="my-4 border-gray-300" />
-				<div class="flex items-start">
-					<img
-						class="w-12 h-12 rounded-full mr-4"
-						src="/img/23.png"
-						alt="Avatar"
+					<hr
+						class="my-4 border-gray-300"
+						v-show="index != reviews.length - 1"
 					/>
-					<div class="text-sm">
-						<p class="font-semibold text-sm leading-none mb-3">
-							Review for Jane
-						</p>
-						<div class="font-light text-sm">
-							<p>
-								Jane was a wonderful host and the house was
-								beautiful and always clean. great locations, and
-								the neighborhood is very quiet and safe. Jane
-								would always ask me if I needed anything else,
-								and we had great conversations when we were in
-								the common spaces together.
-							</p>
-							<div class="font-thin text-gray-600 mt-1">
-								February 2018
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
 
 		<div
 			class="w-full flex flex-col border border-gray-400 rounded-sm mt-10"
+			v-show="showExpired"
 		>
 			<div
 				class="bg-gray-300 py-3 px-5 font-light border-b border-gray-400"
@@ -91,15 +70,16 @@
 					with us about your experience, you can always submit private
 					feedback that our teams will review.
 				</div>
-				<div class="flex items-start">
+				<div class="flex items-start" v-for="trip in expired">
 					<img
 						class="w-16 h-16 rounded-full mr-4"
-						src="/img/23.png"
+						:src="trip.host_photo"
 						alt="Avatar"
 					/>
 					<div class="text-sm">
 						<p class="font-light text-sm">
-							Your time to write a review for Johnny has expired.
+							Your time to write a review for {{ trip.host }} has
+							expired.
 						</p>
 						<a
 							class="font-light text-sm text-indigo-500 hover:text-indigo-200 cursor-pointer"
@@ -114,6 +94,20 @@
 
 <script>
 export default {
-	props: ['user'],
+	props: {
+		reviews: {
+			type: Array,
+			required: true,
+		},
+		expired: {
+			type: Number,
+			required: true,
+		},
+	},
+	computed: {
+		showExpired() {
+			return !!this.expired.length
+		},
+	},
 }
 </script>
