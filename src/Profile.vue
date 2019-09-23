@@ -1,5 +1,5 @@
 <template>
-	<div class="oped">
+	<div class="oped" v-if="user.spokenLanguages">
 		<Navigation />
 
 		<div class="md:px-64 pt-20 bg-gray-200">
@@ -102,10 +102,20 @@
 									>
 								</span>
 							</div>
-							<Summary :user="user" v-show="!editOn" />
+							<Summary
+								:about="user.about"
+								:location="user.location"
+								:languages="user.spokenLanguages"
+								:work="user.work"
+								v-show="!editOn"
+							/>
 							<EditSummary
 								@cancel-edit-profile="toggleEdit"
-								:user="user"
+								@update-profile="updateProfile"
+								:initialAbout="user.about"
+								:initialLocation="user.location"
+								:initialLanguages="user.spokenLanguages"
+								:initialWork="user.work"
 								v-show="editOn"
 							/>
 						</div>
@@ -257,11 +267,16 @@ export default {
 		toggleEdit() {
 			this.editOn = !this.editOn
 		},
+		updateProfile(user) {
+			this.user = user
+
+			this.toggleEdit()
+		},
 		pluralize(word, count = 0, inclusive) {
 			return Pluralize(word, count, inclusive)
 		},
 	},
-	mounted() {
+	created() {
 		if (!Store.state.isLogged) {
 			window.history.length > 1
 				? this.$router.go(-1)

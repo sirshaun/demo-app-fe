@@ -57,7 +57,6 @@
 					</li>
 				</ul>
 			</div>
-			<!-- TODO: Hide arrow if there is nowhere to scroll to -->
 			<div class="glide__arrows" data-glide-el="controls">
 				<a
 					class="glide__arrow glide__arrow--left"

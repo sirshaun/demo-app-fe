@@ -45,14 +45,14 @@
 					<div class="flex flex-wrap items-center justify-content">
 						<div
 							class="flex items-center bg-indigo-200 text-indigo-800 font-light text-sm tracking-wide py-1 px-2 mr-2 rounded-lg"
-							v-for="lng in languages"
+							v-for="lang in languages"
 						>
-							{{ lng }}
+							{{ lang }}
 							<img
 								class="ml-1 w-2 h-2 md:h-4 md:w-4 cursor-pointer"
 								src="/img/ikonate/close-indigo-800.svg"
 								alt=""
-								@click="removeLanguage(lng)"
+								@click="removeLanguage(lang)"
 							/>
 						</div>
 						<a
@@ -118,13 +118,18 @@ const body = document.querySelector('body')
 
 export default {
 	components: { LanguageModal },
-	props: ['user'],
-	data() {
+	props: [
+		'initialAbout',
+		'initialLocation',
+		'initialLanguages',
+		'initialWork',
+	],
+	data: function() {
 		return {
-			about: this.user.about,
-			location: this.user.location,
-			languages: this.user.spokenLanguages.split(', '),
-			work: this.user.work,
+			about: this.initialAbout,
+			location: this.initialLocation,
+			languages: this.initialLanguages,
+			work: this.initialWork,
 			modalOn: false,
 			componentKey: 0,
 		}
@@ -132,20 +137,24 @@ export default {
 	methods: {
 		saveChanges() {
 			axios
-				.post('/user', {
-					headers: {
-						Authorization: `Bearer ${localStorage.getItem(
-							'token'
-						)}`,
+				.post(
+					'http://demo-app-be.test/user/profile/update',
+					{
+						about: this.about,
+						location: this.location,
+						languages: this.languages.join(', '),
+						work: this.work,
 					},
-					about: this.about,
-					location: this.location,
-					languages: this.languages.join(', '),
-					work: this.work,
-				})
+					{
+						headers: {
+							Authorization: `Bearer ${localStorage.getItem(
+								'token'
+							)}`,
+						},
+					}
+				)
 				.then(res => {
-					console.log(response)
-					// this.$emit('cancel-edit-profile')
+					this.$emit('update-profile', res.data.user)
 				})
 				.catch(error => {
 					console.log(error)
@@ -162,7 +171,6 @@ export default {
 			body.classList.toggle('modal-active')
 		},
 		updateLanguagesSpoken(data) {
-			console.log(data)
 			this.languages = data
 		},
 		removeLanguage(lng) {
