@@ -101,7 +101,7 @@
 							>
 								<img
 									class="w-4 h-4 md:h-8 md:w-8 rounded-full"
-									src="/img/69.png"
+									:src="profileImage"
 									alt="Avatar"
 								/>
 							</span>
@@ -155,6 +155,10 @@ export default {
 		showSearch: {
 			type: Boolean,
 			default: true,
+		},
+		profileImage: {
+			type: String,
+			default: '',
 		},
 	},
 	data() {

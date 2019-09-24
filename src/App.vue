@@ -63,7 +63,7 @@
 			</div>
 		</div>
 
-		<Footer-Button
+		<FooterButton
 			:showFooter="!footerBtn"
 			@footer-btn-clicked="toggleFooter"
 		/>

@@ -1,6 +1,6 @@
 <template>
 	<div v-if="reviewsBy && reviewsAbout">
-		<Navigation />
+		<Navigation :profileImage="user.profileImage" />
 
 		<div class="bg-gray-200">
 			<h1
@@ -60,6 +60,7 @@ export default {
 			reviewsAbout: [],
 			reviewsBy: [],
 			expired: [],
+			user: {},
 			tabs: [
 				{ title: 'Reviews about you', active: true },
 				{ title: 'Reviews by you', active: false },
@@ -135,8 +136,9 @@ export default {
 				? this.$router.go(-1)
 				: this.$router.push('/')
 		} else {
-			// this.fetchProfile()
 			this.fetchReviews()
+
+			this.fetchProfile()
 		}
 	},
 }
