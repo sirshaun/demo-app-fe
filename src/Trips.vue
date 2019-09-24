@@ -34,52 +34,30 @@
 					<div
 						class="cursor-pointer m-3 max-w-sm"
 						style="height: 239.95px; width: 359.5px"
+						v-for="trip in pastTrips"
 					>
-						<img
-							class="rounded"
-							src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-						/>
+						<img class rounded" :src="trip.imageUrl"
+						:alt="trip.imageAlt" />
 						<div class="mt-1 px-1">
 							<p
 								class="text-gray-600 text-xs uppercase font-light tracking-wide leading-none"
 							>
-								June 2018
+								{{ trip.date }}
 							</p>
 							<p class="text-sm font-light leading-none">
-								Harare
+								{{ trip.city }}
 							</p>
 							<p
 								class="text-gray-600 text-xs font-light leading-none"
 							>
-								1 reservation
+								{{
+									pluralize(
+										'reservation',
+										trip.reservations,
+										true
+									)
+								}}
 							</p>
-						</div>
-					</div>
-					<div
-						class="cursor-pointer m-3 max-w-sm"
-						style="height: 239.95px; width: 359.5px"
-					>
-						<img
-							class="rounded"
-							src="https://images.unsplash.com/photo-1494526585095-c41746248156?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-							style="max-height: 239.95px; width: 359.5px"
-						/>
-						<div class="mt-1 px-1">
-							<div class="">
-								<p
-									class="text-gray-600 text-xs uppercase font-light tracking-wide leading-none"
-								>
-									December 2018
-								</p>
-								<p class="text-sm font-light leading-none">
-									Bulawayo
-								</p>
-								<p
-									class="text-gray-600 text-xs font-light leading-none"
-								>
-									1 reservation
-								</p>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -103,6 +81,7 @@
 
 <script>
 import axios from 'axios'
+import Pluralize from 'pluralize'
 
 import Navigation from './components/Navigation.vue'
 import BackButton from './components/BackButton'
@@ -113,6 +92,8 @@ export default {
 	data() {
 		return {
 			user: {},
+			upcomingTrips: [],
+			pastTrips: [],
 		}
 	},
 	computed: {},
@@ -129,11 +110,34 @@ export default {
 				.then(
 					res => {
 						this.user = res.data.user
+						// this.trips = res.data.trips
 					},
 					error => {
 						console.log(error)
 					}
 				)
+		},
+		fetchTrips() {
+			axios
+				.get('http://demo-app-be.test/user/trips', {
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem(
+							'token'
+						)}`,
+					},
+				})
+				.then(
+					res => {
+						this.upcomingTrips = res.data.upcoming
+						this.pastTrips = res.data.past
+					},
+					error => {
+						console.log(error)
+					}
+				)
+		},
+		pluralize(word, count = 0, inclusive) {
+			return Pluralize(word, count, inclusive)
 		},
 	},
 	mounted() {
@@ -142,6 +146,8 @@ export default {
 				? this.$router.go(-1)
 				: this.$router.push('/')
 		} else {
+			this.fetchTrips()
+
 			this.fetchProfile()
 		}
 	},
