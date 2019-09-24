@@ -65,27 +65,31 @@
 			</div>
 			<div class="py-4 px-5 bg-white">
 				<div class="font-light mb-6">
-					Unfortunately, the deadline to submit a public review for
-					this user has passed. If there's something you need to share
-					with us about your experience, you can always submit private
-					feedback that our teams will review.
+					{{ paragraph }}
 				</div>
-				<div class="flex items-start" v-for="trip in expired">
-					<img
-						class="w-16 h-16 rounded-full mr-4"
-						:src="trip.host_photo"
-						alt="Avatar"
-					/>
-					<div class="text-sm">
-						<p class="font-light text-sm">
-							Your time to write a review for {{ trip.host }} has
-							expired.
-						</p>
-						<a
-							class="font-light text-sm text-indigo-500 hover:text-indigo-200 cursor-pointer"
-							>View Itinerary</a
-						>
+				<div v-for="(trip, index) in expired">
+					<div class="flex items-start">
+						<img
+							class="w-16 h-16 rounded-full mr-4"
+							:src="trip.host_photo"
+							alt="Avatar"
+						/>
+						<div class="text-sm">
+							<p class="font-light text-sm">
+								Your time to write a review for
+								{{ trip.host_name }} has expired.
+							</p>
+							<!-- trip.itinerary -->
+							<a
+								class="font-light text-sm text-indigo-500 hover:text-indigo-200 cursor-pointer"
+								>View Itinerary</a
+							>
+						</div>
 					</div>
+					<hr
+						class="my-4 border-gray-300"
+						v-show="index != expired.length - 1"
+					/>
 				</div>
 			</div>
 		</div>
@@ -107,6 +111,11 @@ export default {
 	computed: {
 		showExpired() {
 			return !!this.expired.length
+		},
+		paragraph() {
+			return this.expired.length > 1
+				? "Unfortunately, the deadline to submit a public review for these users has passed. If there's something you need to share with us about your experience, you can always submit private feedback that our teams will review."
+				: "Unfortunately, the deadline to submit a public review for this user has passed. If there's something you need to share with us about your experience, you can always submit private feedback that our teams will review."
 		},
 	},
 }
