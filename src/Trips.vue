@@ -36,8 +36,11 @@
 						style="height: 239.95px; width: 359.5px"
 						v-for="trip in pastTrips"
 					>
-						<img class rounded" :src="trip.imageUrl"
-						:alt="trip.imageAlt" />
+						<img
+							class="h-full w-full rounded"
+							:src="trip.imageUrl"
+							:alt="trip.imageAlt"
+						/>
 						<div class="mt-1 px-1">
 							<p
 								class="text-gray-600 text-xs uppercase font-light tracking-wide leading-none"
