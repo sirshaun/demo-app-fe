@@ -10,7 +10,7 @@
 					Upcoming <span class="text-indigo-500">trips</span>
 				</h1>
 				<Banner :show="!upcoming" />
-				<Tiles :show="upcoming" :trips="upcomingTrips" />
+				<Grid :show="upcoming" :trips="upcomingTrips" />
 			</div>
 
 			<hr class="mx-10 my-10" />
@@ -36,7 +36,7 @@
 						</router-link>
 					</template>
 				</Banner>
-				<Tiles :show="past" :trips="pastTrips" />
+				<Grid :show="past" :trips="pastTrips" />
 			</div>
 
 			<hr class="mt-20 mb-10 mx-10" />
@@ -60,12 +60,12 @@ import axios from 'axios'
 
 import Navigation from './components/Navigation.vue'
 import Banner from './components/Trips/Banner.vue'
-import Tiles from './components/Trips/Tiles.vue'
+import Grid from './components/Trips/Grid.vue'
 import BackButton from './components/BackButton'
 import Footer from './components/Footer'
 
 export default {
-	components: { Navigation, Banner, Tiles, BackButton, Footer },
+	components: { Navigation, Banner, Grid, BackButton, Footer },
 	data() {
 		return {
 			user: {},

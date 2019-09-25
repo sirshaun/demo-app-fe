@@ -104,7 +104,7 @@ export default {
 			required: true,
 		},
 		expired: {
-			type: Number,
+			type: Array,
 			required: true,
 		},
 	},
