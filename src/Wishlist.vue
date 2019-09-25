@@ -1,41 +1,46 @@
 <template>
-	<div class="">
+	<div>
 		<Navigation :profileImage="user.profileImage" />
 
-		<div class="bg-gray-200">
-			<h1
-				class="px-10 text-2xl sm:text-4xl lg:text-3xl xl:text-4xl font-bold text-gray-900 leading-snug"
-			>
-				Wish<span class="text-indigo-500">lists</span>
-			</h1>
+		<div class="bg-gray-200 md:mt-22">
+			<div class="flex">
+				<div class="w-2/5 bg-white h-65">
+					<div class="clearfix">
+						<div class="float-left">All lists</div>
+						<div class="float-right">
+							<img src="/img/ikonate/edit.svg" class="h-4 mr-2" />
+						</div>
+					</div>
 
-			<div class="px-8 py-8 mx-auto md:px-64">
-				<Banner>
-					<template v-slot:left
-						>Your lists</template
-					>
-					<template v-slot:right>{{
-						pluralize('List', userList.length, true)
-					}}</template>
-				</Banner>
+					<div>
+						<h1>{{ wishlist.name }}</h1>
+						<div>
+							<span>{{ dates }}</span>
+							<span>{{
+								pluralize(
+									'Guest',
+									wishlist.numberOfGuests,
+									true
+								)
+							}}</span>
+						</div>
+						<div>
+							<a
+								class="bg-transparent hover:bg-indigo-500 text-indigo-700 font-semibold hover:text-white py-2 px-4 border border-indigo-500 hover:border-transparent rounded cursor-pointer"
+								>Invite others
+							</a>
+						</div>
 
-				<Grid :list="userList" />
-			</div>
+						<hr class="my-6" />
 
-			<div class="px-8 py-8 mx-auto md:px-64">
-				<Banner>
-					<template v-slot:left
-						>Popular lists</template
-					>
-					<template v-slot:right>
-						<a
-							class="text-indigo-600 hover:text-indigo-200 cursor-pointer"
-							>View more...</a
-						>
-					</template>
-				</Banner>
-
-				<Grid :list="popList" />
+						<div>
+							<h5>
+								{{ pluralize('stay', stays.length, true) }}
+							</h5>
+						</div>
+					</div>
+				</div>
+				<div class="w-3/5 bg-gray-900 h-64"></div>
 			</div>
 		</div>
 
@@ -48,20 +53,26 @@ import axios from 'axios'
 import Pluralize from 'pluralize'
 
 import Navigation from './components/Navigation.vue'
-import Banner from './components/Wishlist/Banner.vue'
-import Grid from './components/Wishlist/Grid.vue'
 import BackButton from './components/BackButton'
 
 export default {
-	components: { Navigation, Banner, Grid, BackButton },
+	components: { Navigation, BackButton },
 	data() {
 		return {
 			user: {},
-			userList: [],
-			popList: [],
+			wishlist: {},
+			stays: [],
 		}
 	},
-	computed: {},
+	computed: {
+		dates() {
+			if (this.wishlist.check_in && this.wishlist.check_out) {
+				// return formatted dates
+			}
+
+			return 'No dates'
+		},
+	},
 	methods: {
 		fetchProfile() {
 			axios
@@ -81,9 +92,9 @@ export default {
 					}
 				)
 		},
-		fetchWishlists() {
+		fetchStays() {
 			axios
-				.get('http://demo-app-be.test/user/wishlists', {
+				.get('http://demo-app-be.test/user/wishlists/' + 1, {
 					headers: {
 						Authorization: `Bearer ${localStorage.getItem(
 							'token'
@@ -92,8 +103,8 @@ export default {
 				})
 				.then(
 					res => {
-						this.userList = res.data.user_list
-						this.popList = res.data.popular_list
+						this.wishlist = res.data.wishlist
+						this.stays = res.data.stays
 					},
 					error => {
 						console.log(error)
@@ -110,7 +121,7 @@ export default {
 				? this.$router.go(-1)
 				: this.$router.push('/')
 		} else {
-			this.fetchWishlists()
+			this.fetchStays()
 
 			this.fetchProfile()
 		}

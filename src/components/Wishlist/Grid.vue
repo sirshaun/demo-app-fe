@@ -5,19 +5,21 @@
 			style="height: 239.95px; width: 359.5px"
 			v-for="group in list"
 		>
-			<img
-				class="tile-img w-full h-full"
-				:src="group.imageUrl"
-				:alt="group.imageAlt"
-			/>
-			<div class="absolute inset-x-0 bottom-0 max-w-md">
-				<div
-					class="text-white text-md font-semibold tracking-wide mx-4 my-2"
-				>
-					{{ group.name }}<br />
-					{{ pluralize('stay', group.stays, true) }}
+			<router-link :to="'/wishlists/' + group.id">
+				<img
+					class="tile-img w-full h-full"
+					:src="group.imageUrl"
+					:alt="group.imageAlt"
+				/>
+				<div class="absolute inset-x-0 bottom-0 max-w-md">
+					<div
+						class="text-white text-md font-semibold tracking-wide mx-4 my-2"
+					>
+						{{ group.name }}<br />
+						{{ pluralize('stay', group.stays, true) }}
+					</div>
 				</div>
-			</div>
+			</router-link>
 		</div>
 	</div>
 </template>

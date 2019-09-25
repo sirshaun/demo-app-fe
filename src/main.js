@@ -7,6 +7,7 @@ import SignUp from './SignUp.vue'
 import Login from './Login.vue'
 import Profile from './Profile.vue'
 import Reviews from './Reviews.vue'
+import Wishlists from './Wishlists.vue'
 import Wishlist from './Wishlist.vue'
 import Trips from './Trips.vue'
 import Logout from './Logout.vue'
@@ -52,7 +53,8 @@ const routes = [
 	{ path: '/login', component: Login },
 	{ path: '/profile', component: Profile },
 	{ path: '/profile/reviews', component: Reviews },
-	{ path: '/wishlists', component: Wishlist },
+	{ path: '/wishlists', component: Wishlists },
+	{ path: '/wishlists/:wishlist', component: Wishlist },
 	{ path: '/trips', component: Trips },
 	{ path: '/logout', component: Logout },
 ]
