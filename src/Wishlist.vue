@@ -1,10 +1,10 @@
 <template>
-	<div>
+	<div class="h-screen overflow-hidden">
 		<Navigation :profileImage="user.profileImage" />
 
 		<div class="bg-gray-200 md:mt-22">
 			<div class="flex">
-				<div class="w-2/5 bg-white h-65">
+				<div class="w-2/5 bg-white h-full overflow-y-auto">
 					<div class="clearfix">
 						<div class="float-left">All lists</div>
 						<div class="float-right">
@@ -108,7 +108,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="w-3/5 bg-gray-900 h-64"></div>
+				<div class="w-3/5 bg-gray-900 h-screen"></div>
 			</div>
 		</div>
 
