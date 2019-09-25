@@ -7,17 +7,31 @@
 			<div class="glide__arrows" data-glide-el="controls">
 				<a
 					class="glide__arrow glide__arrow--left"
+					:class="{ 'on-image': multi }"
 					data-glide-dir="<"
 					v-show="!sliderStart"
 				>
-					<img src="/img/ikonate/chevron-left.svg" class="h-10" />
+					<img
+						:src="
+							'/img/ikonate/chevron-left' + chevronColor + '.svg'
+						"
+						class="h-10"
+						:class="{ 'md:h-16': multi }"
+					/>
 				</a>
 				<a
 					class="glide__arrow glide__arrow--right"
+					:class="{ 'on-image': multi }"
 					data-glide-dir=">"
 					v-show="!sliderEnd"
 				>
-					<img src="/img/ikonate/chevron-right.svg" class="h-10" />
+					<img
+						:src="
+							'/img/ikonate/chevron-right' + chevronColor + '.svg'
+						"
+						class="h-10"
+						:class="{ 'md:h-16': multi }"
+					/>
 				</a>
 			</div>
 		</div>
@@ -30,7 +44,16 @@ import '@glidejs/glide/dist/css/glide.core.min.css'
 // import '@glidejs/glide/dist/css/glide.theme.min.css'
 
 export default {
-	props: ['slides'],
+	props: {
+		multi: {
+			type: Boolean,
+			default: false,
+		},
+		perView: {
+			type: Number,
+			default: 2,
+		},
+	},
 	data() {
 		return {
 			glide: {},
@@ -38,24 +61,47 @@ export default {
 		}
 	},
 	mounted() {
-		this.glide = new Glide('.glide', {
-			perView: 2,
-		})
-
-		this.glide.mount()
-
-		this.glideRun = this.glide._c.Run
+		this.multi ? this.loadMultipleCarousels() : this.loadSingleCarousel()
 	},
 	computed: {
 		sliderStart() {
+			if (this.multi) return false
+
 			return this.glideRun.hasOwnProperty('isStart')
 				? this.glideRun.isStart()
 				: true
 		},
 		sliderEnd() {
+			if (this.multi) return false
+
 			return this.glideRun.hasOwnProperty('isEnd')
 				? this.glideRun.isEnd()
 				: true
+		},
+		chevronColor() {
+			return this.multi ? '-white' : ''
+		},
+	},
+	methods: {
+		loadMultipleCarousels() {
+			const carousels = document.querySelectorAll('.glide')
+
+			Object.values(carousels).map(carousel => {
+				const slider = new Glide(carousel, {
+					type: 'carousel',
+					perView: 1,
+				})
+				slider.mount()
+			})
+		},
+		loadSingleCarousel() {
+			this.glide = new Glide('.glide', {
+				perView: this.perView,
+			})
+
+			this.glide.mount()
+
+			this.glideRun = this.glide._c.Run
 		},
 	},
 }
@@ -90,8 +136,14 @@ export default {
 .glide__arrow--left {
 	left: -1.8em;
 }
+.glide__arrow--left.on-image {
+	left: 0;
+}
 .glide__arrow--right {
 	right: -1.8em;
+}
+.glide__arrow--right.on-image {
+	right: 0;
 }
 .glide__arrow--disabled {
 	opacity: 0.33;
