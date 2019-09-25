@@ -2,10 +2,11 @@
 	<div class="h-screen overflow-hidden">
 		<Navigation :profileImage="user.profileImage" />
 
-		<div class="fixed w-full h-full top-0 left-0 flex justify-start mt-22">
-			<div
-				class="text-gray-900 bg-gray-100 overflow-y-scroll h-custom w-2/5 px-10"
-			>
+		<FullScreen
+			leftPanelClassList="text-gray-900 bg-gray-100 px-10"
+			rightPanelClassList="bg-gray-900 mx-auto"
+		>
+			<template v-slot:left-panel>
 				<div class="clearfix mt-6">
 					<div class="float-left">
 						<a
@@ -115,11 +116,11 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="bg-gray-900 mx-auto h-full w-3/5">
+			</template>
+			<template v-slot:right-panel>
 				<!-- map goes here  -->
-			</div>
-		</div>
+			</template>
+		</FullScreen>
 
 		<BackButton />
 	</div>
@@ -130,11 +131,12 @@ import axios from 'axios'
 import Pluralize from 'pluralize'
 
 import Navigation from './components/Navigation'
+import FullScreen from './components/FullScreen'
 import StaysSlide from './components/Wishlist/StaysSlide'
 import BackButton from './components/BackButton'
 
 export default {
-	components: { Navigation, StaysSlide, BackButton },
+	components: { Navigation, FullScreen, StaysSlide, BackButton },
 	data() {
 		return {
 			user: {},
