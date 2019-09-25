@@ -26,3 +26,9 @@ export default {
 	},
 }
 </script>
+
+<style>
+.h-custom {
+	height: calc(100vh - 95px);
+}
+</style>
