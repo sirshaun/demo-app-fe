@@ -124,7 +124,7 @@
 							<div class="font-semibold text-2xl mb-6">
 								{{ user.first_name }}'s Listings
 							</div>
-							<Slider :slides="listings" />
+							<ListingsSlide :listings="listings" />
 						</div>
 						<hr class="mx-5" />
 						<div class="px-4 py-2 mx-2 my-6" id="profile-reviews">
@@ -200,9 +200,9 @@ import Pluralize from 'pluralize'
 import Navigation from './components/Navigation.vue'
 import Summary from './components/Profile/Summary.vue'
 import EditSummary from './components/Profile/EditSummary.vue'
+import ListingsSlide from './components/Profile/ListingsSlide'
 import BackButton from './components/BackButton'
 import Footer from './components/Footer'
-import Slider from './components/Slider'
 
 export default {
 	components: {
@@ -210,7 +210,7 @@ export default {
 		Summary,
 		EditSummary,
 		BackButton,
-		Slider,
+		ListingsSlide,
 		Footer,
 	},
 	data() {
