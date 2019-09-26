@@ -167,8 +167,6 @@ export default {
 			this.modalOn = !this.modalOn
 
 			if (this.modalOn) this.forceRerender()
-
-			body.classList.toggle('modal-active')
 		},
 		updateLanguagesSpoken(data) {
 			this.languages = data

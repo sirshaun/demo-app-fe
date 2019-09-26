@@ -92,9 +92,4 @@
 	@apply text-indigo-400;
 }
 
-body.modal-active {
-	overflow-x: hidden;
-	overflow-y: hidden !important;
-}
-
 @tailwind utilities;
