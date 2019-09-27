@@ -12,7 +12,7 @@
 
 			<div class="py-10 bg-gray-200 flex justify-center">
 				<div class="w-full max-w-6xl">
-					<FormError
+					<ErrorMessage
 						v-show="attemptFail"
 						title="Sign up failed!"
 						message="Please try again later."
@@ -53,7 +53,7 @@
 <script>
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
-import FormError from './components/FormError'
+import ErrorMessage from './components/Form/ErrorMessage'
 import Name from './components/Form/Name'
 import Contact from './components/Form/Contact'
 import LoginCred from './components/Form/LoginCred'
@@ -61,7 +61,7 @@ import Location from './components/Form/Location'
 
 export default {
 	components: {
-		FormError,
+		ErrorMessage,
 		Navigation,
 		Name,
 		Contact,

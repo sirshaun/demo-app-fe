@@ -28,7 +28,10 @@
 
 <script>
 export default {
-	props: ['title', 'message'],
+	props: {
+		title: { type: String },
+		message: { type: String, required: true },
+	},
 	methods: {
 		dismiss() {
 			this.$emit('dismiss-form-error-message')

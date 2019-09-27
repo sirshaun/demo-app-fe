@@ -11,7 +11,7 @@
 
 			<div class="py-10 flex justify-center">
 				<div class="w-full max-w-md">
-					<FormError
+					<ErrorMessage
 						v-show="formError"
 						title="Login failed!"
 						:message="errorMessage"
@@ -102,10 +102,10 @@
 <script>
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
-import FormError from './components/FormError'
+import ErrorMessage from './components/Form/ErrorMessage'
 
 export default {
-	components: { FormError, Navigation, Footer },
+	components: { ErrorMessage, Navigation, Footer },
 	data() {
 		return {
 			loginError: false,
