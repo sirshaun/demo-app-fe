@@ -66,7 +66,11 @@ export default {
 			this.$emit('close-confirm-modal')
 		},
 		confirm() {
-			this.$http.delete(this.deleteUrl)
+			this.$http.delete(this.deleteUrl, {
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem('token')}`,
+				},
+			})
 
 			this.$router.push(this.redirectRoute)
 		},
