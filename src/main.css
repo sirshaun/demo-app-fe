@@ -92,4 +92,17 @@
 	@apply text-indigo-400;
 }
 
+/*input.vc-appearance-none.vc-text-base.vc-text-gray-800.vc-bg-white.vc-border.vc-border-gray-400.vc-rounded.vc-w-full.vc-py-2.vc-px-3.vc-leading-tight {
+	@apply appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight;
+}
+input.vc-appearance-none.vc-text-base.vc-text-gray-800.vc-bg-white.vc-border.vc-border-gray-400.vc-rounded.vc-w-full.vc-py-2.vc-px-3.vc-leading-tight:focus {
+	@apply outline-none bg-white border-gray-500;
+}*/
+input.vc-appearance-none {
+	@apply appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight;
+}
+input.vc-appearance-none:focus {
+	@apply outline-none bg-white border-gray-500;
+}
+
 @tailwind utilities;

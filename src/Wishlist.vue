@@ -16,12 +16,11 @@
 
 				<Settings
 					:initial-name="wishlist.name"
-					:initial-check-in="wishlist.check_in"
-					:initial-check-out="wishlist.check_out"
+					:initial-dates="initialDates"
 					:initial-adults="wishlist.adults"
 					:initial-children="wishlist.children"
 					:initial-infants="wishlist.infants"
-					:initial-privacy="wishlist.private"
+					:initial-privacy="privacy"
 					:friends="wishlist.friends"
 					v-show="editOn"
 					@cancel-button-clicked="toggleEdit"
@@ -54,6 +53,24 @@ export default {
 			stays: [],
 			editOn: true,
 		}
+	},
+	computed: {
+		privacy() {
+			return this.wishlist.privacy ? 'Invite only' : 'Everyone'
+		},
+		initialDates() {
+			if (
+				this.wishlist.dates === null &&
+				typeof this.wishlist.dates === 'object'
+			) {
+				return null
+			}
+
+			return {
+				start: new Date(this.wishlist.dates.start * 1000),
+				end: new Date(this.wishlist.dates.end * 1000),
+			}
+		},
 	},
 	methods: {
 		toggleEdit() {

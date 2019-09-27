@@ -48,6 +48,28 @@
 					<div class="w-full px-3">
 						<label
 							class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+							for="grid-name"
+						>
+							Dates
+						</label>
+						<div class="v-date-picker">
+							<DatePicker
+								:value="dates"
+								mode="range"
+								:columns="$screens({ default: 1, lg: 2 })"
+								color="indigo"
+								v-model="dates"
+							/>
+						</div>
+					</div>
+				</div>
+
+				<hr class="border-gray-300 my-6 -mx-10" />
+
+				<div class="flex flex-wrap">
+					<div class="w-full px-3">
+						<label
+							class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
 						>
 							Guests
 						</label>
@@ -101,17 +123,19 @@
 					<div class="w-full px-3">
 						<label
 							class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-							for="grid-state"
+							for="grid-privacy"
 						>
 							Privacy
 						</label>
 						<div class="relative">
 							<select
 								class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-								id="grid-state"
+								id="grid-privacy"
+								v-model="privacy"
 							>
-								<option>Everyone</option>
-								<option>Invite only</option>
+								<option v-for="option in privacyOptions">
+									{{ option }}
+								</option>
 							</select>
 							<div
 								class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
@@ -168,30 +192,32 @@
 </template>
 
 <script>
+// import VCalendar from 'v-calendar'
+import DatePicker from 'v-calendar/lib/components/date-picker.umd'
+
 import FriendsList from './FriendsList'
 import Counter from '@/components/Form/Counter'
 
 export default {
-	components: { FriendsList, Counter },
-	props: [
-		'initialName',
-		'initialCheckIn',
-		'initialCheckOut',
-		'initialAdults',
-		'initialChildren',
-		'initialInfants',
-		'initialPrivacy',
-		'friends',
-	],
+	components: { DatePicker, FriendsList, Counter },
+	props: {
+		initialName: { type: String },
+		initialDates: { type: Object },
+		initialAdults: { type: Number },
+		initialChildren: { type: Number },
+		initialInfants: { type: Number },
+		initialPrivacy: { type: String },
+		friends: { type: Array },
+	},
 	data: function() {
 		return {
 			name: this.initialName,
-			checkIn: this.checkIn,
-			checkOut: this.initialCheckOut,
+			dates: this.initialDates,
 			adults: this.initialAdults,
 			children: this.initialChildren,
 			infants: this.initialInfants,
 			privacy: this.initialPrivacy,
+			privacyOptions: ['Invite only', 'Everyone'],
 		}
 	},
 	methods: {
