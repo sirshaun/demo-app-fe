@@ -1,6 +1,6 @@
 <template>
 	<div class="">
-		<Navigation :profileImage="user.profileImage" />
+		<Navigation :profileImage="user.profileImage" :isHost="user.host" />
 
 		<div class="bg-gray-200 pb-16 md:mt-22">
 			<div>

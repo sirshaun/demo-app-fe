@@ -1,6 +1,6 @@
 <template>
 	<div class="oped" v-if="user.spokenLanguages">
-		<Navigation :profileImage="user.profileImage" />
+		<Navigation :profileImage="user.profileImage" :isHost="user.host" />
 
 		<div class="md:px-64 pt-20 bg-gray-200">
 			<div class="flex text-gray-800">

@@ -47,8 +47,8 @@
 				</div>
 				<div class="text-lg text-right lg:flex-grow">
 					<a
-						href="#"
 						class="block mt-4 lg:inline-block lg:mt-0 text-indigo-500 hover:text-indigo-200 mr-4"
+						v-show="!isHost"
 					>
 						Become a host
 					</a>
@@ -63,7 +63,7 @@
 					<router-link to="/trips">
 						<a
 							class="block mt-4 lg:inline-block lg:mt-0 text-indigo-500 hover:text-indigo-200 mr-4"
-							v-show="loggedIn"
+							v-if="loggedIn"
 						>
 							Trips
 						</a>
@@ -71,7 +71,7 @@
 					<a
 						href="#"
 						class="block mt-4 lg:inline-block lg:mt-0 text-indigo-500 hover:text-indigo-200 mr-4"
-						v-show="loggedIn"
+						v-if="loggedIn"
 					>
 						Messages
 					</a>
@@ -82,7 +82,7 @@
 						Help
 					</a>
 				</div>
-				<div v-show="!loggedIn">
+				<div v-if="!loggedIn">
 					<router-link to="/login">
 						<a
 							class="inline-block text-sm px-4 py-2 leading-none border rounded text-indigo-500 border-indigo-500 hover:border-transparent hover:text-white hover:bg-indigo-500 mt-4 lg:mt-0"
@@ -90,7 +90,7 @@
 						>
 					</router-link>
 				</div>
-				<div v-show="loggedIn">
+				<div v-if="loggedIn">
 					<nav-dropdown>
 						<span
 							slot="link"
@@ -152,14 +152,9 @@ import NavDropdown from './NavDropdown'
 export default {
 	components: { NavDropdown },
 	props: {
-		showSearch: {
-			type: Boolean,
-			default: true,
-		},
-		profileImage: {
-			type: String,
-			default: '',
-		},
+		showSearch: { type: Boolean, default: true },
+		profileImage: { type: String, default: '' },
+		isHost: { type: Boolean, default: false },
 	},
 	data() {
 		return {

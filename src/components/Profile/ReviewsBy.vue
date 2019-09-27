@@ -28,11 +28,11 @@
 				<div v-for="(review, index) in reviews">
 					<div class="flex items-start">
 						<img
-							class="w-12 h-12 rounded-full mr-4"
+							class="flex-none w-12 h-12 rounded-full mr-4"
 							:src="review.reviewer_photo"
 							alt="Avatar"
 						/>
-						<div class="text-sm">
+						<div class="flex-shrink text-sm">
 							<p class="font-semibold text-sm leading-none mb-3">
 								Review for {{ review.reviewee_name }}
 							</p>
