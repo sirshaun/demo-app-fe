@@ -45,8 +45,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 import Navigation from './components/Navigation.vue'
 import BackButton from './components/BackButton'
 import Footer from './components/Footer'
@@ -90,8 +88,8 @@ export default {
 			}
 		},
 		fetchProfile() {
-			axios
-				.get('http://demo-app-be.test/user/profile', {
+			this.$http
+				.get('/user/profile', {
 					headers: {
 						Authorization: `Bearer ${localStorage.getItem(
 							'token'
@@ -110,8 +108,8 @@ export default {
 				)
 		},
 		fetchReviews() {
-			axios
-				.get('http://demo-app-be.test/user/reviews', {
+			this.$http
+				.get('/user/reviews', {
 					headers: {
 						Authorization: `Bearer ${localStorage.getItem(
 							'token'

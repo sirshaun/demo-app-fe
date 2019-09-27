@@ -51,7 +51,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
 import FormError from './components/FormError'
@@ -146,8 +145,8 @@ export default {
 			}
 		},
 		signup(event) {
-			axios
-				.post('http://demo-app-be.test/user/sign-up', {
+			this.$http
+				.post('/user/sign-up', {
 					firstname: this.firstname,
 					middlename: this.middlename,
 					lastname: this.lastname,

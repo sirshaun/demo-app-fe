@@ -100,7 +100,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
 import FormError from './components/FormError'
@@ -134,8 +133,8 @@ export default {
 			}
 		},
 		login(event) {
-			axios
-				.post('http://demo-app-be.test/login', {
+			this.$http
+				.post('/login', {
 					username: this.username,
 					password: this.password,
 				})

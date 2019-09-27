@@ -72,8 +72,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 import DestinationCard from './components/DestinationCard'
 import Footer from './components/Footer'
 import FooterButton from './components/FooterButton'
@@ -89,7 +87,7 @@ export default {
 	},
 	methods: {
 		fetchDestinations() {
-			axios.get('http://demo-app-be.test/destination').then(
+			this.$http.get('/destination').then(
 				res => {
 					this.popularDestinations = res.data
 				},

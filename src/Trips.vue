@@ -56,8 +56,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 import Navigation from './components/Navigation.vue'
 import Banner from './components/Trips/Banner.vue'
 import Grid from './components/Trips/Grid.vue'
@@ -83,8 +81,8 @@ export default {
 	},
 	methods: {
 		fetchProfile() {
-			axios
-				.get('http://demo-app-be.test/user/profile', {
+			this.$http
+				.get('/user/profile', {
 					headers: {
 						Authorization: `Bearer ${localStorage.getItem(
 							'token'
@@ -102,8 +100,8 @@ export default {
 				)
 		},
 		fetchTrips() {
-			axios
-				.get('http://demo-app-be.test/user/trips', {
+			this.$http
+				.get('/user/trips', {
 					headers: {
 						Authorization: `Bearer ${localStorage.getItem(
 							'token'

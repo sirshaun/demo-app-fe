@@ -44,7 +44,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Pluralize from 'pluralize'
 
 import Navigation from './components/Navigation.vue'
@@ -64,8 +63,8 @@ export default {
 	computed: {},
 	methods: {
 		fetchProfile() {
-			axios
-				.get('http://demo-app-be.test/user/profile', {
+			this.$http
+				.get('/user/profile', {
 					headers: {
 						Authorization: `Bearer ${localStorage.getItem(
 							'token'
@@ -82,8 +81,8 @@ export default {
 				)
 		},
 		fetchWishlists() {
-			axios
-				.get('http://demo-app-be.test/user/wishlists', {
+			this.$http
+				.get('/user/wishlists', {
 					headers: {
 						Authorization: `Bearer ${localStorage.getItem(
 							'token'

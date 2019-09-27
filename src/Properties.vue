@@ -23,8 +23,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 import Navigation from './components/Navigation'
 import PropertyCard from './components/PropertyCard'
 import BackButton from './components/BackButton'
@@ -42,10 +40,10 @@ export default {
         fetchProperties() {
             let url =
                 typeof this.city == 'undefined'
-                    ? 'http://demo-app-be.test/property/'
-                    : 'http://demo-app-be.test/property/?term=' + this.city
+                    ? '/property/'
+                    : '/property/?term=' + this.city
 
-            axios.get(url).then(
+            this.$http.get(url).then(
                 res => {
                     this.properties = res.data
                 },

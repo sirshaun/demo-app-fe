@@ -44,8 +44,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
 	data() {
 		return {
@@ -100,10 +98,8 @@ export default {
 			}
 		},
 		async isUsernameUnique() {
-			let response = await axios.get(
-				'http://demo-app-be.test/user/username/' +
-					this.username +
-					'/unique'
+			let response = await this.$http.get(
+				'/user/username/' + this.username + '/unique'
 			)
 
 			if (!response.data.isUnique) {

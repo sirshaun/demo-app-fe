@@ -41,8 +41,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 import Navigation from './components/Navigation'
 import FullScreen from './components/FullScreen'
 import Info from './components/Wishlist/Info'
@@ -90,8 +88,8 @@ export default {
 			this.toggleEdit()
 		},
 		fetchProfile() {
-			axios
-				.get('http://demo-app-be.test/user/profile', {
+			this.$http
+				.get('/user/profile', {
 					headers: {
 						Authorization: `Bearer ${localStorage.getItem(
 							'token'
@@ -108,8 +106,8 @@ export default {
 				)
 		},
 		fetchStays() {
-			axios
-				.get('http://demo-app-be.test/user/wishlists/' + 1, {
+			this.$http
+				.get('/user/wishlists/' + 1, {
 					headers: {
 						Authorization: `Bearer ${localStorage.getItem(
 							'token'

@@ -56,8 +56,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 import Modal from '@/components/Modal'
 
 export default {
@@ -98,7 +96,7 @@ export default {
 			this.closeModal()
 		},
 		fetchLanguages() {
-			axios.get('http://demo-app-be.test/language').then(
+			this.$http.get('/language').then(
 				res => {
 					this.languages = res.data
 				},

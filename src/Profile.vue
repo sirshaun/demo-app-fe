@@ -194,7 +194,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Pluralize from 'pluralize'
 
 import Navigation from './components/Navigation.vue'
@@ -242,8 +241,8 @@ export default {
 	},
 	methods: {
 		fetchProfile() {
-			axios
-				.get('http://demo-app-be.test/user/profile', {
+			this.$http
+				.get('/user/profile', {
 					headers: {
 						Authorization: `Bearer ${localStorage.getItem(
 							'token'

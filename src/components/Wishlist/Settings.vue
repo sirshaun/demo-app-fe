@@ -192,7 +192,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 
 import FriendsList from './FriendsList'
@@ -244,11 +243,9 @@ export default {
 			//
 		},
 		saveChanges() {
-			axios
+			this.$http
 				.post(
-					'http://demo-app-be.test/user/wishlists/' +
-						this.wishlistId +
-						'/update',
+					'/user/wishlists/' + this.wishlistId + '/update',
 					{
 						name: this.name,
 						adults: this.adults,

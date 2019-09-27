@@ -68,8 +68,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
 	data() {
 		return {
@@ -104,7 +102,7 @@ export default {
 			}
 		},
 		fetchStates() {
-			axios.get('http://demo-app-be.test/location/state').then(
+			this.$http.get('/location/state').then(
 				res => {
 					this.states = res.data
 				},
@@ -114,7 +112,7 @@ export default {
 			)
 		},
 		fetchCities() {
-			axios.get('http://demo-app-be.test/location/city').then(
+			this.$http.get('/location/city').then(
 				res => {
 					this.cities = res.data
 				},

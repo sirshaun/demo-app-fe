@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import axios from 'axios'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
 import App from './App.vue'
@@ -17,6 +18,10 @@ import './main.css'
 Vue.use(VueRouter)
 Vue.use(Vuex)
 Vue.config.productionTip = false
+
+Vue.prototype.$http = axios.create({
+	baseURL: 'http://demo-app-be.test/',
+})
 
 const state = {
 	isLogged: !!localStorage.getItem('token'),

@@ -110,8 +110,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 import LanguageModal from './LanguageModal'
 
 const body = document.querySelector('body')
@@ -136,9 +134,9 @@ export default {
 	},
 	methods: {
 		saveChanges() {
-			axios
+			this.$http
 				.post(
-					'http://demo-app-be.test/user/profile/update',
+					'/user/profile/update',
 					{
 						about: this.about,
 						location: this.location,
