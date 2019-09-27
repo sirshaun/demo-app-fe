@@ -16,7 +16,7 @@
 				</div>
 				<div v-for="(review, index) in reviews">
 					<div class="flex items-start">
-						<div class="w-16 text-center mr-4">
+						<div class="flex-none w-16 text-center mr-4">
 							<img
 								class="w-16 h-16 rounded-full mr-4"
 								:src="review.reviewer_photo"
@@ -28,8 +28,8 @@
 								{{ review.reviewer_name }}
 							</div>
 						</div>
-						<div class="text-sm">
-							<p class="font-light text-sm leading-none" :class>
+						<div class="flex-shrink text-sm">
+							<p class="font-light text-sm leading-none">
 								{{ review.content }}
 							</p>
 							<hr
