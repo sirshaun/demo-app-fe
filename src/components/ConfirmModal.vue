@@ -1,4 +1,47 @@
-<template></template>
+<template>
+	<Modal
+		@close-modal="cancel"
+		:show="modalOn"
+		:prevent-background-scrolling="false"
+	>
+		<div
+			class="modal-container bg-white md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto max-h-3/4 pb-4"
+		>
+			<div class="modal-content py-4 text-left px-6">
+				<div class="cursor-pointer z-50 mb-6" @click="cancel">
+					<img
+						class="w-4 h-4 md:h-8 md:w-8"
+						src="/img/ikonate/close.svg"
+						alt=""
+					/>
+				</div>
+
+				<div class="pl-4 md:pl-8">
+					<div class="tracking-wide mb-6">
+						<p class="font-light">
+							{{ message }}
+						</p>
+					</div>
+
+					<div class="mt-2">
+						<a
+							class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded cursor-pointer focus:outline-none focus:shadow-outline"
+							@click="confirm"
+						>
+							Yes, delete
+						</a>
+						<a
+							class="ml-4 bg-transparent text-indigo-700 py-1 px-2 border border-indigo-500 rounded cursor-pointer"
+							@click="cancel"
+						>
+							Cancel
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</Modal>
+</template>
 
 <script>
 import Modal from './Modal'
@@ -9,13 +52,23 @@ export default {
 		name: { type: String },
 		deleteUrl: { type: String, required: true },
 		redirectRoute: { type: String, required: true },
+		modalOn: { type: Boolean, required: true },
+	},
+	computed: {
+		message() {
+			return typeof this.name == 'undefined'
+				? 'Proceed with delete action?'
+				: 'Are you sure you want to delete ' + this.name + '?'
+		},
 	},
 	methods: {
-		canncel() {
-			//
+		cancel() {
+			this.$emit('close-confirm-modal')
 		},
 		confirm() {
-			//
+			this.$http.delete(this.deleteUrl)
+
+			this.$router.push(this.redirectRoute)
 		},
 	},
 }

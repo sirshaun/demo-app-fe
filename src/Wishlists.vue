@@ -2,14 +2,17 @@
 	<div class="">
 		<Navigation :profileImage="user.profileImage" />
 
-		<div class="bg-gray-200">
+		<div class="h-screen bg-gray-200">
 			<h1
 				class="px-10 text-2xl sm:text-4xl lg:text-3xl xl:text-4xl font-bold text-gray-900 leading-snug"
 			>
 				Wish<span class="text-indigo-500">lists</span>
 			</h1>
 
-			<div class="px-8 py-8 mx-auto md:px-64">
+			<div
+				class="px-8 py-8 mx-auto md:px-64"
+				v-show="userList.length > 0"
+			>
 				<Banner>
 					<template v-slot:left
 						>Your lists</template
@@ -21,6 +24,8 @@
 
 				<Grid :list="userList" />
 			</div>
+
+			<!-- TODO: place content for no user lists  -->
 
 			<div class="px-8 py-8 mx-auto md:px-64">
 				<Banner>
