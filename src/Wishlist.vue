@@ -61,7 +61,7 @@ export default {
 	},
 	computed: {
 		privacy() {
-			return this.wishlist.privacy ? 'Invite only' : 'Everyone'
+			return this.wishlist.private ? 'Invite only' : 'Everyone'
 		},
 		initialDates() {
 			if (
