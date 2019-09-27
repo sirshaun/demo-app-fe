@@ -1,5 +1,5 @@
 <template>
-	<form class="mb-10">
+	<form @submit.prevent="saveChanges" class="mb-10">
 		<div class="clearfix mt-6">
 			<div class="float-left">
 				<a
@@ -192,7 +192,7 @@
 </template>
 
 <script>
-// import VCalendar from 'v-calendar'
+import axios from 'axios'
 import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 
 import FriendsList from './FriendsList'
@@ -208,6 +208,7 @@ export default {
 		initialInfants: { type: Number },
 		initialPrivacy: { type: String },
 		friends: { type: Array },
+		wishlistId: { type: Number },
 	},
 	data: function() {
 		return {
@@ -233,15 +234,29 @@ export default {
 		updateFriendsList(friend) {
 			//
 		},
+		convertDate(dateObj, key) {
+			if (dateObj === null && typeof dateObj === 'object') {
+				return null
+			}
+			return dateObj[key].toLocaleDateString()
+		},
 		deleteList() {
 			//
 		},
 		saveChanges() {
 			axios
 				.post(
-					'http://demo-app-be.test/user/profile/update',
+					'http://demo-app-be.test/user/wishlists/' +
+						this.wishlistId +
+						'/update',
 					{
-						//
+						name: this.name,
+						adults: this.adults,
+						children: this.children,
+						infants: this.infants,
+						privacy: this.privacy,
+						check_in: this.convertDate(this.dates, 'start'),
+						check_out: this.convertDate(this.dates, 'end'),
 					},
 					{
 						headers: {
@@ -252,7 +267,7 @@ export default {
 					}
 				)
 				.then(res => {
-					this.$emit('update-profile', res.data.user)
+					this.$emit('update-wishlist-settings', res.data.wishlist)
 				})
 				.catch(error => {
 					console.log(error)

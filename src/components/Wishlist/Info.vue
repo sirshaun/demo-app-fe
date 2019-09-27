@@ -1,6 +1,6 @@
 <template>
 	<Transition name="slide-fade">
-		<div>
+		<div class="mb-20">
 			<div class="clearfix mt-6">
 				<div class="float-left">
 					<a
@@ -128,7 +128,11 @@ export default {
 	computed: {
 		dates() {
 			if (this.wishlist.check_in && this.wishlist.check_out) {
-				// return formatted dates
+				return (
+					this.convertDate(this.wishlist.dates.start) +
+					' - ' +
+					this.convertDate(this.wishlist.dates.end)
+				)
 			}
 
 			return 'No dates'
@@ -140,6 +144,15 @@ export default {
 		},
 		toggleEdit() {
 			this.$emit('edit-button-clicked')
+		},
+		convertDate(date) {
+			return (
+				new Date(date * 1000).getDate() +
+				' ' +
+				new Intl.DateTimeFormat('en-US', { month: 'short' }).format(
+					new Date(date * 1000)
+				)
+			)
 		},
 	},
 }

@@ -1,9 +1,12 @@
 <template>
-	<div class="h-screen overflow-hidden" v-if="user.spokenLanguages">
+	<div
+		class="h-screen overflow-hidden bg-gray-100"
+		v-if="user.spokenLanguages"
+	>
 		<Navigation :profileImage="user.profileImage" />
 
 		<FullScreen
-			leftPanelClassList="text-gray-900 bg-gray-100 px-10"
+			leftPanelClassList="text-gray-900 px-10"
 			rightPanelClassList="bg-gray-900 mx-auto"
 		>
 			<template v-slot:left-panel>
@@ -22,8 +25,10 @@
 					:initial-infants="wishlist.infants"
 					:initial-privacy="privacy"
 					:friends="wishlist.friends"
+					:wishlist-id="wishlist.id"
 					v-show="editOn"
 					@cancel-button-clicked="toggleEdit"
+					@update-wishlist-settings="updateInfo"
 				/>
 			</template>
 			<template v-slot:right-panel>
@@ -51,7 +56,7 @@ export default {
 			user: {},
 			wishlist: {},
 			stays: [],
-			editOn: true,
+			editOn: false,
 		}
 	},
 	computed: {
@@ -76,8 +81,8 @@ export default {
 		toggleEdit() {
 			this.editOn = !this.editOn
 		},
-		updateInfo(data) {
-			// do something with the data
+		updateInfo(wishlist) {
+			this.wishlist = wishlist
 
 			this.toggleEdit()
 		},
