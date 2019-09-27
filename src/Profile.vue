@@ -1,6 +1,6 @@
 <template>
 	<div class="oped" v-if="user.spokenLanguages">
-		<Navigation :profileImage="user.profileImage" :isHost="user.host" />
+		<Navigation :profileImage="user.profileImage" :isHost="!!user.host" />
 
 		<div class="md:px-64 pt-20 bg-gray-200">
 			<div class="flex text-gray-800">
@@ -176,11 +176,21 @@
 						</div>
 						<hr class="mx-5" />
 						<div class="px-4 py-2 mx-2 my-6">
-							<router-link to="/profile">
-								<a class="text-indigo-600 hover:text-indigo-200"
-									>Report this profile</a
-								></router-link
+							<a
+								class="text-indigo-600 hover:text-indigo-200"
+								:class="{
+									'cursor-pointer': !complaintLodged,
+									'opacity-50 cursor-not-allowed': complaintLodged,
+								}"
+								@click="toggleReportModal"
+								>Report this profile</a
 							>
+							<div
+								class="text-xs font-semibold tracking-widest leading-tight text-indigo-500"
+								v-if="complaintLodged"
+							>
+								Your report is on its way to our admins.
+							</div>
 						</div>
 					</div>
 				</div>
@@ -190,6 +200,14 @@
 		<BackButton />
 
 		<Footer />
+
+		<ReportModal
+			:report-url="'/user/' + user.id + '/report'"
+			:modal-on="reportModalOn"
+			v-if="reportModalOn"
+			@close-report-modal="toggleReportModal"
+			@complaint-lodged="userFeedback"
+		/>
 	</div>
 </template>
 
@@ -201,6 +219,7 @@ import Summary from './components/Profile/Summary.vue'
 import EditSummary from './components/Profile/EditSummary.vue'
 import ListingsSlide from './components/Profile/ListingsSlide'
 import BackButton from './components/BackButton'
+import ReportModal from './components/Profile/ReportModal'
 import Footer from './components/Footer'
 
 export default {
@@ -210,6 +229,7 @@ export default {
 		EditSummary,
 		BackButton,
 		ListingsSlide,
+		ReportModal,
 		Footer,
 	},
 	data() {
@@ -218,6 +238,8 @@ export default {
 			editOn: false,
 			reviews: [],
 			listings: [],
+			reportModalOn: true,
+			complaintLodged: false,
 		}
 	},
 	computed: {
@@ -266,6 +288,9 @@ export default {
 		toggleEdit() {
 			this.editOn = !this.editOn
 		},
+		toggleReportModal() {
+			this.reportModalOn = !this.reportModalOn
+		},
 		updateProfile(user) {
 			this.user = user
 
@@ -273,6 +298,11 @@ export default {
 		},
 		pluralize(word, count = 0, inclusive) {
 			return Pluralize(word, count, inclusive)
+		},
+		userFeedback() {
+			this.complaintLodged = !this.complaintLodged
+
+			this.toggleReportModal()
 		},
 	},
 	created() {
