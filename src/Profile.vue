@@ -204,6 +204,7 @@
 		<ReportModal
 			:report-url="'/user/' + user.id + '/report'"
 			:modal-on="reportModalOn"
+			:perp="user.first_name"
 			v-if="reportModalOn"
 			@close-report-modal="toggleReportModal"
 			@complaint-lodged="userFeedback"
@@ -238,7 +239,7 @@ export default {
 			editOn: false,
 			reviews: [],
 			listings: [],
-			reportModalOn: true,
+			reportModalOn: false,
 			complaintLodged: false,
 		}
 	},

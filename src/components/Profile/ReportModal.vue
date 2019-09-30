@@ -19,7 +19,7 @@
 				<ErrorMessage
 					v-show="error"
 					title=""
-					message="Tell us why you're reporting"
+					:message="'Tell us why you\'re reporting ' + perp"
 					@dismiss-form-error-message="dismiss"
 				/>
 
@@ -78,6 +78,7 @@ export default {
 	props: {
 		reportUrl: { type: String, required: true },
 		modalOn: { type: Boolean, required: true },
+		perp: { type: String, required: true },
 	},
 	data() {
 		return {
