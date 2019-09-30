@@ -11,6 +11,9 @@ import Reviews from './Reviews.vue'
 import Wishlists from './Wishlists.vue'
 import Wishlist from './Wishlist.vue'
 import Trips from './Trips.vue'
+import BecomeHost from './BecomeHost.vue'
+import Messages from './Messages.vue'
+import Help from './Help.vue'
 import Logout from './Logout.vue'
 
 import './main.css'
@@ -61,6 +64,10 @@ const routes = [
 	{ path: '/wishlists', component: Wishlists },
 	{ path: '/wishlists/:wishlist', component: Wishlist },
 	{ path: '/trips', component: Trips },
+	{ path: '/become-a-host', component: BecomeHost },
+	{ path: '/messages', component: Messages },
+	{ path: '/messages/:user', component: Messages },
+	{ path: '/help', component: Help },
 	{ path: '/logout', component: Logout },
 ]
 

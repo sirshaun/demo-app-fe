@@ -46,41 +46,41 @@
 					</div>
 				</div>
 				<div class="text-lg text-right lg:flex-grow">
-					<a
-						class="block mt-4 lg:inline-block lg:mt-0 text-indigo-500 hover:text-indigo-200 mr-4"
-						v-show="!isHost"
-					>
-						Become a host
-					</a>
-					<router-link to="/wishlists">
+					<router-link to="/become-a-host" v-show="!isHost">
 						<a
 							class="block mt-4 lg:inline-block lg:mt-0 text-indigo-500 hover:text-indigo-200 mr-4"
-							v-show="loggedIn"
+						>
+							Become a host
+						</a>
+					</router-link>
+					<router-link to="/wishlists" v-show="loggedIn">
+						<a
+							class="block mt-4 lg:inline-block lg:mt-0 text-indigo-500 hover:text-indigo-200 mr-4"
 						>
 							Saved
 						</a>
 					</router-link>
-					<router-link to="/trips">
+					<router-link to="/trips" v-if="loggedIn">
 						<a
 							class="block mt-4 lg:inline-block lg:mt-0 text-indigo-500 hover:text-indigo-200 mr-4"
-							v-if="loggedIn"
 						>
 							Trips
 						</a>
 					</router-link>
-					<a
-						href="#"
-						class="block mt-4 lg:inline-block lg:mt-0 text-indigo-500 hover:text-indigo-200 mr-4"
-						v-if="loggedIn"
-					>
-						Messages
-					</a>
-					<a
-						href="#"
-						class="block mt-4 lg:inline-block lg:mt-0 text-indigo-500 hover:text-indigo-200 mr-4"
-					>
-						Help
-					</a>
+					<router-link to="/messages" v-if="loggedIn">
+						<a
+							class="block mt-4 lg:inline-block lg:mt-0 text-indigo-500 hover:text-indigo-200 mr-4"
+						>
+							Messages
+						</a>
+					</router-link>
+					<router-link to="/help">
+						<a
+							class="block mt-4 lg:inline-block lg:mt-0 text-indigo-500 hover:text-indigo-200 mr-4"
+						>
+							Help
+						</a>
+					</router-link>
 				</div>
 				<div v-if="!loggedIn">
 					<router-link to="/login">
