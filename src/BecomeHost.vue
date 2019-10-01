@@ -17,11 +17,18 @@
 			</nav>
 		</div>
 
+		<!-- Progress bar -->
+
+		<!-- Stepper -->
+		<!-- Place Type, Bedrooms, Baths, Location, Amenities, Shared spaces -->
+
 		<FirstStep v-if="step == 1" />
 		<SecondStep v-if="step == 2" />
 		<ThirdStep v-if="step == 3" />
 		<FourthStep v-if="step == 4" />
 		<FifthStep v-if="step == 5" />
+		<SixthStep v-if="step == 6" />
+		<SeventhStep v-if="step == 7" />
 	</div>
 </template>
 
@@ -31,13 +38,23 @@ import SecondStep from './components/BecomeHost/SecondStep'
 import ThirdStep from './components/BecomeHost/ThirdStep'
 import FourthStep from './components/BecomeHost/FourthStep'
 import FifthStep from './components/BecomeHost/FifthStep'
+import SixthStep from './components/BecomeHost/SixthStep'
+import SeventhStep from './components/BecomeHost/SeventhStep'
 
 export default {
-	components: { FirstStep, SecondStep, ThirdStep, FourthStep, FifthStep },
+	components: {
+		FirstStep,
+		SecondStep,
+		ThirdStep,
+		FourthStep,
+		FifthStep,
+		SixthStep,
+		SeventhStep,
+	},
 	data() {
 		return {
 			user: {},
-			step: 5,
+			step: 1,
 			text: ['', 'Step 1: Start with the basics'],
 		}
 	},
