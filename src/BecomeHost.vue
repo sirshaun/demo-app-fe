@@ -20,6 +20,7 @@
 		<FirstStep v-if="step == 1" />
 		<SecondStep v-if="step == 2" />
 		<ThirdStep v-if="step == 3" />
+		<FourthStep v-if="step == 4" />
 	</div>
 </template>
 
@@ -27,13 +28,14 @@
 import FirstStep from './components/BecomeHost/FirstStep'
 import SecondStep from './components/BecomeHost/SecondStep'
 import ThirdStep from './components/BecomeHost/ThirdStep'
+import FourthStep from './components/BecomeHost/FourthStep'
 
 export default {
-	components: { FirstStep, SecondStep, ThirdStep },
+	components: { FirstStep, SecondStep, ThirdStep, FourthStep },
 	data() {
 		return {
 			user: {},
-			step: 3,
+			step: 4,
 			text: ['', 'Step 1: Start with the basics'],
 		}
 	},
