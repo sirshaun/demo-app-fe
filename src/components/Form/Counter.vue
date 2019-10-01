@@ -29,6 +29,7 @@ export default {
 		func: { type: Function, required: true },
 		min: { type: Number, default: 0 },
 		max: { type: Number, default: 100 },
+		accuracy: { type: Number, default: 1 },
 	},
 	data() {
 		return {
@@ -37,10 +38,10 @@ export default {
 	},
 	methods: {
 		increment() {
-			if (this.counter < this.max) this.counter += 1
+			if (this.counter < this.max) this.counter += this.accuracy
 		},
 		decrement() {
-			if (this.counter > this.min) this.counter -= 1
+			if (this.counter > this.min) this.counter -= this.accuracy
 		},
 	},
 	computed: {
@@ -55,7 +56,6 @@ export default {
 		counter: {
 			immediate: false,
 			handler: function(counter) {
-				// this.$emit('number-of-adults-changed', counter)
 				this.func(counter)
 			},
 		},

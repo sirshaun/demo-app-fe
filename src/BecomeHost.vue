@@ -19,26 +19,27 @@
 
 		<FirstStep v-if="step == 1" />
 		<SecondStep v-if="step == 2" />
+		<ThirdStep v-if="step == 3" />
 	</div>
 </template>
 
 <script>
 import FirstStep from './components/BecomeHost/FirstStep'
 import SecondStep from './components/BecomeHost/SecondStep'
+import ThirdStep from './components/BecomeHost/ThirdStep'
 
 export default {
-	components: { FirstStep, SecondStep },
+	components: { FirstStep, SecondStep, ThirdStep },
 	data() {
 		return {
 			user: {},
-			step: 2,
+			step: 3,
 			text: ['', 'Step 1: Start with the basics'],
-			type: '',
-			typeOptions: ['Apartment', 'House', 'Bed and Breakfast', 'Other'],
 		}
 	},
 	computed: {
 		navText() {
+			// TODO: Update when all steps are known
 			return this.text[this.step]
 		},
 	},
