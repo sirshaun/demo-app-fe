@@ -18,18 +18,20 @@
 		</div>
 
 		<FirstStep v-if="step == 1" />
+		<SecondStep v-if="step == 2" />
 	</div>
 </template>
 
 <script>
 import FirstStep from './components/BecomeHost/FirstStep'
+import SecondStep from './components/BecomeHost/SecondStep'
 
 export default {
-	components: { FirstStep },
+	components: { FirstStep, SecondStep },
 	data() {
 		return {
 			user: {},
-			step: 1,
+			step: 2,
 			text: ['', 'Step 1: Start with the basics'],
 			type: '',
 			typeOptions: ['Apartment', 'House', 'Bed and Breakfast', 'Other'],

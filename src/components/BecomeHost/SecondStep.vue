@@ -3,22 +3,45 @@
 		<h1 class="font-semibold text-2xl text-gray-900">
 			What kind of place are you listing?
 		</h1>
+		<p>
+			Check that you have enough beds to accommodate all your guests
+			comfortably.
+		</p>
+
+		<div class="flex flex-wrap">
+			<div class="w-full px-3">
+				<div class="clearfix mt-6">
+					<div class="float-left font-light">
+						<div class="leading-none">Guests</div>
+						<!-- <div class="text-xs tracking-wider">
+							Ages 2-12
+						</div> -->
+					</div>
+					<div class="float-right">
+						<Counter
+							:initial-counter="guests"
+							:func="updateNumberOfGuests"
+						/>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<div class="flex flex-wrap">
 			<div class="w-full px-3">
 				<label
 					class="block text-gray-600 text-xs font-bold mb-2"
-					for="grid-listing"
+					for="grid-bedrooms"
 				>
-					First, let's narrow down things
+					How many bedrooms can guests use?
 				</label>
 				<div class="relative">
 					<select
 						class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-						id="grid-listing"
-						v-model="listing"
+						id="grid-bedrooms"
+						v-model="bedrooms"
 					>
-						<option v-for="option in listingOptions">
+						<option v-for="option in bedroomOptions">
 							{{ option }}
 						</option>
 					</select>
@@ -43,108 +66,37 @@
 			<div class="w-full px-3">
 				<label
 					class="block text-gray-600 text-xs font-bold mb-2"
-					for="grid-type"
+					for="grid-beds"
 				>
-					Now choose a property type
+					How many beds can guests use?
 				</label>
-				<div class="relative">
-					<select
-						class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-						:disabled="listing == ''"
-						id="grid-type"
-						v-model="type"
-					>
-						<option v-for="option in typeOptions">
-							{{ option }}
-						</option>
-					</select>
-					<div
-						class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-					>
-						<svg
-							class="fill-current h-4 w-4"
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 20 20"
-						>
-							<path
-								d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-							/>
-						</svg>
+				<div class="clearfix mt-6">
+					<div class="float-left font-light">
+						<div class="leading-none">Beds</div>
+					</div>
+					<div class="float-right">
+						<Counter
+							:initial-counter="beds"
+							:func="updateNumberOfBeds"
+						/>
 					</div>
 				</div>
-				<!-- <div
-					class="font-light text-xs"
-					v-show="caseParticularTypes.includes(type)"
-				>
-					A casa particular is a type of accommodation found in Cuba
-					that may be more like a private apartment or a room in a bed
-					and breakfast.
-				</div> -->
 			</div>
 		</div>
 
-		<div class="flex flex-wrap">
-			<div class="w-full px-3">
-				<label
-					class="block text-gray-600 text-xs font-bold mb-2"
-					for="grid-type"
-				>
-					Is this set up as a dedicated guest space?
-				</label>
-				<div class="mb-4" v-for="option in roomOptions">
-					<input
-						type="radio"
-						:id="option.key"
-						:value="option.text"
-						name="room"
-						v-model="room"
-					/>
-					<label
-						:for="option.key"
-						class="ml-1 font-light inline-block w-11/12"
-						>{{ option.text }}</label
-					>
-					<div class="font-light text-sm">{{ option.descr }}</div>
-				</div>
-			</div>
-		</div>
+		<h1 class="font-semibold text-xl text-gray-900">
+			Sleeping arrangements
+		</h1>
+		<p>
+			Sharing the types of beds in each room can help people understand
+			the sleeping arrangements.
+		</p>
 
-		<div class="flex flex-wrap">
-			<div class="w-full px-3">
-				<label
-					class="block text-gray-600 text-xs font-bold mb-2"
-					for="grid-type"
-				>
-					Is this set up as a dedicated guest space?
-				</label>
-				<div class="mb-4">
-					<input
-						type="radio"
-						id="yes"
-						value="yes"
-						name="sapce"
-						v-model="space"
-					/>
-					<label
-						for="yes"
-						class="ml-1 font-light inline-block w-11/12"
-						>Yes, it’s primarily set up for guests</label
-					>
-				</div>
-				<div class="mb-4">
-					<input
-						type="radio"
-						id="no"
-						value="no"
-						name="sapce"
-						v-model="space"
-					/>
-					<label for="no" class="ml-1 font-light inline-block w-11/12"
-						>No, I keep my personal belongings here
-					</label>
-				</div>
-			</div>
-		</div>
+		<Bedroom
+			v-for="(room, index) in bedroomComponents"
+			:name="'Bedroom ' + (index + 1)"
+			:key="room"
+		/>
 
 		<hr class="border-gray-300 my-6" />
 
@@ -168,13 +120,58 @@
 				</a>
 			</div>
 		</div>
-
-		<CaseModal @close-case-modal="toggleModal" v-if="caseModal" />
 	</div>
 </template>
 
 <script>
+import Pluralize from 'pluralize'
+
+import Counter from '@/components/Form/Counter'
+import Bedroom from './Bedroom'
+
 export default {
-	//
+	components: { Counter, Bedroom },
+	data() {
+		return {
+			guests: 0,
+			bedrooms: '',
+			beds: 0,
+			bedroomComponents: 0,
+		}
+	},
+	methods: {
+		updateNumberOfGuests(num) {
+			this.guests = num
+		},
+		updateNumberOfBeds(num) {
+			this.beds = num
+		},
+		pluralize(word, count = 0, inclusive) {
+			return Pluralize(word, count, inclusive)
+		},
+	},
+	computed: {
+		bedroomOptions() {
+			var options = []
+
+			for (var i = 1; i < 51; i++) {
+				if (i == 1) {
+					options.push(i + ' bedroom')
+				} else {
+					options.push(i + ' bedrooms')
+				}
+			}
+
+			return options
+		},
+	},
+	watch: {
+		bedrooms: {
+			immediate: false,
+			handler: function(bedrooms) {
+				this.bedroomComponents = parseInt(bedrooms[0])
+			},
+		},
+	},
 }
 </script>

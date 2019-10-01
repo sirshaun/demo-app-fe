@@ -1,0 +1,131 @@
+<template>
+	<div class="flex flex-wrap">
+		<div class="w-full px-3">
+			<div class="clearfix mt-6">
+				<div class="float-left w-2/3 font-light">
+					<div class="flex flex-col">
+						<div>{{ name }}</div>
+						<div v-if="!addingBeds">
+							{{ pluralize('bed', beds, true) }}
+						</div>
+						<Bed
+							v-for="(bed, index) in defaultBeds"
+							:name="bed"
+							:key="index"
+							:func="incrementBeds"
+						/>
+						<div class="relative">
+							<select
+								class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+								id="grid-bed-add"
+								@change="addBed"
+							>
+								<option v-for="option in bedOptions">
+									{{ option }}
+								</option>
+							</select>
+							<div
+								class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+							>
+								<svg
+									class="fill-current h-4 w-4"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 20 20"
+								>
+									<path
+										d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+									/>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="float-right">
+					<a
+						class="bg-transparent hover:bg-indigo-500 text-indigo-700 font-semibold hover:text-white py-2 px-4 border border-indigo-500 hover:border-transparent rounded"
+						@click="addingBeds = !addingBeds"
+						>{{ addingBeds ? 'Done' : 'Add beds' }}
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+import Pluralize from 'pluralize'
+
+import Counter from '@/components/Form/Counter'
+import Bed from './Bed'
+
+export default {
+	components: { Bed },
+	props: {
+		name: { type: String, required: true },
+	},
+	data() {
+		return {
+			double: 0,
+			queen: 0,
+			single: 0,
+			sofa: 0,
+			king: 0,
+			small: 0,
+			couch: 0,
+			bunk: 0,
+			floor: 0,
+			air: 0,
+			cot: 0,
+			toddler: 0,
+			hammock: 0,
+			water: 0,
+			defaultBeds: ['Double', 'Queen', 'Single', 'Sofa bed'],
+			bedOptions: [
+				'Add another bed',
+				'King',
+				'Small double (3/4)',
+				'Couch',
+				'Bunk bed',
+				'Floor matress',
+				'Air matress',
+				'Cot',
+				'Toddler bed',
+				'Hammock',
+				'Water bed',
+			],
+			addingBeds: false,
+		}
+	},
+	computed: {
+		beds() {
+			return (
+				this.double +
+				this.queen +
+				this.single +
+				this.sofa +
+				this.king +
+				this.small +
+				this.couch +
+				this.bunk +
+				this.floor +
+				this.air +
+				this.cot +
+				this.toddler +
+				this.hammock +
+				this.water
+			)
+		},
+	},
+	methods: {
+		incrementBeds(bed, beds) {
+			this[bed.toLowerCase()] = beds
+		},
+		addBed() {
+			//
+		},
+		pluralize(word, count = 0, inclusive) {
+			return Pluralize(word, count, inclusive)
+		},
+	},
+}
+</script>
