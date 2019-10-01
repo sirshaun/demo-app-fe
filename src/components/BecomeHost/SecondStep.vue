@@ -98,6 +98,8 @@
 			:key="room"
 		/>
 
+		<Bedroom name="Common spaces" key="51" />
+
 		<hr class="border-gray-300 my-6" />
 
 		<div class="clearfix mt-6">
@@ -154,6 +156,8 @@ export default {
 		bedroomOptions() {
 			var options = []
 
+			options.push('Studio')
+
 			for (var i = 1; i < 51; i++) {
 				if (i == 1) {
 					options.push(i + ' bedroom')
@@ -169,7 +173,11 @@ export default {
 		bedrooms: {
 			immediate: false,
 			handler: function(bedrooms) {
-				this.bedroomComponents = parseInt(bedrooms[0])
+				if (bedrooms == 'Studio') {
+					this.bedroomComponents = 0
+				} else {
+					this.bedroomComponents = parseInt(bedrooms[0])
+				}
 			},
 		},
 	},

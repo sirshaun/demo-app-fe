@@ -32,7 +32,6 @@ export default {
 		beds: {
 			immediate: false,
 			handler: function(beds) {
-				console.log('changed')
 				this.func(this.name, beds)
 			},
 		},

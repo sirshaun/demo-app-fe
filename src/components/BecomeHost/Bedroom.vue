@@ -1,54 +1,63 @@
 <template>
-	<div class="flex flex-wrap">
-		<div class="w-full px-3">
-			<div class="clearfix mt-6">
-				<div class="float-left w-2/3 font-light">
-					<div class="flex flex-col">
-						<div>{{ name }}</div>
-						<div v-if="!addingBeds">
-							{{ pluralize('bed', beds, true) }}
-						</div>
-						<Bed
-							v-for="(bed, index) in defaultBeds"
-							:name="bed"
-							:key="index"
-							:func="incrementBeds"
-						/>
-						<div class="relative">
-							<select
-								class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-								id="grid-bed-add"
-								@change="addBed"
-							>
-								<option v-for="option in bedOptions">
-									{{ option }}
-								</option>
-							</select>
-							<div
-								class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-							>
-								<svg
-									class="fill-current h-4 w-4"
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 20 20"
-								>
-									<path
-										d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-									/>
-								</svg>
+	<div>
+		<div class="flex flex-wrap">
+			<div class="w-full px-3">
+				<div class="clearfix mt-6">
+					<div class="float-left w-2/3 font-light">
+						<div class="flex flex-col">
+							<div>{{ name }}</div>
+							<div v-if="!addingBeds">
+								{{ pluralize('bed', beds, true) }}
+							</div>
+							<div v-show="addingBeds">
+								<Bed
+									v-for="(bed, index) in allBeds"
+									:name="bed"
+									:key="index"
+									:func="incrementBeds"
+								/>
+								<div class="relative">
+									<select
+										class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+										:id="'grid-bed-add-' + nameSlug"
+										@change="addBed($event)"
+									>
+										<option
+											v-for="option in bedOptions"
+											:selected="isDefaultOption(option)"
+											:disabled="isDefaultOption(option)"
+										>
+											{{ option }}
+										</option>
+									</select>
+									<div
+										class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+									>
+										<svg
+											class="fill-current h-4 w-4"
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 20 20"
+										>
+											<path
+												d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+											/>
+										</svg>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="float-right">
-					<a
-						class="bg-transparent hover:bg-indigo-500 text-indigo-700 font-semibold hover:text-white py-2 px-4 border border-indigo-500 hover:border-transparent rounded"
-						@click="addingBeds = !addingBeds"
-						>{{ addingBeds ? 'Done' : 'Add beds' }}
-					</a>
+					<div class="float-right">
+						<a
+							class="bg-transparent hover:bg-indigo-500 text-indigo-700 font-semibold hover:text-white py-2 px-4 border border-indigo-500 hover:border-transparent rounded"
+							@click="addingBeds = !addingBeds"
+							>{{ addingBeds ? 'Done' : 'Add beds' }}
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
+		<hr class="border-gray-300" />
 	</div>
 </template>
 
@@ -93,6 +102,7 @@ export default {
 				'Hammock',
 				'Water bed',
 			],
+			allBeds: [],
 			addingBeds: false,
 		}
 	},
@@ -115,17 +125,40 @@ export default {
 				this.water
 			)
 		},
+		nameSlug() {
+			return this.name.toLowerCase().replace(' ', '-')
+		},
 	},
 	methods: {
 		incrementBeds(bed, beds) {
 			this[bed.toLowerCase()] = beds
 		},
-		addBed() {
-			//
+		addBed(event) {
+			var $select = event.target
+			// document.querySelector('#grid-bed-add-' + this.nameSlug)
+			var bedType = event.target.value
+
+			// remove option from select options
+			var index = this.bedOptions.indexOf(bedType)
+			if (index > -1) {
+				this.bedOptions.splice(index, 1)
+			}
+
+			// add bed type to list
+			this.allBeds.push(bedType)
+
+			// reset select
+			$select.value = 'Add another bed'
+		},
+		isDefaultOption(option) {
+			return option == 'Add another bed'
 		},
 		pluralize(word, count = 0, inclusive) {
 			return Pluralize(word, count, inclusive)
 		},
+	},
+	created() {
+		this.allBeds = this.defaultBeds
 	},
 }
 </script>
