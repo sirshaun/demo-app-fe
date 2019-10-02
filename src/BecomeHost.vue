@@ -22,34 +22,34 @@
 		<!-- Stepper -->
 		<!-- Place Type, Bedrooms, Baths, Location, Amenities, Shared spaces -->
 
-		<FirstStep v-if="step == 1" />
-		<SecondStep v-if="step == 2" />
-		<ThirdStep v-if="step == 3" />
-		<FourthStep v-if="step == 4" />
-		<FifthStep v-if="step == 5" />
-		<SixthStep v-if="step == 6" />
-		<SeventhStep v-if="step == 7" />
+		<PlaceType v-if="step == 1" />
+		<Bedrooms v-if="step == 2" />
+		<Baths v-if="step == 3" />
+		<Location v-if="step == 4" />
+		<LocationConfirm v-if="step == 5" />
+		<Amenities v-if="step == 6" />
+		<SharedSpaces v-if="step == 7" />
 	</div>
 </template>
 
 <script>
-import FirstStep from './components/BecomeHost/FirstStep'
-import SecondStep from './components/BecomeHost/SecondStep'
-import ThirdStep from './components/BecomeHost/ThirdStep'
-import FourthStep from './components/BecomeHost/FourthStep'
-import FifthStep from './components/BecomeHost/FifthStep'
-import SixthStep from './components/BecomeHost/SixthStep'
-import SeventhStep from './components/BecomeHost/SeventhStep'
+import PlaceType from './components/BecomeHost/Details/PlaceType'
+import Bedrooms from './components/BecomeHost/Details/Bedrooms'
+import Baths from './components/BecomeHost/Details/Baths'
+import Location from './components/BecomeHost/Details/Location'
+import LocationConfirm from './components/BecomeHost/Details/LocationConfirm'
+import Amenities from './components/BecomeHost/Details/Amenities'
+import SharedSpaces from './components/BecomeHost/Details/SharedSpaces'
 
 export default {
 	components: {
-		FirstStep,
-		SecondStep,
-		ThirdStep,
-		FourthStep,
-		FifthStep,
-		SixthStep,
-		SeventhStep,
+		PlaceType,
+		Bedrooms,
+		Baths,
+		Location,
+		LocationConfirm,
+		Amenities,
+		SharedSpaces,
 	},
 	data() {
 		return {

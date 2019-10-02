@@ -174,7 +174,7 @@
 </template>
 
 <script>
-import CaseModal from './CaseModal'
+import CaseModal from '@/components/BecomeHost/CaseModal'
 
 export default {
 	components: { CaseModal },

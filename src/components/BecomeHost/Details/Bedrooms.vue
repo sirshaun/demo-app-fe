@@ -129,7 +129,7 @@
 import Pluralize from 'pluralize'
 
 import Counter from '@/components/Form/Counter'
-import Bedroom from './Bedroom'
+import Bedroom from '@/components/BecomeHost/Bedroom'
 
 export default {
 	components: { Counter, Bedroom },
