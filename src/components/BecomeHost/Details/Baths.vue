@@ -56,6 +56,7 @@
 			<div class="float-left">
 				<a
 					class="flex items-center text-indigo-600 hover:opacity-50 cursor-pointer"
+					@click="back"
 				>
 					<img
 						src="/img/ikonate/chevron-left-indigo-600.svg"
@@ -67,6 +68,7 @@
 			<div class="float-right">
 				<a
 					class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded cursor-pointer focus:outline-none focus:shadow-outline"
+					@click="next"
 				>
 					Next
 				</a>
@@ -80,6 +82,11 @@ import Counter from '@/components/Form/Counter'
 
 export default {
 	components: { Counter },
+	props: {
+		back: { type: Function, required: true },
+		next: { type: Function, required: true },
+		checkpoint: { type: Function, required: true },
+	},
 	data() {
 		return {
 			bathrooms: 0,
