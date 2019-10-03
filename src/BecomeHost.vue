@@ -81,6 +81,12 @@
 		/>
 
 		<!-- Step Two -->
+		<Photos
+			v-if="page == 8"
+			:next="nextPage"
+			:checkpoint="toggleCheckpoint"
+			:uploadUrl="''"
+		/>
 	</div>
 </template>
 
@@ -93,6 +99,7 @@ import LocationConfirm from './components/BecomeHost/Details/LocationConfirm'
 import Amenities from './components/BecomeHost/Details/Amenities'
 import SharedSpaces from './components/BecomeHost/Details/SharedSpaces'
 import Checkpoint from './components/BecomeHost/Checkpoint'
+import Photos from './components/BecomeHost/Scenery/Photos'
 
 export default {
 	components: {
@@ -104,12 +111,13 @@ export default {
 		Amenities,
 		SharedSpaces,
 		Checkpoint,
+		Photos,
 	},
 	data() {
 		return {
 			user: {},
-			page: 1,
-			step: 1,
+			page: 8,
+			step: 2,
 			text: [
 				'Step 1: Start with the basics',
 				'Step 2: Set the scene',
