@@ -22,7 +22,7 @@
 		</div>
 
 		<form
-			action="http://demo-app-be.test/file-upload"
+			:action="uploadUrl"
 			class="dropzone border-dashed border-2 border-gray-300 rounded p-2"
 			id="my-awesome-dropzone"
 		>

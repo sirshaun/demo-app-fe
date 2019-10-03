@@ -1,5 +1,5 @@
 <template>
-	<div class="bg-gray-100 h-screen" :class="{ 'md:mt-22': !checkpoint }">
+	<div class="bg-gray-100" :class="{ 'md:mt-22': !checkpoint }">
 		<div class="mb-10" v-if="!checkpoint">
 			<nav class="nav-float justify-start">
 				<div class="flex items-center flex-shrink-0 text-white mr-6">
@@ -87,6 +87,18 @@
 			:checkpoint="toggleCheckpoint"
 			:uploadUrl="''"
 		/>
+		<Description
+			v-if="page == 9"
+			:back="prevPage"
+			:next="nextPage"
+			:checkpoint="toggleCheckpoint"
+		/>
+		<Name
+			v-if="page == 9"
+			:back="prevPage"
+			:next="nextPage"
+			:checkpoint="toggleCheckpoint"
+		/>
 	</div>
 </template>
 
@@ -100,6 +112,8 @@ import Amenities from './components/BecomeHost/Details/Amenities'
 import SharedSpaces from './components/BecomeHost/Details/SharedSpaces'
 import Checkpoint from './components/BecomeHost/Checkpoint'
 import Photos from './components/BecomeHost/Scenery/Photos'
+import Description from './components/BecomeHost/Scenery/Description'
+import Name from './components/BecomeHost/Scenery/Name'
 
 export default {
 	components: {
@@ -112,11 +126,13 @@ export default {
 		SharedSpaces,
 		Checkpoint,
 		Photos,
+		Description,
+		Name,
 	},
 	data() {
 		return {
 			user: {},
-			page: 8,
+			page: 10,
 			step: 2,
 			text: [
 				'Step 1: Start with the basics',
