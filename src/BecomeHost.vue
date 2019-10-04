@@ -1,5 +1,8 @@
 <template>
-	<div class="bg-gray-100" :class="{ 'md:mt-22': !checkpoint }">
+	<div
+		class="bg-gray-100 min-h-screen w-3/5 px-6 pt-10 pb-20"
+		:class="{ 'md:mt-22': !checkpoint }"
+	>
 		<div class="mb-10" v-if="!checkpoint">
 			<nav class="nav-float justify-start">
 				<div class="flex items-center flex-shrink-0 text-white mr-6">
@@ -23,82 +26,86 @@
 		<!-- Stepper -->
 		<!-- Place Type, Bedrooms, Baths, Location, Amenities, Shared spaces -->
 
-		<!-- Step One -->
-		<PlaceType
-			v-if="page == 1"
-			:back="prevPage"
-			:next="nextPage"
-			:checkpoint="toggleCheckpoint"
-		/>
-		<Bedrooms
-			v-if="page == 2"
-			:back="prevPage"
-			:next="nextPage"
-			:checkpoint="toggleCheckpoint"
-		/>
-		<Baths
-			v-if="page == 3"
-			:back="prevPage"
-			:next="nextPage"
-			:checkpoint="toggleCheckpoint"
-		/>
-		<Location
-			v-if="page == 4"
-			:back="prevPage"
-			:next="nextPage"
-			:checkpoint="toggleCheckpoint"
-		/>
-		<LocationConfirm
-			v-if="page == 5"
-			:back="prevPage"
-			:next="nextPage"
-			:checkpoint="toggleCheckpoint"
-		/>
-		<Amenities
-			v-if="page == 6"
-			:back="prevPage"
-			:next="nextPage"
-			:checkpoint="toggleCheckpoint"
-		/>
-		<SharedSpaces
-			v-if="page == 7"
-			:back="prevPage"
-			:next="nextPage"
-			:checkpoint="toggleCheckpoint"
-		/>
+		<div class="ml-64">
+			<!-- Step One -->
+			<PlaceType
+				v-if="page == 1"
+				:back="prevPage"
+				:next="nextPage"
+				:checkpoint="toggleCheckpoint"
+			/>
+			<Bedrooms
+				v-if="page == 2"
+				:back="prevPage"
+				:next="nextPage"
+				:checkpoint="toggleCheckpoint"
+			/>
+			<Baths
+				v-if="page == 3"
+				:back="prevPage"
+				:next="nextPage"
+				:checkpoint="toggleCheckpoint"
+			/>
+			<Location
+				v-if="page == 4"
+				:back="prevPage"
+				:next="nextPage"
+				:checkpoint="toggleCheckpoint"
+			/>
+			<LocationConfirm
+				v-if="page == 5"
+				:back="prevPage"
+				:next="nextPage"
+				:checkpoint="toggleCheckpoint"
+			/>
+			<Amenities
+				v-if="page == 6"
+				:back="prevPage"
+				:next="nextPage"
+				:checkpoint="toggleCheckpoint"
+			/>
+			<SharedSpaces
+				v-if="page == 7"
+				:back="prevPage"
+				:next="nextPage"
+				:checkpoint="toggleCheckpoint"
+			/>
 
-		<!-- Checkpoint -->
-		<Checkpoint
-			:checkpoint="toggleCheckpoint"
-			:step="step"
-			:page="page"
-			@review-step-one="stepOneReview"
-			@continue-to-step-two="proceedStepTwo"
-			@review-step-two="proceedStepTwo"
-			@continue-to-step-three="proceedStepThree"
-			@review-step-three="proceedStepThree"
-			v-if="checkpoint"
-		/>
+			<!-- Checkpoint -->
+			<Checkpoint
+				:checkpoint="toggleCheckpoint"
+				:step="step"
+				:page="page"
+				@review-step-one="stepOneReview"
+				@continue-to-step-two="proceedStepTwo"
+				@review-step-two="proceedStepTwo"
+				@continue-to-step-three="proceedStepThree"
+				@review-step-three="proceedStepThree"
+				v-if="checkpoint"
+			/>
 
-		<!-- Step Two -->
-		<Photos
-			v-if="page == 8"
-			:next="nextPage"
-			:checkpoint="toggleCheckpoint"
-			:uploadUrl="''"
-		/>
-		<Description
-			v-if="page == 9"
-			:back="prevPage"
-			:next="nextPage"
-			:checkpoint="toggleCheckpoint"
-		/>
-		<Name
-			v-if="page == 9"
-			:back="prevPage"
-			:next="nextPage"
-			:checkpoint="toggleCheckpoint"
-		/>
+			<!-- Step Two -->
+			<Photos
+				v-if="page == 8"
+				:next="nextPage"
+				:checkpoint="toggleCheckpoint"
+				:uploadUrl="''"
+			/>
+			<Description
+				v-if="page == 9"
+				:back="prevPage"
+				:next="nextPage"
+				:checkpoint="toggleCheckpoint"
+			/>
+			<Name
+				v-if="page == 10"
+				:back="prevPage"
+				:next="nextPage"
+				:checkpoint="toggleCheckpoint"
+			/>
+
+			<!-- Step Three -->
+		</div>
 	</div>
 </template>
 
@@ -132,8 +139,8 @@ export default {
 	data() {
 		return {
 			user: {},
-			page: 10,
-			step: 2,
+			page: 1,
+			step: 1,
 			text: [
 				'Step 1: Start with the basics',
 				'Step 2: Set the scene',
