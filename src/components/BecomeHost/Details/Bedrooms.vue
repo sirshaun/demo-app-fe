@@ -23,7 +23,7 @@
 		</div>
 
 		<div class="flex flex-wrap mt-6">
-			<div class="w-full px-3">
+			<div class="w-2/3 px-3">
 				<label
 					class="block text-gray-600 tracking-wide text-light mb-2"
 					for="grid-bedrooms"

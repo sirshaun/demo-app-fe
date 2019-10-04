@@ -57,7 +57,7 @@
 				</div>
 			</div>
 		</div>
-		<hr class="border-gray-300 mr-8" />
+		<hr class="border-gray-300 mr-2" />
 	</div>
 </template>
 
