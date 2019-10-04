@@ -71,7 +71,7 @@ export default {
 		window.addEventListener('scroll', listener)
 
 		this.$once('hook:beforeDestroy', () => {
-			overlay.removeEventListener('scroll', listener)
+			window.removeEventListener('scroll', listener)
 		})
 	},
 }
