@@ -10,14 +10,9 @@
 
 		<div class="flex flex-wrap mt-6">
 			<div class="w-full px-3">
-				<div class="clearfix mt-6">
-					<div class="float-left font-light">
-						<div class="leading-none">Guests</div>
-						<!-- <div class="text-xs tracking-wider">
-							Ages 2-12
-						</div> -->
-					</div>
-					<div class="float-right">
+				<div class="flex flex-wrap items-center">
+					<div class="font-light leading-none">Guests</div>
+					<div class="ml-32">
 						<Counter
 							:initial-counter="guests"
 							:func="updateNumberOfGuests"
@@ -70,11 +65,9 @@
 				>
 					How many beds can guests use?
 				</label>
-				<div class="clearfix mt-4">
-					<div class="float-left font-light">
-						<div class="leading-none">Beds</div>
-					</div>
-					<div class="float-right">
+				<div class="flex flex-wrap items-center mt-4">
+					<div class="font-light leading-none">Beds</div>
+					<div class="ml-32">
 						<Counter
 							:initial-counter="beds"
 							:func="updateNumberOfBeds"
