@@ -11,8 +11,8 @@
 		<div class="flex flex-wrap mt-6">
 			<div class="w-full px-3">
 				<div class="flex flex-wrap items-center">
-					<div class="font-light leading-none">Guests</div>
-					<div class="ml-32">
+					<div class="w-1/3 font-light leading-none">Guests</div>
+					<div class="w-1/3">
 						<Counter
 							:initial-counter="guests"
 							:func="updateNumberOfGuests"
@@ -66,8 +66,8 @@
 					How many beds can guests use?
 				</label>
 				<div class="flex flex-wrap items-center mt-4">
-					<div class="font-light leading-none">Beds</div>
-					<div class="ml-32">
+					<div class="w-1/3 font-light leading-none">Beds</div>
+					<div class="w-1/3">
 						<Counter
 							:initial-counter="beds"
 							:func="updateNumberOfBeds"

@@ -1,9 +1,7 @@
 <template>
-	<div class="clearfix mt-6">
-		<div class="float-left font-light">
-			<div class="leading-none">{{ name }}</div>
-		</div>
-		<div class="float-right">
+	<div class="flex flex-wrap items-center mt-6">
+		<div class="w-1/3 font-light leading-none">{{ name }}</div>
+		<div class="w-1/3">
 			<Counter :initial-counter="beds" :func="updateNumberOfBeds" />
 		</div>
 	</div>
