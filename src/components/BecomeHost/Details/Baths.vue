@@ -16,6 +16,7 @@
 						<Counter
 							:initial-counter="bathrooms"
 							:func="updateNumberOfBathrooms"
+							:min="1"
 							:accuracy="0.5"
 						/>
 					</div>
@@ -31,7 +32,10 @@
 				>
 					Are any of the bathrooms private?
 				</label>
-				<div class="mb-4" v-for="option in privacyOptions">
+				<div
+					:class="{ 'mb-3': index != privacyOptions.length - 1 }"
+					v-for="(option, index) in privacyOptions"
+				>
 					<input
 						type="radio"
 						:id="option.key"
@@ -45,10 +49,16 @@
 						>{{ option.text }}</label
 					>
 				</div>
+				<p
+					v-show="privateBathroomError"
+					class="text-red-500 text-xs italic mt-px"
+				>
+					Please select an option
+				</p>
 			</div>
 		</div>
 
-		<Footer :back="back" :next="next" :checkpoint="checkpoint" />
+		<Footer :back="back" :next="proceed" :checkpoint="checkpoint" />
 	</div>
 </template>
 
@@ -71,11 +81,20 @@ export default {
 				{ key: 'yes', text: 'Yes' },
 				{ key: 'no', text: 'No, they’re shared' },
 			],
+			privateBathroomError: false,
 		}
 	},
 	methods: {
+		checkPrivacyOption() {
+			this.privateBathroomError = this.privateBathroom == ''
+		},
 		updateNumberOfBathrooms(num) {
 			this.bathrooms = num
+		},
+		proceed() {
+			this.checkPrivacyOption()
+
+			if (!this.privateBathroomError) this.next()
 		},
 	},
 }
