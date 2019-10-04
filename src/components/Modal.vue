@@ -42,10 +42,11 @@ export default {
 				if (show) {
 					this.preventBackgroundScrolling &&
 						document.body.style.setProperty('overflow', 'hidden')
-				} else {
+				}
+				/*else {
 					this.preventBackgroundScrolling &&
 						document.body.style.removeProperty('overflow')
-				}
+				}*/
 			},
 		},
 	},
@@ -56,6 +57,9 @@ export default {
 		overlay.addEventListener('click', listener)
 
 		this.$once('hook:beforeDestroy', () => {
+			this.preventBackgroundScrolling &&
+				document.body.style.removeProperty('overflow')
+
 			overlay.removeEventListener('click', listener)
 		})
 
