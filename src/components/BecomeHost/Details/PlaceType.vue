@@ -1,13 +1,13 @@
 <template>
 	<div class="flex flex-col">
-		<h1 class="font-semibold text-2xl text-gray-900">
+		<h1 class="font-semibold text-2xl text-gray-900 px-4">
 			What kind of place are you listing?
 		</h1>
 
-		<div class="flex flex-wrap">
-			<div class="w-full px-3">
+		<div class="flex flex-wrap mt-10">
+			<div class="w-3/5 px-3">
 				<label
-					class="block text-gray-600 text-xs font-bold mb-2"
+					class="block text-gray-600 tracking-wide text-light mb-2"
 					for="grid-listing"
 				>
 					First, let's narrow down things
@@ -39,10 +39,10 @@
 			</div>
 		</div>
 
-		<div class="flex flex-wrap">
-			<div class="w-full px-3">
+		<div class="flex flex-wrap mt-8">
+			<div class="w-3/5 px-3">
 				<label
-					class="block text-gray-600 text-xs font-bold mb-2"
+					class="block text-gray-600 tracking-wide text-light mb-2"
 					for="grid-type"
 				>
 					Now choose a property type
@@ -83,13 +83,13 @@
 			</div>
 		</div>
 
-		<div class="flex flex-wrap">
+		<div class="flex flex-wrap mt-8">
 			<div class="w-full px-3">
 				<label
-					class="block text-gray-600 text-xs font-bold mb-2"
+					class="block text-gray-600 tracking-wide text-light mb-4"
 					for="grid-type"
 				>
-					Is this set up as a dedicated guest space?
+					What will guests have?
 				</label>
 				<div class="mb-4" v-for="option in roomOptions">
 					<input
@@ -104,15 +104,17 @@
 						class="ml-1 font-light inline-block w-11/12"
 						>{{ option.text }}</label
 					>
-					<div class="font-light text-sm">{{ option.descr }}</div>
+					<div class="font-light text-sm tracking wide pl-4">
+						{{ option.descr }}
+					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="flex flex-wrap">
+		<div class="flex flex-wrap mt-8">
 			<div class="w-full px-3">
 				<label
-					class="block text-gray-600 text-xs font-bold mb-2"
+					class="block text-gray-600 tracking-wide text-light mb-2"
 					for="grid-type"
 				>
 					Is this set up as a dedicated guest space?
@@ -146,32 +148,39 @@
 			</div>
 		</div>
 
-		<hr class="border-gray-300 my-6" />
+		<CaseModal @close-case-modal="toggleModal" v-if="caseModal" />
 
-		<div class="clearfix mt-6">
-			<div class="float-left">
-				<a
-					class="flex items-center text-indigo-600 hover:opacity-50 cursor-pointer"
-					@click="back"
-				>
-					<img
-						src="/img/ikonate/chevron-left-indigo-600.svg"
-						class="h-6 mr-1"
-					/>
-					<span class="font-thin">Back</span>
-				</a>
-			</div>
-			<div class="float-right">
-				<a
-					class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
-					@click="next"
-				>
-					Next
-				</a>
+		<div
+			class="fixed bg-gray-100 w-2/5 bottom-0 pb-10 z-max"
+			:class="{ 'shadow-top': shadowOn }"
+		>
+			<hr class="border-gray-300 mb-6 -mx-2" />
+
+			<div v-show="false">{{ yScroll }}</div>
+
+			<div class="clearfix">
+				<div class="float-left">
+					<a
+						class="flex items-center text-indigo-600 hover:opacity-50 cursor-pointer"
+						@click="back"
+					>
+						<img
+							src="/img/ikonate/chevron-left-indigo-600.svg"
+							class="h-6 mr-1"
+						/>
+						<span class="font-thin">Back</span>
+					</a>
+				</div>
+				<div class="float-right">
+					<a
+						class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+						@click="next"
+					>
+						Next
+					</a>
+				</div>
 			</div>
 		</div>
-
-		<CaseModal @close-case-modal="toggleModal" v-if="caseModal" />
 	</div>
 </template>
 
@@ -222,6 +231,8 @@ export default {
 				},
 			],
 			space: '',
+			yScroll: 0,
+			shadowOn: false,
 		}
 	},
 	computed: {
@@ -275,6 +286,16 @@ export default {
 		toggleModal() {
 			this.caseModal = !this.caseModal
 		},
+		onScroll() {
+			var supportPageOffset = window.pageXOffset !== undefined
+			var isCSS1Compat = (document.compatMode || '') === 'CSS1Compat'
+
+			this.yScroll = supportPageOffset
+				? window.pageYOffset
+				: isCSS1Compat
+				? document.documentElement.scrollTop
+				: document.body.scrollTop
+		},
 	},
 	watch: {
 		type: {
@@ -283,6 +304,27 @@ export default {
 				this.caseModal = this.caseParticularTypes.includes(type)
 			},
 		},
+		yScroll: {
+			immediate: true,
+			handler: function(yScroll) {
+				this.shadowOn = yScroll == 0
+			},
+		},
+	},
+	mounted() {
+		const listener = e => this.onScroll()
+
+		window.addEventListener('scroll', listener)
+
+		this.$once('hook:beforeDestroy', () => {
+			overlay.removeEventListener('scroll', listener)
+		})
 	},
 }
 </script>
+
+<style scoped>
+.shadow-top {
+	box-shadow: 0 -10px 5px -10px rgba(0, 0, 0, 0.1);
+}
+</style>
