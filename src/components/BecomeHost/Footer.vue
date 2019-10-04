@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="fixed bg-gray-100 w-5/12 bottom-0 pb-10 z-max"
+		class="fixed bg-gray-100 w-5/12 bottom-0 pb-10"
 		:class="{ 'shadow-top': shadowOn }"
 	>
 		<hr class="border-gray-300 mb-6 -mx-2" />
