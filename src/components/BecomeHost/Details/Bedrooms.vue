@@ -1,14 +1,14 @@
 <template>
 	<div class="flex flex-col">
-		<h1 class="font-semibold text-2xl text-gray-900">
+		<h1 class="font-semibold text-2xl text-gray-900 px-4">
 			What kind of place are you listing?
 		</h1>
-		<p>
+		<p class="px-4">
 			Check that you have enough beds to accommodate all your guests
 			comfortably.
 		</p>
 
-		<div class="flex flex-wrap">
+		<div class="flex flex-wrap mt-6">
 			<div class="w-full px-3">
 				<div class="clearfix mt-6">
 					<div class="float-left font-light">
@@ -27,10 +27,10 @@
 			</div>
 		</div>
 
-		<div class="flex flex-wrap">
+		<div class="flex flex-wrap mt-6">
 			<div class="w-full px-3">
 				<label
-					class="block text-gray-600 text-xs font-bold mb-2"
+					class="block text-gray-600 tracking-wide text-light mb-2"
 					for="grid-bedrooms"
 				>
 					How many bedrooms can guests use?
@@ -62,15 +62,15 @@
 			</div>
 		</div>
 
-		<div class="flex flex-wrap">
+		<div class="flex flex-wrap mt-6">
 			<div class="w-full px-3">
 				<label
-					class="block text-gray-600 text-xs font-bold mb-2"
+					class="block text-gray-600 tracking-wide text-light"
 					for="grid-beds"
 				>
 					How many beds can guests use?
 				</label>
-				<div class="clearfix mt-6">
+				<div class="clearfix mt-4">
 					<div class="float-left font-light">
 						<div class="leading-none">Beds</div>
 					</div>
@@ -84,10 +84,10 @@
 			</div>
 		</div>
 
-		<h1 class="font-semibold text-xl text-gray-900">
+		<h1 class="font-semibold text-xl text-gray-900 px-4 mt-8">
 			Sleeping arrangements
 		</h1>
-		<p>
+		<p class="px-4">
 			Sharing the types of beds in each room can help people understand
 			the sleeping arrangements.
 		</p>
@@ -100,30 +100,7 @@
 
 		<Bedroom name="Common spaces" key="51" />
 
-		<hr class="border-gray-300 my-6" />
-
-		<div class="clearfix mt-6">
-			<div class="float-left">
-				<a
-					class="flex items-center text-indigo-600 hover:opacity-50 cursor-pointer"
-					@click="back"
-				>
-					<img
-						src="/img/ikonate/chevron-left-indigo-600.svg"
-						class="h-6 mr-1"
-					/>
-					<span class="font-thin">Back</span>
-				</a>
-			</div>
-			<div class="float-right">
-				<a
-					class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
-					@click="next"
-				>
-					Next
-				</a>
-			</div>
-		</div>
+		<Footer :back="back" :next="next" :checkpoint="checkpoint" />
 	</div>
 </template>
 
@@ -132,9 +109,10 @@ import Pluralize from 'pluralize'
 
 import Counter from '@/components/Form/Counter'
 import Bedroom from '@/components/BecomeHost/Bedroom'
+import Footer from '@/components/BecomeHost/Footer'
 
 export default {
-	components: { Counter, Bedroom },
+	components: { Counter, Bedroom, Footer },
 	props: {
 		back: { type: Function, required: true },
 		next: { type: Function, required: true },
