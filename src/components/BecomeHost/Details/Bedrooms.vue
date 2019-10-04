@@ -16,6 +16,7 @@
 						<Counter
 							:initial-counter="guests"
 							:func="updateNumberOfGuests"
+							:min="1"
 						/>
 					</div>
 				</div>
@@ -71,6 +72,7 @@
 						<Counter
 							:initial-counter="beds"
 							:func="updateNumberOfBeds"
+							:min="1"
 						/>
 					</div>
 				</div>
@@ -84,6 +86,8 @@
 			Sharing the types of beds in each room can help people understand
 			the sleeping arrangements.
 		</p>
+
+		<hr class="border-gray-300 mt-6 mb-6 mx-2" />
 
 		<Bedroom
 			v-for="(room, index) in bedroomComponents"

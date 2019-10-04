@@ -33,7 +33,8 @@ export default {
 	},
 	data() {
 		return {
-			counter: this.initialCounter,
+			counter:
+				this.initialCounter < this.min ? this.min : this.initialCounter,
 		}
 	},
 	methods: {

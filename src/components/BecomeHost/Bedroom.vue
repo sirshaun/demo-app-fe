@@ -1,9 +1,9 @@
 <template>
-	<div class="mb-32">
+	<div>
 		<div class="flex flex-wrap">
 			<div class="w-full px-3">
-				<div class="clearfix mt-6">
-					<div class="float-left w-2/3 font-light">
+				<div class="flex justify-between">
+					<div class="w-2/3 font-light">
 						<div class="flex flex-col">
 							<div>{{ name }}</div>
 							<div v-if="!addingBeds">
@@ -47,9 +47,9 @@
 							</div>
 						</div>
 					</div>
-					<div class="float-right">
+					<div class="mt-3">
 						<a
-							class="bg-transparent hover:bg-indigo-500 text-indigo-700 font-semibold hover:text-white py-2 px-4 border border-indigo-500 hover:border-transparent rounded"
+							class="bg-transparent hover:bg-indigo-500 text-indigo-700 font-semibold hover:text-white py-2 px-4 border border-indigo-500 hover:border-transparent rounded cursor-pointer"
 							@click="addingBeds = !addingBeds"
 							>{{ addingBedsBtnText }}
 						</a>
@@ -57,7 +57,7 @@
 				</div>
 			</div>
 		</div>
-		<hr class="border-gray-300 mr-2" />
+		<hr class="border-gray-300 mx-2 my-6" />
 	</div>
 </template>
 
