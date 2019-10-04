@@ -1,20 +1,18 @@
 <template>
 	<div class="flex flex-col">
-		<h1 class="font-semibold text-2xl text-gray-900">
+		<h1 class="font-semibold text-2xl text-gray-900 px-4">
 			How many bathrooms?
 		</h1>
-		<p>
+		<p class="px-4">
 			Count bathrooms that don’t have a shower or bathtub as a half
 			bathroom.
 		</p>
 
-		<div class="flex flex-wrap">
+		<div class="flex flex-wrap mt-6">
 			<div class="w-full px-3">
-				<div class="clearfix mt-6">
-					<div class="float-left font-light">
-						<div class="leading-none">Bathrooms</div>
-					</div>
-					<div class="float-right">
+				<div class="flex flex-wrap items-center mt-6">
+					<div class="w-1/3 font-light leading-none">Bathrooms</div>
+					<div class="w-1/3">
 						<Counter
 							:initial-counter="bathrooms"
 							:func="updateNumberOfBathrooms"
@@ -25,10 +23,10 @@
 			</div>
 		</div>
 
-		<div class="flex flex-wrap">
+		<div class="flex flex-wrap mt-6">
 			<div class="w-full px-3">
 				<label
-					class="block text-gray-600 text-xs font-bold mb-2"
+					class="block text-gray-600 tracking-wide text-light mb-2"
 					for="grid-type"
 				>
 					Are any of the bathrooms private?
@@ -50,38 +48,16 @@
 			</div>
 		</div>
 
-		<hr class="border-gray-300 my-6" />
-
-		<div class="clearfix mt-6">
-			<div class="float-left">
-				<a
-					class="flex items-center text-indigo-600 hover:opacity-50 cursor-pointer"
-					@click="back"
-				>
-					<img
-						src="/img/ikonate/chevron-left-indigo-600.svg"
-						class="h-6 mr-1"
-					/>
-					<span class="font-thin">Back</span>
-				</a>
-			</div>
-			<div class="float-right">
-				<a
-					class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
-					@click="next"
-				>
-					Next
-				</a>
-			</div>
-		</div>
+		<Footer :back="back" :next="next" :checkpoint="checkpoint" />
 	</div>
 </template>
 
 <script>
 import Counter from '@/components/Form/Counter'
+import Footer from '@/components/BecomeHost/Footer'
 
 export default {
-	components: { Counter },
+	components: { Counter, Footer },
 	props: {
 		back: { type: Function, required: true },
 		next: { type: Function, required: true },
