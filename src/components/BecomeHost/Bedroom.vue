@@ -51,7 +51,7 @@
 						<a
 							class="bg-transparent hover:bg-indigo-500 text-indigo-700 font-semibold hover:text-white py-2 px-4 border border-indigo-500 hover:border-transparent rounded"
 							@click="addingBeds = !addingBeds"
-							>{{ addingBeds ? 'Done' : 'Add beds' }}
+							>{{ addingBedsBtnText }}
 						</a>
 					</div>
 				</div>
@@ -127,6 +127,13 @@ export default {
 		},
 		nameSlug() {
 			return this.name.toLowerCase().replace(' ', '-')
+		},
+		addingBedsBtnText() {
+			if (this.beds == 0 && !this.addingBeds) return 'Add beds'
+
+			if (this.beds > 0 && !this.addingBeds) return 'Edit beds'
+
+			return 'Done'
 		},
 	},
 	methods: {
