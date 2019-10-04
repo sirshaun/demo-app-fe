@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="mb-32">
 		<div class="flex flex-wrap">
 			<div class="w-full px-3">
 				<div class="clearfix mt-6">
@@ -16,7 +16,7 @@
 									:key="index"
 									:func="incrementBeds"
 								/>
-								<div class="relative">
+								<div class="relative mt-6 mb-10">
 									<select
 										class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
 										:id="'grid-bed-add-' + nameSlug"
@@ -57,7 +57,7 @@
 				</div>
 			</div>
 		</div>
-		<hr class="border-gray-300" />
+		<hr class="border-gray-300 mr-8" />
 	</div>
 </template>
 
