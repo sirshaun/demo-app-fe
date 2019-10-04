@@ -15,8 +15,12 @@
 				<div class="relative">
 					<select
 						class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+						:class="{
+							'border-red-500 bg-red-100 mb-1': listingError,
+						}"
 						id="grid-listing"
 						v-model="listing"
+						@change="listingChanged"
 					>
 						<option v-for="option in listingOptions">
 							{{ option }}
@@ -36,6 +40,9 @@
 						</svg>
 					</div>
 				</div>
+				<p v-show="listingError" class="text-red-500 text-xs italic">
+					Please select an option
+				</p>
 			</div>
 		</div>
 
@@ -50,6 +57,9 @@
 				<div class="relative">
 					<select
 						class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+						:class="{
+							'border-red-500 bg-red-100 mb-1': typeError,
+						}"
 						:disabled="listing == ''"
 						id="grid-type"
 						v-model="type"
@@ -72,6 +82,9 @@
 						</svg>
 					</div>
 				</div>
+				<p v-show="typeError" class="text-red-500 text-xs italic">
+					Please select an option
+				</p>
 				<div class="font-light text-xs">{{ description }}</div>
 			</div>
 		</div>
@@ -87,6 +100,9 @@
 				<div class="relative">
 					<select
 						class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+						:class="{
+							'border-red-500 bg-red-100 mb-1': totalRoomsError,
+						}"
 						id="grid-total-rooms"
 						v-model="totalRooms"
 					>
@@ -108,10 +124,13 @@
 						</svg>
 					</div>
 				</div>
+				<p v-show="totalRoomsError" class="text-red-500 text-xs italic">
+					Please select an option
+				</p>
 			</div>
 		</div>
 
-		<div class="flex flex-wrap mt-8" v-show="type != ''">
+		<div class="flex flex-wrap mt-8" v-show="guestOptionShow">
 			<div class="w-full px-3">
 				<label
 					class="block text-gray-600 tracking-wide text-light mb-4"
@@ -136,10 +155,13 @@
 						{{ option.descr }}
 					</div>
 				</div>
+				<p v-show="roomError" class="text-red-500 text-xs italic">
+					Please select an option
+				</p>
 			</div>
 		</div>
 
-		<div class="flex flex-wrap mt-8 mb-10" v-show="type != ''">
+		<div class="flex flex-wrap mt-8 mb-10" v-show="guestOptionShow">
 			<div class="w-full px-3">
 				<label
 					class="block text-gray-600 tracking-wide text-light mb-2"
@@ -152,7 +174,7 @@
 						type="radio"
 						id="yes"
 						value="yes"
-						name="sapce"
+						name="space"
 						v-model="space"
 					/>
 					<label
@@ -166,19 +188,22 @@
 						type="radio"
 						id="no"
 						value="no"
-						name="sapce"
+						name="space"
 						v-model="space"
 					/>
 					<label for="no" class="ml-1 font-light inline-block w-11/12"
 						>No, I keep my personal belongings here
 					</label>
 				</div>
+				<p v-show="roomError" class="text-red-500 text-xs italic">
+					Please select an option
+				</p>
 			</div>
 		</div>
 
 		<CaseModal @close-case-modal="toggleModal" v-if="caseModal" />
 
-		<Footer :back="back" :next="next" :checkpoint="checkpoint" />
+		<Footer :back="back" :next="proceed" :checkpoint="checkpoint" />
 	</div>
 </template>
 
@@ -240,6 +265,13 @@ export default {
 				},
 			],
 			space: '',
+			totalRoomsOptionShow: false,
+			guestOptionShow: false,
+			listingError: false,
+			typeError: false,
+			totalRoomsError: false,
+			roomError: false,
+			spaceError: false,
 		}
 	},
 	computed: {
@@ -287,13 +319,6 @@ export default {
 					'Ryokan (Japan)',
 				]
 			}
-		},
-		totalRoomsOptionShow() {
-			return (
-				this.type == 'Pension (South Korea)' ||
-				this.type == 'Bed and breakfast' ||
-				this.type == 'Ryokan (Japan)'
-			)
 		},
 		description() {
 			switch (this.type) {
@@ -357,33 +382,61 @@ export default {
 					return ''
 			}
 		},
+		errors() {
+			return (
+				this.listingError ||
+				this.typeError ||
+				this.roomError ||
+				this.spaceError
+			)
+		},
 	},
 	methods: {
+		listingChanged() {
+			this.guestOptionShow = false
+		},
+		checkListing() {
+			this.listingError = this.listing == ''
+		},
+		checkType() {
+			this.typeError = this.type == ''
+		},
+		checkTotalRooms() {
+			if (this.totalRoomsOptionShow) {
+				this.totalRoomsError = this.totalRooms == ''
+			}
+		},
+		checkRoom() {
+			this.roomError = this.room == ''
+		},
+		checkSpace() {
+			this.spaceError = this.space == ''
+		},
+		proceed() {
+			this.checkListing() ||
+				this.checkType() ||
+				this.checkTotalRooms() ||
+				this.checkRoom() ||
+				this.checkSpace()
+
+			if (!this.errors) this.next()
+		},
 		toggleModal() {
 			this.caseModal = !this.caseModal
-		},
-		onScroll() {
-			var supportPageOffset = window.pageXOffset !== undefined
-			var isCSS1Compat = (document.compatMode || '') === 'CSS1Compat'
-
-			this.yScroll = supportPageOffset
-				? window.pageYOffset
-				: isCSS1Compat
-				? document.documentElement.scrollTop
-				: document.body.scrollTop
 		},
 	},
 	watch: {
 		type: {
-			immediate: false,
+			immediate: true,
 			handler: function(type) {
 				this.caseModal = this.caseParticularTypes.includes(type)
-			},
-		},
-		yScroll: {
-			immediate: true,
-			handler: function(yScroll) {
-				this.shadowOn = yScroll == 0
+
+				if (type != '') this.guestOptionShow = true
+
+				this.totalRoomsOptionShow =
+					this.type == 'Pension (South Korea)' ||
+					this.type == 'Bed and breakfast' ||
+					this.type == 'Ryokan (Japan)'
 			},
 		},
 	},
