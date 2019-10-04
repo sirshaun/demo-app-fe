@@ -1,14 +1,14 @@
 <template>
 	<div class="flex flex-col" v-show="countries[0]">
-		<h1 class="font-semibold text-2xl text-gray-900">
+		<h1 class="font-semibold text-2xl text-gray-900 px-4">
 			Where’s your place located?
 		</h1>
-		<p>
+		<p class="px-4">
 			Guests will only get your exact address once they’ve booked a
 			reservation.
 		</p>
 
-		<div class="flex flex-wrap">
+		<div class="flex flex-wrap mt-6 px-4">
 			<a
 				class="bg-transparent hover:bg-indigo-500 text-indigo-700 font-semibold hover:text-white p-2 border border-indigo-500 hover:border-transparent rounded flex items-center"
 			>
@@ -20,10 +20,10 @@
 			</a>
 		</div>
 
-		<div class="flex flex-wrap">
+		<div class="flex flex-wrap mt-6">
 			<div class="w-full px-3">
 				<label
-					class="block text-gray-600 text-xs font-bold mb-2"
+					class="block text-gray-600 tracking-wide text-light mb-2"
 					for="grid-bedrooms"
 				>
 					Country / Region
@@ -58,7 +58,7 @@
 			</div>
 		</div>
 
-		<div class="flex flex-wrap">
+		<div class="flex flex-wrap mt-6">
 			<div class="w-full px-3">
 				<label
 					class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -76,7 +76,7 @@
 			</div>
 		</div>
 
-		<div class="flex flex-wrap">
+		<div class="flex flex-wrap mt-6">
 			<div class="w-full px-3">
 				<label
 					class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -94,7 +94,7 @@
 			</div>
 		</div>
 
-		<div class="flex flex-wrap">
+		<div class="flex flex-wrap mt-6">
 			<div class="w-1/2 px-3">
 				<label
 					class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -127,7 +127,7 @@
 			</div>
 		</div>
 
-		<div class="flex flex-wrap">
+		<div class="flex flex-wrap mt-6">
 			<div class="w-1/2 px-3">
 				<label
 					class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -145,35 +145,15 @@
 			</div>
 		</div>
 
-		<hr class="border-gray-300 my-6" />
-
-		<div class="clearfix mt-6">
-			<div class="float-left">
-				<a
-					class="flex items-center text-indigo-600 hover:opacity-50 cursor-pointer"
-					@click="back"
-				>
-					<img
-						src="/img/ikonate/chevron-left-indigo-600.svg"
-						class="h-6 mr-1"
-					/>
-					<span class="font-thin">Back</span>
-				</a>
-			</div>
-			<div class="float-right">
-				<a
-					class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
-					@click="next"
-				>
-					Next
-				</a>
-			</div>
-		</div>
+		<Footer :back="back" :next="next" :checkpoint="checkpoint" />
 	</div>
 </template>
 
 <script>
+import Footer from '@/components/BecomeHost/Footer'
+
 export default {
+	components: { Footer },
 	props: {
 		back: { type: Function, required: true },
 		next: { type: Function, required: true },
