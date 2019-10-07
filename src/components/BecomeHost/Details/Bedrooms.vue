@@ -130,7 +130,7 @@ export default {
 			bedrooms: '',
 			beds: 0,
 			bedroomComponents: 0,
-			bedroonSpaces: {},
+			bedroomSpaces: {},
 		}
 	},
 	methods: {
@@ -143,13 +143,12 @@ export default {
 		updateBedroomSpaces(name, data) {
 			var sluggedName = name.toLowerCase().replace(' ', '_')
 
-			this.bedroonSpaces[sluggedName] = data
+			this.bedroomSpaces[sluggedName] = data
 		},
 		pluralize(word, count = 0, inclusive) {
 			return Pluralize(word, count, inclusive)
 		},
 		updateAndContinue() {
-			console.log(this.bedroonSpaces)
 			this.$store.dispatch('updateBedrooms', {
 				guests: this.guests,
 				bedrooms: this.bedrooms,

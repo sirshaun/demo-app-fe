@@ -51,7 +51,6 @@ const mutations = {
 	},
 
 	UPDATE_LISTING_BEDROOMS(state, obj) {
-		console.log(obj)
 		Vue.set(state.listing, 'guests', obj.guests)
 		Vue.set(state.listing, 'bedrooms', obj.bedrooms)
 		Vue.set(state.listing, 'beds', obj.beds)
@@ -85,7 +84,6 @@ const actions = {
 		context.commit('UPDATE_LISTING_PLACE', data)
 	},
 	updateBedrooms(context, data) {
-		console.log(data)
 		context.commit('UPDATE_LISTING_BEDROOMS', data)
 	},
 	updateBaths(context, data) {
