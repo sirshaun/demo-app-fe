@@ -12,11 +12,14 @@
 			<a
 				class="bg-transparent hover:bg-indigo-500 text-indigo-700 font-semibold hover:text-white p-2 border border-indigo-500 hover:border-transparent rounded flex items-center"
 			>
-				<img
-					src="/img/ikonate/location-indigo-700.svg"
-					class="h-6 mr-2"
-				/>
-				<span class="font-thin">Use current location</span>
+				<svg
+					class="h-5 fill-current"
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 20 20"
+				>
+					<path d="M0 0l20 8-8 4-2 8z" />
+				</svg>
+				<span class="font-thin ml-2">Use current location</span>
 			</a>
 		</div>
 

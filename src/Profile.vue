@@ -26,10 +26,15 @@
 								class="flex items-center text-indigo-600 hover:text-indigo-200"
 								@click="scrollTo('profile-reviews')"
 							>
-								<img
-									src="/img/ikonate/chat-alt.svg"
-									class="h-4 mr-2"
-								/>
+								<svg
+									class="h-4 mr-2 text-gray-700 fill-current"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 20 20"
+								>
+									<path
+										d="M10 15l-4 4v-4H2a2 2 0 0 1-2-2V3c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-8zM5 7v2h2V7H5zm4 0v2h2V7H9zm4 0v2h2V7h-2z"
+									/>
+								</svg>
 								<span class="font-thin">{{
 									pluralize('review', user.reviews, true)
 								}}</span>
@@ -39,10 +44,15 @@
 								<a
 									class="flex items-center text-indigo-600 hover:text-indigo-200"
 								>
-									<img
-										src="/img/ikonate/verified.svg"
-										class="h-4 mr-2"
-									/>
+									<svg
+										class="h-4 mr-2 text-gray-700 fill-current"
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 20 20"
+									>
+										<path
+											d="M10 12a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-3a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm4 2.75V20l-4-4-4 4v-8.25a6.97 6.97 0 0 0 8 0z"
+										/>
+									</svg>
 									<span class="font-thin">Verified</span>
 								</a>
 							</router-link>
@@ -56,30 +66,45 @@
 								class="flex items-center mb-2"
 								v-show="user.identification"
 							>
-								<img
-									src="/img/ikonate/ok-circle.svg"
-									class="h-4 mr-2"
-								/>
+								<svg
+									class="h-4 mr-2 text-gray-700 fill-current"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 20 20"
+								>
+									<path
+										d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM6.7 9.29L9 11.6l4.3-4.3 1.4 1.42L9 14.4l-3.7-3.7 1.4-1.42z"
+									/>
+								</svg>
 								<span class="font-thin"> Government ID</span>
 							</div>
 							<div
 								class="flex items-center mb-2"
 								v-show="user.email_verified"
 							>
-								<img
-									src="/img/ikonate/ok-circle.svg"
-									class="h-4 mr-2"
-								/>
+								<svg
+									class="h-4 mr-2 text-gray-700 fill-current"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 20 20"
+								>
+									<path
+										d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM6.7 9.29L9 11.6l4.3-4.3 1.4 1.42L9 14.4l-3.7-3.7 1.4-1.42z"
+									/>
+								</svg>
 								<span class="font-thin"> Email address</span>
 							</div>
 							<div
 								class="flex items-center"
 								v-show="user.mobile_verified"
 							>
-								<img
-									src="/img/ikonate/ok-circle.svg"
-									class="h-4 mr-2"
-								/>
+								<svg
+									class="h-4 mr-2 text-gray-700 fill-current"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 20 20"
+								>
+									<path
+										d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM6.7 9.29L9 11.6l4.3-4.3 1.4 1.42L9 14.4l-3.7-3.7 1.4-1.42z"
+									/>
+								</svg>
 								<span class="font-thin"> Phone number</span>
 							</div>
 						</div>

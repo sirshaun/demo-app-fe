@@ -11,11 +11,15 @@
 				class="absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50"
 				@click="dismiss"
 			>
-				<img
-					class="w-4 h-4 md:h-8 md:w-8"
-					src="/img/ikonate/close-white.svg"
-					alt=""
-				/>
+				<svg
+					class="h-6 text-white fill-current"
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 20 20"
+				>
+					<path
+						d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"
+					/>
+				</svg>
 				<span class="text-sm">(Esc)</span>
 			</div>
 
