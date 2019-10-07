@@ -214,7 +214,6 @@ import Footer from '@/components/BecomeHost/Footer'
 export default {
 	components: { CaseModal, Footer },
 	props: {
-		back: { type: Function, required: true },
 		next: { type: Function, required: true },
 		checkpoint: { type: Function, required: true },
 	},
@@ -411,6 +410,9 @@ export default {
 		},
 		checkSpace() {
 			this.spaceError = this.space == ''
+		},
+		back() {
+			// TODO: go back to site
 		},
 		proceed() {
 			this.checkListing() ||

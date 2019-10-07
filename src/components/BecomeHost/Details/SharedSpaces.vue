@@ -28,7 +28,7 @@
 
 		<Footer
 			:back="back"
-			:next="next"
+			:next="checkpoint"
 			:checkpoint="checkpoint"
 			next-btn-text="Done"
 		/>
