@@ -19,7 +19,7 @@ const state = {
 		private: '',
 		country: '',
 		streetAddress: '',
-		aptNumber: '',
+		apartmentNumber: '',
 		city: '',
 		state: '',
 		postcode: '',
@@ -59,23 +59,30 @@ const mutations = {
 
 	UPDATE_LISTING_BATHS(state, obj) {
 		Vue.set(state.listing, 'bathrooms', obj.bathrooms)
-		Vue.set(state.listing, 'privacy', obj.private)
+		Vue.set(state.listing, 'private', obj.private)
 	},
 
 	UPDATE_LISTING_LOCATION(state, obj) {
-		// state.listing = obj
+		Vue.set(state.listing, 'country', obj.country)
+		Vue.set(state.listing, 'street', obj.street)
+		Vue.set(state.listing, 'apartmentNumber', obj.aptNum)
+		Vue.set(state.listing, 'city', obj.city)
+		Vue.set(state.listing, 'state', obj.state)
+		Vue.set(state.listing, 'postcode', obj.postcode)
 	},
 
 	UPDATE_LISTING_COORDINATES(state, obj) {
-		// state.listing = obj
+		Vue.set(state.listing, 'longitude', obj.long)
+		Vue.set(state.listing, 'latitude', obj.lat)
 	},
 
 	UPDATE_LISTING_AMENITIES(state, obj) {
-		// state.listing = obj
+		Vue.set(state.listing, 'amenities', obj.basic)
+		Vue.set(state.listing, 'safetyAmenities', obj.safety)
 	},
 
 	UPDATE_LISTING_SHARED_SPACES(state, obj) {
-		// state.listing = obj
+		Vue.set(state.listing, 'spaces', obj.spaces)
 	},
 }
 

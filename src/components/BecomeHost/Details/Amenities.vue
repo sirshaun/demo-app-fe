@@ -53,7 +53,11 @@
 			</div>
 		</div>
 
-		<Footer :back="back" :next="next" :checkpoint="checkpoint" />
+		<Footer
+			:back="back"
+			:next="updateAndContinue"
+			:checkpoint="checkpoint"
+		/>
 	</div>
 </template>
 
@@ -109,6 +113,16 @@ export default {
 				{ value: 'First aid kit', descr: '' },
 			],
 		}
+	},
+	methods: {
+		updateAndContinue() {
+			this.$store.dispatch('updateAmenities', {
+				basic: this.checkedDefaultAmenities,
+				safety: this.checkedSafetyAmenities,
+			})
+
+			this.next()
+		},
 	},
 }
 </script>

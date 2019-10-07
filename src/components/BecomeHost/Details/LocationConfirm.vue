@@ -23,7 +23,7 @@
 
 		<Footer
 			:back="back"
-			:next="next"
+			:next="updateAndContinue"
 			:checkpoint="checkpoint"
 			next-btn-text="Yes, that's right"
 		/>
@@ -42,6 +42,22 @@ export default {
 		address: {
 			type: String,
 			default: '12 Lewton Road, Mount Waverley, VIC 3149, Australia',
+		},
+	},
+	data() {
+		return {
+			long: '',
+			lat: '',
+		}
+	},
+	methods: {
+		updateAndContinue() {
+			this.$store.dispatch('updateCoordinates', {
+				long: this.long,
+				lat: this.lat,
+			})
+
+			this.next()
 		},
 	},
 }

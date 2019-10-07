@@ -28,7 +28,7 @@
 
 		<Footer
 			:back="back"
-			:next="checkpoint"
+			:next="updateAndContinue"
 			:checkpoint="checkpoint"
 			next-btn-text="Done"
 		/>
@@ -60,6 +60,15 @@ export default {
 				'Elevator',
 			],
 		}
+	},
+	methods: {
+		updateAndContinue() {
+			this.$store.dispatch('updateSharedSpaces', {
+				spaces: this.checkedSpaces,
+			})
+
+			this.checkpoint()
+		},
 	},
 }
 </script>

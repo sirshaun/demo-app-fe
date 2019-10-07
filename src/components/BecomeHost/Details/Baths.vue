@@ -94,7 +94,15 @@ export default {
 		proceed() {
 			this.checkPrivacyOption()
 
-			if (!this.privateBathroomError) this.next()
+			if (!this.privateBathroomError) this.updateAndContinue()
+		},
+		updateAndContinue() {
+			this.$store.dispatch('updateBaths', {
+				bathrooms: this.bathrooms,
+				private: this.privateBathroom,
+			})
+
+			this.next()
 		},
 	},
 }

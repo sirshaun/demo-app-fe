@@ -245,7 +245,19 @@ export default {
 				this.checkState() ||
 				this.checkPostcode()
 
-			if (!this.errors) this.next()
+			if (!this.errors) this.updateAndContinue()
+		},
+		updateAndContinue() {
+			this.$store.dispatch('updateLocation', {
+				country: this.country,
+				street: this.street,
+				aptNum: this.aptNum,
+				city: this.city,
+				state: this.state,
+				postcode: this.postcode,
+			})
+
+			this.next()
 		},
 		fetchCountries() {
 			this.$http.get('/location/countries').then(
