@@ -29,43 +29,43 @@
 		<div class="ml-64">
 			<!-- Step One -->
 			<PlaceType
-				v-if="page == 1"
+				v-if="page == 1 && !checkpoint"
 				:back="prevPage"
 				:next="nextPage"
 				:checkpoint="toggleCheckpoint"
 			/>
 			<Bedrooms
-				v-if="page == 2"
+				v-if="page == 2 && !checkpoint"
 				:back="prevPage"
 				:next="nextPage"
 				:checkpoint="toggleCheckpoint"
 			/>
 			<Baths
-				v-if="page == 3"
+				v-if="page == 3 && !checkpoint"
 				:back="prevPage"
 				:next="nextPage"
 				:checkpoint="toggleCheckpoint"
 			/>
 			<Location
-				v-if="page == 4"
+				v-if="page == 4 && !checkpoint"
 				:back="prevPage"
 				:next="nextPage"
 				:checkpoint="toggleCheckpoint"
 			/>
 			<LocationConfirm
-				v-if="page == 5"
+				v-if="page == 5 && !checkpoint"
 				:back="prevPage"
 				:next="nextPage"
 				:checkpoint="toggleCheckpoint"
 			/>
 			<Amenities
-				v-if="page == 6"
+				v-if="page == 6 && !checkpoint"
 				:back="prevPage"
 				:next="nextPage"
 				:checkpoint="toggleCheckpoint"
 			/>
 			<SharedSpaces
-				v-if="page == 7"
+				v-if="page == 7 && !checkpoint"
 				:back="prevPage"
 				:next="nextPage"
 				:checkpoint="toggleCheckpoint"
@@ -86,19 +86,19 @@
 
 			<!-- Step Two -->
 			<Photos
-				v-if="page == 8"
+				v-if="page == 8 && !checkpoint"
 				:next="nextPage"
 				:checkpoint="toggleCheckpoint"
 				:uploadUrl="''"
 			/>
 			<Description
-				v-if="page == 9"
+				v-if="page == 9 && !checkpoint"
 				:back="prevPage"
 				:next="nextPage"
 				:checkpoint="toggleCheckpoint"
 			/>
 			<Name
-				v-if="page == 10"
+				v-if="page == 10 && !checkpoint"
 				:back="prevPage"
 				:next="nextPage"
 				:checkpoint="toggleCheckpoint"
@@ -139,7 +139,7 @@ export default {
 	data() {
 		return {
 			user: {},
-			page: 4,
+			page: 1,
 			step: 1,
 			text: [
 				'Step 1: Start with the basics',
