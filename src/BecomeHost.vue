@@ -140,7 +140,7 @@ export default {
 		return {
 			user: {},
 			listing: {},
-			page: 2,
+			page: 1,
 			step: 1,
 			text: [
 				'Step 1: Start with the basics',
