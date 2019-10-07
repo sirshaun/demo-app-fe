@@ -28,6 +28,33 @@ Vue.prototype.$http = axios.create({
 
 const state = {
 	isLogged: !!localStorage.getItem('token'),
+	listing: {
+		listing: '',
+		property: '',
+		rooms: '',
+		roomType: '',
+		spaceType: '',
+		guests: '',
+		bedrooms: '',
+		beds: '',
+		bedroomSpaces: [],
+		commonSpace: [],
+		bathrooms: '',
+		private: '',
+		country: '',
+		streetAddress: '',
+		aptNumber: '',
+		city: '',
+		state: '',
+		postcode: '',
+		coordinates: {
+			latitude: '',
+			longitude: '',
+		},
+		amenities: [],
+		safetyAmenities: [],
+		spaces: [],
+	},
 }
 
 const mutations = {
@@ -38,9 +65,13 @@ const mutations = {
 	LOGOUT_USER(state) {
 		state.isLogged = false
 	},
+
+	UPDATE_LISTING(state, listing) {
+		state.listing = listing
+	},
 }
 
-window.Store = new Vuex.Store({
+const store = new Vuex.Store({
 	strict: process.env.NODE_ENV !== 'production',
 	state,
 	mutations,
@@ -82,5 +113,6 @@ const router = new VueRouter({
 // Make sure to inject the router with the router option to make the
 // whole app router-aware.
 const app = new Vue({
+	store,
 	router,
 }).$mount('#app')

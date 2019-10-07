@@ -102,7 +102,7 @@ export default {
 	},
 	computed: {
 		whereTo() {
-			return Store.state.isLogged ? '/' : '/login'
+			return this.$store.state.isLogged ? '/' : '/login'
 		},
 	},
 	mounted() {

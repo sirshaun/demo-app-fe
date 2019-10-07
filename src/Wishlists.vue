@@ -109,7 +109,7 @@ export default {
 		},
 	},
 	mounted() {
-		if (!Store.state.isLogged) {
+		if (!this.$store.state.isLogged) {
 			window.history.length > 1
 				? this.$router.go(-1)
 				: this.$router.push('/')

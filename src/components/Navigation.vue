@@ -163,7 +163,7 @@ export default {
 	},
 	computed: {
 		loggedIn() {
-			return Store.state.isLogged
+			return this.$store.state.isLogged
 		},
 	},
 }

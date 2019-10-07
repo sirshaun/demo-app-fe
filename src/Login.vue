@@ -141,7 +141,7 @@ export default {
 				.then(
 					response => {
 						localStorage.setItem('token', response.data.token)
-						Store.commit('LOGIN_USER')
+						this.$store.commit('LOGIN_USER')
 						this.$router.push('/profile')
 					},
 					error => {
@@ -165,7 +165,7 @@ export default {
 		},
 	},
 	beforeCreate() {
-		if (Store.state.isLogged) {
+		if (this.$store.state.isLogged) {
 			window.history.length > 1
 				? this.$router.go(-1)
 				: this.$router.push('/')

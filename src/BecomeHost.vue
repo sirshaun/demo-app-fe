@@ -139,7 +139,7 @@ export default {
 	data() {
 		return {
 			user: {},
-			page: 1,
+			page: 7,
 			step: 1,
 			text: [
 				'Step 1: Start with the basics',
