@@ -30,7 +30,13 @@ export default {
 		beds: {
 			immediate: false,
 			handler: function(beds) {
-				this.func(this.name, beds)
+				// NOTE: name with white space are shortened to just the
+				// first word of that name (to match the data in the parent)
+
+				if (/\s/.test(this.name))
+					var shortName = this.name.substr(0, this.name.indexOf(' '))
+
+				this.func(shortName || this.name, beds)
 			},
 		},
 	},

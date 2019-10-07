@@ -139,7 +139,8 @@ export default {
 	data() {
 		return {
 			user: {},
-			page: 7,
+			listing: {},
+			page: 2,
 			step: 1,
 			text: [
 				'Step 1: Start with the basics',
@@ -188,6 +189,15 @@ export default {
 				}
 			},
 		},
+	},
+	created() {
+		if (!this.$store.state.isLogged) {
+			window.history.length > 1
+				? this.$router.go(-1)
+				: this.$router.push('/')
+		} else {
+			this.listing = this.$store.state.listing
+		}
 	},
 }
 </script>

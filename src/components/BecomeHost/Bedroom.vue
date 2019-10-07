@@ -19,7 +19,7 @@
 								<div class="relative mt-6 mb-10">
 									<select
 										class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-										:id="'grid-bed-add-' + nameSlug"
+										:id="('grid-bed-add-', nameSlug)"
 										@change="addBed($event)"
 									>
 										<option
@@ -50,7 +50,7 @@
 					<div class="mt-3">
 						<a
 							class="bg-transparent hover:bg-indigo-500 text-indigo-700 font-semibold hover:text-white py-2 px-4 border border-indigo-500 hover:border-transparent rounded cursor-pointer"
-							@click="addingBeds = !addingBeds"
+							@click="toggleView"
 							>{{ addingBedsBtnText }}
 						</a>
 					</div>
@@ -66,6 +66,23 @@ import Pluralize from 'pluralize'
 
 import Counter from '@/components/Form/Counter'
 import Bed from './Bed'
+
+const rooms = [
+	'double',
+	'queen',
+	'single',
+	'sofa',
+	'king',
+	'small',
+	'couch',
+	'bunk',
+	'floor',
+	'air',
+	'cot',
+	'toddler',
+	'hammock',
+	'water',
+]
 
 export default {
 	components: { Bed },
@@ -159,6 +176,25 @@ export default {
 		},
 		isDefaultOption(option) {
 			return option == 'Add another bed'
+		},
+		toggleView() {
+			if (this.addingBedsBtnText == 'Done')
+				this.$emit(
+					'bedroom-beds-updated',
+					this.name,
+					this.bedsAsArray()
+				)
+
+			this.addingBeds = !this.addingBeds
+		},
+		bedsAsArray() {
+			var arr = {}
+
+			rooms.forEach(e => {
+				if (this[e] > 0) arr[e] = this[e]
+			})
+
+			return arr
 		},
 		pluralize(word, count = 0, inclusive) {
 			return Pluralize(word, count, inclusive)

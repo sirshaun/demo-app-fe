@@ -274,6 +274,9 @@ export default {
 		}
 	},
 	computed: {
+		listingObj() {
+			return this.$store.state.listing
+		},
 		typeOptions() {
 			if (this.listing == 'Apartment') {
 				return [
@@ -421,7 +424,18 @@ export default {
 				this.checkRoom() ||
 				this.checkSpace()
 
-			if (!this.errors) this.next()
+			if (!this.errors) this.updateAndContinue()
+		},
+		updateAndContinue() {
+			this.$store.dispatch('updatePlaceType', {
+				listing: this.listing,
+				property: this.type,
+				rooms: this.totalRooms,
+				roomType: this.room,
+				spaceType: this.space,
+			})
+
+			this.next()
 		},
 		toggleModal() {
 			this.caseModal = !this.caseModal

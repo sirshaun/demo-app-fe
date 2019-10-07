@@ -93,11 +93,20 @@
 			v-for="(room, index) in bedroomComponents"
 			:name="'Bedroom ' + (index + 1)"
 			:key="room"
+			@bedroom-beds-updated="updateBedroomSpaces"
 		/>
 
-		<Bedroom name="Common spaces" key="51" />
+		<Bedroom
+			name="Common spaces"
+			key="51"
+			@bedroom-beds-updated="updateBedroomSpaces"
+		/>
 
-		<Footer :back="back" :next="next" :checkpoint="checkpoint" />
+		<Footer
+			:back="back"
+			:next="updateAndContinue"
+			:checkpoint="checkpoint"
+		/>
 	</div>
 </template>
 
@@ -121,6 +130,7 @@ export default {
 			bedrooms: '',
 			beds: 0,
 			bedroomComponents: 0,
+			bedroonSpaces: {},
 		}
 	},
 	methods: {
@@ -130,11 +140,30 @@ export default {
 		updateNumberOfBeds(num) {
 			this.beds = num
 		},
+		updateBedroomSpaces(name, data) {
+			var sluggedName = name.toLowerCase().replace(' ', '_')
+
+			this.bedroonSpaces[sluggedName] = data
+		},
 		pluralize(word, count = 0, inclusive) {
 			return Pluralize(word, count, inclusive)
 		},
+		updateAndContinue() {
+			console.log(this.bedroonSpaces)
+			this.$store.dispatch('updateBedrooms', {
+				guests: this.guests,
+				bedrooms: this.bedrooms,
+				beds: this.beds,
+				bedroomSpaces: this.bedroomSpaces,
+			})
+
+			this.next()
+		},
 	},
 	computed: {
+		listingObj() {
+			return this.$store.state.listing
+		},
 		bedroomOptions() {
 			var options = []
 
