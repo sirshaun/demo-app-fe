@@ -432,9 +432,9 @@ export default {
 				spaceType: this.space,
 			})
 
-			// this.$store.dispatch('updateProgress', {
-			// 	progress: 'step one in progress',
-			// })
+			this.$store.dispatch('updateProgress', {
+				progress: 'step one in progress',
+			})
 
 			this.next()
 		},

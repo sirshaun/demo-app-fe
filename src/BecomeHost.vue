@@ -1,110 +1,152 @@
 <template>
-	<div
-		class="bg-gray-100 min-h-screen w-3/5 px-6 pt-10 pb-20"
-		:class="{ 'md:mt-22': !checkpoint }"
-	>
-		<div class="mb-10" v-if="!checkpoint">
-			<nav class="nav-float justify-start">
-				<div class="flex items-center flex-shrink-0 text-white mr-6">
-					<router-link to="/">
-						<img
-							class="h-10"
-							src="/img/logo-mini.svg"
-							alt="Workcation"
-						/>
-					</router-link>
-				</div>
-				<div class="font-light text-lg tracking-wide">
-					{{ navText }}
-				</div>
-				<!-- TODO: Add save and exit button -->
-			</nav>
+	<div>
+		<div class="flex justify-between mt-20 pt-2 bg-gray-100" v-if="review">
+			<div
+				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4"
+				:class="{ 'bg-gray-200': page == 1 }"
+			>
+				Place type
+			</div>
+			<div
+				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4"
+				:class="{ 'bg-gray-200': page == 2 }"
+			>
+				Bedrooms
+			</div>
+			<div
+				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4"
+				:class="{ 'bg-gray-200': page == 3 }"
+			>
+				Baths
+			</div>
+			<div
+				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4"
+				:class="{ 'bg-gray-200': page == 4 || page == 5 }"
+			>
+				Location
+			</div>
+			<div
+				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4"
+				:class="{ 'bg-gray-200': page == 6 }"
+			>
+				Amenities
+			</div>
+			<div
+				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4"
+				:class="{ 'bg-gray-200': page == 7 }"
+			>
+				Shared spaces
+			</div>
 		</div>
+		<div
+			class="bg-gray-100 min-h-screen w-3/5 px-6 pt-10 pb-20"
+			:class="{ 'md:mt-22': !checkpoint && !review }"
+		>
+			<div class="mb-10" v-if="!checkpoint">
+				<nav class="nav-float justify-start">
+					<div
+						class="flex items-center flex-shrink-0 text-white mr-6"
+					>
+						<router-link to="/">
+							<img
+								class="h-10"
+								src="/img/logo-mini.svg"
+								alt="Workcation"
+							/>
+						</router-link>
+					</div>
+					<div class="font-light text-lg tracking-wide">
+						{{ navText }}
+					</div>
+					<!-- TODO: Add save and exit button -->
+				</nav>
+			</div>
 
-		<!-- Progress bar -->
+			<!-- Progress bar -->
 
-		<!-- Stepper -->
-		<!-- Place Type, Bedrooms, Baths, Location, Amenities, Shared spaces -->
+			<!-- Stepper -->
+			<!-- Place Type, Bedrooms, Baths, Location, Amenities, Shared spaces -->
 
-		<div class="ml-64">
-			<!-- Step One -->
-			<PlaceType
-				v-if="page == 1 && !checkpoint"
-				:back="prevPage"
-				:next="nextPage"
-				:checkpoint="toggleCheckpoint"
-			/>
-			<Bedrooms
-				v-if="page == 2 && !checkpoint"
-				:back="prevPage"
-				:next="nextPage"
-				:checkpoint="toggleCheckpoint"
-			/>
-			<Baths
-				v-if="page == 3 && !checkpoint"
-				:back="prevPage"
-				:next="nextPage"
-				:checkpoint="toggleCheckpoint"
-			/>
-			<Location
-				v-if="page == 4 && !checkpoint"
-				:back="prevPage"
-				:next="nextPage"
-				:checkpoint="toggleCheckpoint"
-			/>
-			<LocationConfirm
-				v-if="page == 5 && !checkpoint"
-				:back="prevPage"
-				:next="nextPage"
-				:checkpoint="toggleCheckpoint"
-			/>
-			<Amenities
-				v-if="page == 6 && !checkpoint"
-				:back="prevPage"
-				:next="nextPage"
-				:checkpoint="toggleCheckpoint"
-			/>
-			<SharedSpaces
-				v-if="page == 7 && !checkpoint"
-				:back="prevPage"
-				:next="nextPage"
-				:checkpoint="toggleCheckpoint"
-			/>
+			<div class="ml-64">
+				<!-- Step One -->
+				<PlaceType
+					v-if="page == 1 && !checkpoint"
+					:back="prevPage"
+					:next="nextPage"
+					:checkpoint="toggleCheckpoint"
+				/>
+				<Bedrooms
+					v-if="page == 2 && !checkpoint"
+					:back="prevPage"
+					:next="nextPage"
+					:checkpoint="toggleCheckpoint"
+				/>
+				<Baths
+					v-if="page == 3 && !checkpoint"
+					:back="prevPage"
+					:next="nextPage"
+					:checkpoint="toggleCheckpoint"
+				/>
+				<Location
+					v-if="page == 4 && !checkpoint"
+					:back="prevPage"
+					:next="nextPage"
+					:checkpoint="toggleCheckpoint"
+				/>
+				<LocationConfirm
+					v-if="page == 5 && !checkpoint"
+					:back="prevPage"
+					:next="nextPage"
+					:checkpoint="toggleCheckpoint"
+				/>
+				<Amenities
+					v-if="page == 6 && !checkpoint"
+					:back="prevPage"
+					:next="nextPage"
+					:checkpoint="toggleCheckpoint"
+				/>
+				<SharedSpaces
+					v-if="page == 7 && !checkpoint"
+					:back="prevPage"
+					:next="nextPage"
+					:checkpoint="toggleCheckpoint"
+				/>
 
-			<!-- Checkpoint -->
-			<Checkpoint
-				:checkpoint="toggleCheckpoint"
-				:step="step"
-				:page="page"
-				@review-step-one="stepOneReview"
-				@continue-to-step-two="proceedStepTwo"
-				@review-step-two="proceedStepTwo"
-				@continue-to-step-three="proceedStepThree"
-				@review-step-three="proceedStepThree"
-				v-if="checkpoint"
-			/>
+				<!-- Checkpoint -->
+				<Checkpoint
+					:checkpoint="toggleCheckpoint"
+					:step="step"
+					:page="page"
+					@review-step-one="stepOneReview"
+					@continue-to-step-two="proceedStepTwo"
+					@review-step-two="proceedStepTwo"
+					@continue-to-step-three="proceedStepThree"
+					@review-step-three="proceedStepThree"
+					v-if="checkpoint"
+				/>
 
-			<!-- Step Two -->
-			<Photos
-				v-if="page == 8 && !checkpoint"
-				:next="nextPage"
-				:checkpoint="toggleCheckpoint"
-				:uploadUrl="''"
-			/>
-			<Description
-				v-if="page == 9 && !checkpoint"
-				:back="prevPage"
-				:next="nextPage"
-				:checkpoint="toggleCheckpoint"
-			/>
-			<Name
-				v-if="page == 10 && !checkpoint"
-				:back="prevPage"
-				:next="nextPage"
-				:checkpoint="toggleCheckpoint"
-			/>
+				<!-- Step Two -->
+				<Photos
+					v-if="page == 8 && !checkpoint"
+					:next="nextPage"
+					:checkpoint="toggleCheckpoint"
+					:uploadUrl="''"
+				/>
+				<Description
+					v-if="page == 9 && !checkpoint"
+					:back="prevPage"
+					:next="nextPage"
+					:checkpoint="toggleCheckpoint"
+				/>
+				<Name
+					v-if="page == 10 && !checkpoint"
+					:back="prevPage"
+					:next="nextPage"
+					:checkpoint="toggleCheckpoint"
+				/>
 
-			<!-- Step Three -->
+				<!-- Step Three -->
+			</div>
 		</div>
 	</div>
 </template>
@@ -148,6 +190,7 @@ export default {
 				'Step 3: Get ready for guests',
 			],
 			checkpoint: false,
+			review: false,
 		}
 	},
 	computed: {
@@ -168,6 +211,7 @@ export default {
 		stepOneReview() {
 			this.step = 1
 			this.page = 1
+			this.review = true
 		},
 		proceedStepTwo() {
 			this.step = 2
