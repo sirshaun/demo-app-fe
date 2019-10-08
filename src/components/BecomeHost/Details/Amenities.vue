@@ -13,12 +13,12 @@
 				<div class="mb-4" v-for="(option, index) in defaultAmenities">
 					<input
 						type="checkbox"
-						:id="index"
+						:id="sluggedName(option.value)"
 						:value="option.value"
 						v-model="checkedDefaultAmenities"
 					/>
 					<label
-						:for="index"
+						:for="sluggedName(option.value)"
 						class="ml-1 font-light inline-block w-11/12"
 						>{{ option.value }}</label
 					>
@@ -37,12 +37,12 @@
 				<div class="mb-4" v-for="(option, index) in safetyAmenities">
 					<input
 						type="checkbox"
-						:id="index"
+						:id="sluggedName(option.value)"
 						:value="option.value"
 						v-model="checkedDefaultAmenities"
 					/>
 					<label
-						:for="index"
+						:for="sluggedName(option.value)"
 						class="ml-1 font-light inline-block w-11/12"
 						>{{ option.value }}</label
 					>
@@ -115,6 +115,12 @@ export default {
 		}
 	},
 	methods: {
+		sluggedName(name) {
+			return name
+				.toLowerCase()
+				.replace(/[^a-zA-Z ]/g, ' ')
+				.replace(' ', '_')
+		},
 		updateAndContinue() {
 			this.$store.dispatch('updateAmenities', {
 				basic: this.checkedDefaultAmenities,
@@ -123,6 +129,18 @@ export default {
 
 			this.next()
 		},
+		initializeValues() {
+			let listing = this.$store.state.listing
+
+			if (listing.hasOwnProperty('amenities'))
+				this.checkedDefaultAmenities = listing.amenities
+
+			if (listing.hasOwnProperty('safetyAmenities'))
+				this.checkedSafetyAmenities = listing.safetyAmenities
+		},
+	},
+	created() {
+		this.initializeValues()
 	},
 }
 </script>

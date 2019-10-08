@@ -67,8 +67,21 @@ export default {
 				spaces: this.checkedSpaces,
 			})
 
+			this.$store.dispatch('updateProgress', {
+				progress: 'step one completed',
+			})
+
 			this.checkpoint()
 		},
+		initializeValues() {
+			let listing = this.$store.state.listing
+
+			if (listing.hasOwnProperty('spaces'))
+				this.checkedSpaces = listing.spaces
+		},
+	},
+	created() {
+		this.initializeValues()
 	},
 }
 </script>
