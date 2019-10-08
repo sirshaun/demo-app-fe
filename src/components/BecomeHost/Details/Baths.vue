@@ -75,7 +75,7 @@ export default {
 	},
 	data() {
 		return {
-			bathrooms: 0,
+			bathrooms: 1,
 			privateBathroom: '',
 			privacyOptions: [
 				{ key: 'yes', text: 'Yes' },
