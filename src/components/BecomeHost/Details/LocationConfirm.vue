@@ -16,8 +16,22 @@
 		</div>
 
 		<div class="flex flex-wrap mt-6">
-			<div class="w-full px-3">
-				<!-- Map goes here -->
+			<div class="px-3">
+				<GmapMap
+					:center="{ lat: 10, lng: 10 }"
+					:zoom="7"
+					map-type-id="terrain"
+					style="width: 500px; height: 300px"
+				>
+					<GmapMarker
+						:key="index"
+						v-for="(m, index) in markers"
+						:position="m.position"
+						:clickable="true"
+						:draggable="true"
+						@click="center = m.position"
+					/>
+				</GmapMap>
 			</div>
 		</div>
 
@@ -31,10 +45,11 @@
 </template>
 
 <script>
+import GoogleMap from '@/components/GoogleMap'
 import Footer from '@/components/BecomeHost/Footer'
 
 export default {
-	components: { Footer },
+	components: { GoogleMap, Footer },
 	props: {
 		back: { type: Function, required: true },
 		next: { type: Function, required: true },
@@ -48,6 +63,21 @@ export default {
 		return {
 			long: '',
 			lat: '',
+			markers: [
+				{
+					position: {
+						lat: 48.16091,
+						lng: 16.38333,
+					},
+				},
+				{
+					position: {
+						lat: 48.17427,
+						lng: 16.32962,
+					},
+				},
+				// ...
+			],
 		}
 	},
 	methods: {
