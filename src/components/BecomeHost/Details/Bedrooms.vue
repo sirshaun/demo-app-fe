@@ -93,12 +93,14 @@
 			v-for="(room, index) in bedroomComponents"
 			:name="'Bedroom ' + (index + 1)"
 			:key="room"
+			:spaces="bedroomSpaces"
 			@bedroom-beds-updated="updateBedroomSpaces"
 		/>
 
 		<Bedroom
 			name="Common spaces"
 			key="51"
+			:spaces="bedroomSpaces"
 			@bedroom-beds-updated="updateBedroomSpaces"
 		/>
 
@@ -158,6 +160,25 @@ export default {
 
 			this.next()
 		},
+		initializeValues() {
+			let listing = this.$store.state.listing
+
+			if (listing.hasOwnProperty('guests')) this.guests = listing.guests
+
+			if (listing.hasOwnProperty('bedrooms'))
+				this.bedrooms = listing.bedrooms
+
+			if (listing.hasOwnProperty('beds')) this.beds = listing.beds
+
+			if (listing.hasOwnProperty('bedroomSpaces')) {
+				this.bedroomSpaces = listing.bedroomSpaces
+
+				this.restoreSpaces()
+			}
+		},
+		restoreSpaces() {
+			this.bedroomComponents = Object.keys(this.bedroomSpaces).length - 1
+		},
 	},
 	computed: {
 		listingObj() {
@@ -190,6 +211,9 @@ export default {
 				}
 			},
 		},
+	},
+	created() {
+		this.initializeValues()
 	},
 }
 </script>

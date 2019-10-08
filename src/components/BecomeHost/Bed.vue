@@ -15,10 +15,11 @@ export default {
 	props: {
 		name: { type: String, required: true },
 		func: { type: Function, required: true },
+		initBeds: { type: Number, default: 0 },
 	},
 	data() {
 		return {
-			beds: 0,
+			beds: this.initBeds,
 		}
 	},
 	methods: {
@@ -30,13 +31,7 @@ export default {
 		beds: {
 			immediate: false,
 			handler: function(beds) {
-				// NOTE: name with white space are shortened to just the
-				// first word of that name (to match the data in the parent)
-
-				if (/\s/.test(this.name))
-					var shortName = this.name.substr(0, this.name.indexOf(' '))
-
-				this.func(shortName || this.name, beds)
+				this.func(this.name, beds)
 			},
 		},
 	},

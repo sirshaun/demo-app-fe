@@ -30,6 +30,7 @@ export const mutations = {
 	},
 
 	UPDATE_LISTING_LOCATION(state, obj) {
+		Vue.set(state.listing, 'address', obj.address)
 		Vue.set(state.listing, 'country', obj.country)
 		Vue.set(state.listing, 'street', obj.street)
 		Vue.set(state.listing, 'apartmentNumber', obj.aptNum)

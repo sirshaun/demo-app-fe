@@ -104,6 +104,18 @@ export default {
 
 			this.next()
 		},
+		initializeValues() {
+			let listing = this.$store.state.listing
+
+			if (listing.hasOwnProperty('bathrooms'))
+				this.bathrooms = listing.bathrooms
+
+			if (listing.hasOwnProperty('private'))
+				this.privateBathroom = listing.private
+		},
+	},
+	created() {
+		this.initializeValues()
 	},
 }
 </script>

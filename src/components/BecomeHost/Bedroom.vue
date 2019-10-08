@@ -14,6 +14,7 @@
 									v-for="(bed, index) in allBeds"
 									:name="bed"
 									:key="index"
+									:initBeds="initialCount(bed)"
 									:func="incrementBeds"
 								/>
 								<div class="relative mt-6 mb-10">
@@ -88,6 +89,7 @@ export default {
 	components: { Bed },
 	props: {
 		name: { type: String, required: true },
+		spaces: { type: Object },
 	},
 	data() {
 		return {
@@ -155,7 +157,7 @@ export default {
 	},
 	methods: {
 		incrementBeds(bed, beds) {
-			this[bed.toLowerCase()] = beds
+			this[this.shortName(bed)] = beds
 		},
 		addBed(event) {
 			var $select = event.target
@@ -196,12 +198,41 @@ export default {
 
 			return arr
 		},
+		initialCount(bed) {
+			return this[this.shortName(bed)]
+		},
 		pluralize(word, count = 0, inclusive) {
 			return Pluralize(word, count, inclusive)
+		},
+		shortName(name) {
+			// NOTE: names with white space are shortened to just the
+			// first word of that name (to match the data in the parent)
+
+			if (/\s/.test(name)) {
+				return name.substr(0, name.indexOf(' ')).toLowerCase()
+			}
+
+			return name.toLowerCase()
+		},
+		restoreBeds() {
+			if (
+				typeof this.spaces != 'undefined' &&
+				Object.keys(this.spaces).length
+			) {
+				var sluggedName = this.name.toLowerCase().replace(' ', '_')
+
+				var beds = this.spaces[sluggedName]
+
+				rooms.forEach(e => {
+					if (beds.hasOwnProperty(e)) this[e] = beds[e]
+				})
+			}
 		},
 	},
 	created() {
 		this.allBeds = this.defaultBeds
+
+		this.restoreBeds()
 	},
 }
 </script>

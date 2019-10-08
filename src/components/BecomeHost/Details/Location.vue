@@ -195,12 +195,15 @@ export default {
 	data() {
 		return {
 			countries: [],
+			address: '',
 			country: '',
 			street: '',
 			aptNum: '',
 			city: '',
 			state: '',
 			postcode: '',
+			lat: '',
+			long: '',
 			countryError: false,
 			streetError: false,
 			cityError: false,
@@ -249,12 +252,18 @@ export default {
 		},
 		updateAndContinue() {
 			this.$store.dispatch('updateLocation', {
+				address: this.address,
 				country: this.country,
 				street: this.street,
 				aptNum: this.aptNum,
 				city: this.city,
 				state: this.state,
 				postcode: this.postcode,
+			})
+
+			this.$store.dispatch('updateCoordinates', {
+				long: this.long,
+				lat: this.lat,
 			})
 
 			this.next()
@@ -269,9 +278,29 @@ export default {
 				}
 			)
 		},
+		initializeValues() {
+			let listing = this.$store.state.listing
+
+			if (listing.hasOwnProperty('country'))
+				this.country = listing.country
+
+			if (listing.hasOwnProperty('street')) this.street = listing.street
+
+			if (listing.hasOwnProperty('aptNum')) this.aptNum = listing.aptNum
+
+			if (listing.hasOwnProperty('city')) this.city = listing.city
+
+			if (listing.hasOwnProperty('state')) this.state = listing.state
+
+			if (listing.hasOwnProperty('postcode'))
+				this.postcode = listing.postcode
+		},
 	},
 	mounted() {
 		this.fetchCountries()
+	},
+	created() {
+		this.initializeValues()
 	},
 }
 </script>

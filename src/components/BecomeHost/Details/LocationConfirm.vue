@@ -54,13 +54,10 @@ export default {
 		back: { type: Function, required: true },
 		next: { type: Function, required: true },
 		checkpoint: { type: Function, required: true },
-		address: {
-			type: String,
-			default: '12 Lewton Road, Mount Waverley, VIC 3149, Australia',
-		},
 	},
 	data() {
 		return {
+			address: '',
 			long: '',
 			lat: '',
 			markers: [
@@ -89,6 +86,35 @@ export default {
 
 			this.next()
 		},
+		initializeValues() {
+			let listing = this.$store.state.listing
+
+			if (listing.hasOwnProperty('country')) var country = listing.country
+
+			if (listing.hasOwnProperty('street')) var street = listing.street
+
+			if (listing.hasOwnProperty('aptNum')) var aptNum = listing.aptNum
+
+			if (listing.hasOwnProperty('city')) var city = listing.city
+
+			if (listing.hasOwnProperty('state')) var state = listing.state
+
+			if (listing.hasOwnProperty('postcode'))
+				var postcode = listing.postcode
+
+			if (listing.hasOwnProperty('address'))
+				this.address = listing.address
+
+			if (listing.hasOwnProperty('longitude'))
+				this.long = listing.longitude
+
+			if (listing.hasOwnProperty('latitude')) this.lat = listing.latitude
+
+			// '12 Lewton Road, Mount Waverley, VIC 3149, Australia'
+		},
+	},
+	created() {
+		this.initializeValues()
 	},
 }
 </script>

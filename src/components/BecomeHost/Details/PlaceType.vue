@@ -274,9 +274,6 @@ export default {
 		}
 	},
 	computed: {
-		listingObj() {
-			return this.$store.state.listing
-		},
 		typeOptions() {
 			if (this.listing == 'Apartment') {
 				return [
@@ -440,6 +437,21 @@ export default {
 		toggleModal() {
 			this.caseModal = !this.caseModal
 		},
+		initializeValues() {
+			let listing = this.$store.state.listing
+
+			if (listing.hasOwnProperty('listing'))
+				this.listing = listing.listing
+
+			if (listing.hasOwnProperty('property')) this.type = listing.property
+
+			if (listing.hasOwnProperty('rooms')) this.totalRooms = listing.rooms
+
+			if (listing.hasOwnProperty('roomType')) this.room = listing.roomType
+
+			if (listing.hasOwnProperty('spaceType'))
+				this.space = listing.spaceType
+		},
 	},
 	watch: {
 		type: {
@@ -455,6 +467,9 @@ export default {
 					this.type == 'Ryokan (Japan)'
 			},
 		},
+	},
+	created() {
+		this.initializeValues()
 	},
 }
 </script>
