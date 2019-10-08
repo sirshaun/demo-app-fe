@@ -38,10 +38,15 @@
 				Shared spaces
 			</div>
 		</div>
-		<div
-			class="bg-gray-100 min-h-screen w-3/5 px-6 pt-10 pb-20"
-			:class="{ 'md:mt-22': !checkpoint && !review }"
-		>
+
+		<div class="h-1 relative mt-22" v-if="!checkpoint">
+			<span
+				:style="{ width: progress }"
+				class="block h-full relative overflow-hidden bg-indigo-400"
+			></span>
+		</div>
+
+		<div class="bg-gray-100 min-h-screen w-3/5 px-6 pt-10 pb-20">
 			<div class="mb-10" v-if="!checkpoint">
 				<nav class="nav-float justify-start">
 					<div
@@ -61,11 +66,6 @@
 					<!-- TODO: Add save and exit button -->
 				</nav>
 			</div>
-
-			<!-- Progress bar -->
-
-			<!-- Stepper -->
-			<!-- Place Type, Bedrooms, Baths, Location, Amenities, Shared spaces -->
 
 			<div class="ml-64">
 				<!-- Step One -->
@@ -196,6 +196,24 @@ export default {
 	computed: {
 		navText() {
 			return this.text[this.step - 1]
+		},
+		progress() {
+			if (this.review) return '100%'
+
+			if (this.step == 1) {
+				var progress = parseInt((this.page / 7) * 100)
+			}
+
+			if (this.step == 2) {
+				// starts at page 8 ergo page 8 is page 1 for step 2
+				var progress = parseInt(((this.page - 7) / 3) * 100)
+			}
+
+			if (this.step == 3) {
+				// TODO
+			}
+
+			return progress + '%'
 		},
 	},
 	methods: {
