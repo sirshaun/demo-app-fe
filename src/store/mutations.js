@@ -52,4 +52,8 @@ export const mutations = {
 	UPDATE_LISTING_SHARED_SPACES(state, obj) {
 		Vue.set(state.listing, 'spaces', obj.spaces)
 	},
+
+	UPDATE_LISTING_PROGRESS(state, obj) {
+		Vue.set(state.listing, 'progress', obj.progress)
+	},
 }
