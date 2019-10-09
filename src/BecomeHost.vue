@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="flex justify-between mt-20 pt-2 bg-gray-100" v-if="review">
+		<div class="flex justify-between mt-22 pt-2 bg-gray-100" v-if="review">
 			<div
 				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4 cursor-pointer tracking-wider"
 				:class="{
@@ -63,24 +63,15 @@
 			</div>
 		</div>
 
-		<div
-			class="h-1 relative"
-			:class="{ 'mt-22': !review }"
-			v-if="!checkpoint"
-		>
-			<span
-				:style="{ width: progress }"
-				class="block h-full relative overflow-hidden bg-indigo-400"
-			></span>
-		</div>
-
 		<div class="bg-gray-100 min-h-screen w-3/5 px-6 pt-10 pb-20">
 			<div class="mb-10" v-if="!checkpoint">
-				<nav class="nav-float justify-between">
-					<div class="flex items-center flex-shrink-0 text-white">
+				<nav class="nav-float-alt justify-between">
+					<div
+						class="flex items-center flex-shrink-0 text-white pl-6"
+					>
 						<router-link to="/">
 							<img
-								class="h-10"
+								class="h-6"
 								src="/img/logo-mini.svg"
 								alt="Workcation"
 							/>
@@ -92,16 +83,30 @@
 						</div>
 					</div>
 					<div
-						class="font-light text-indigo-600 tracking-wide text-lg cursor-pointer hover:text-indigo-400"
+						class="font-light text-indigo-600 tracking-wide text-lg cursor-pointer pr-6 hover:text-indigo-400"
 						@click="checkpoint = true"
 						v-if="showSaveAndExitBtn"
 					>
 						Save and Exit
 					</div>
+					<div class="absolute bottom-0 left-0 w-full">
+						<div
+							class="h-1 relative bg-gray-200 w-full"
+							v-if="!checkpoint"
+						>
+							<span
+								:style="{ width: progress }"
+								class="block h-full relative overflow-hidden bg-indigo-400"
+							></span>
+						</div>
+					</div>
 				</nav>
 			</div>
 
-			<div class="ml-64">
+			<div
+				class="ml-64"
+				:class="{ 'mt-32': !checkpoint, 'mt-6': checkpoint }"
+			>
 				<!-- Step One -->
 				<PlaceType
 					v-if="page == 1 && !checkpoint"
@@ -224,7 +229,7 @@ export default {
 				'Step 3: Get ready for guests',
 			],
 			checkpoint: false,
-			review: false,
+			review: true,
 		}
 	},
 	computed: {

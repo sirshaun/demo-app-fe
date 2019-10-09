@@ -78,6 +78,16 @@
 	z-index: 99;
 }
 
+.nav-float-alt {
+	@apply w-full flex items-center justify-between flex-wrap bg-white;
+
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: 99;
+	height: 64px;
+}
+
 .footer-float {
 	@apply bg-gray-300;
 
