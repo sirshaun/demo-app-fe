@@ -87,7 +87,7 @@
 					:next="nextPage"
 					:checkpoint="toggleCheckpoint"
 					:exit-btn-clicked="exitBtnClicked"
-					:uploadUrl="''"
+					:uploadUrl="uploadUrl"
 				/>
 				<Description
 					v-if="page == 9 && !checkpoint"
@@ -182,6 +182,20 @@ export default {
 
 			return true
 		},
+		uploadUrl() {
+			var id = this.$store.getters.listing_id
+
+			if (typeof id != 'undefined') {
+				return (
+					process.env.VUE_APP_API_URI +
+					'/user/listings/' +
+					id +
+					'/image-upload'
+				)
+			}
+
+			return ''
+		},
 	},
 	methods: {
 		prevPage() {
@@ -194,6 +208,8 @@ export default {
 			this.page = page
 		},
 		toggleCheckpoint() {
+			this.persist()
+
 			this.checkpoint = !this.checkpoint
 		},
 		stepOneReview() {
@@ -211,6 +227,24 @@ export default {
 		},
 		saveAndExit() {
 			this.exitBtnClicked = true
+		},
+		persist() {
+			this.$http
+				.post('/user/listings/create', this.$store.state.listing, {
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem(
+							'token'
+						)}`,
+					},
+				})
+				.then(res => {
+					this.$store.dispatch('setListingId', {
+						id: res.data.id,
+					})
+				})
+				.catch(error => {
+					console.log(error)
+				})
 		},
 	},
 	watch: {
