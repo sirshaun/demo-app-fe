@@ -30,4 +30,8 @@ export const actions = {
 	updateProgress(context, data) {
 		context.commit('UPDATE_LISTING_PROGRESS', data)
 	},
+
+	setListingId(context, data) {
+		context.commit('SET_LISTING_ID', data)
+	},
 }

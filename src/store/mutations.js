@@ -56,4 +56,8 @@ export const mutations = {
 	UPDATE_LISTING_PROGRESS(state, obj) {
 		Vue.set(state.listing, 'progress', obj.progress)
 	},
+
+	SET_LISTING_ID(state, obj) {
+		Vue.set(state.listing, 'id', obj.id)
+	},
 }
