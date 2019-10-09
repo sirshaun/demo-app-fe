@@ -108,6 +108,7 @@ export default {
 		return {
 			uploaded: false,
 			modalOn: false,
+			images: [],
 		}
 	},
 	methods: {
@@ -117,6 +118,19 @@ export default {
 		toggleModal() {
 			this.modalOn = !this.modalOn
 		},
+	},
+	mounted() {
+		Dropzone.options.myAwesomeDropzone = {
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem('token')}`,
+			},
+			paramName: 'file',
+			maxFilesize: 10,
+			success: (file, response) => {
+				this.images.push({ url: response.url })
+			},
+			previewsContainer: false,
+		}
 	},
 }
 </script>
