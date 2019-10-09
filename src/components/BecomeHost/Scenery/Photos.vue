@@ -59,30 +59,16 @@
 			</div>
 		</form>
 
-		<hr class="border-gray-300 my-6" />
+		<!-- <hr class="border-gray-300 my-6" /> -->
 
-		<div class="clearfix mt-6">
-			<div class="float-left">
-				<a
-					class="flex items-center text-indigo-600 hover:opacity-50 cursor-pointer"
-					@click="back"
-				>
-					<img
-						src="/img/ikonate/chevron-left-indigo-600.svg"
-						class="h-6 mr-1"
-					/>
-					<span class="font-thin">Back</span>
-				</a>
-			</div>
-			<div class="float-right">
-				<a
-					class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
-					@click="next"
-				>
-					Skip for now
-				</a>
-			</div>
-		</div>
+		<!-- TODO: Add carousel to preview the images that have been uploaded -->
+
+		<Footer
+			:back="back"
+			:next="updateAndContinue"
+			:checkpoint="checkpoint"
+			:next-btn-text="nextBtnText"
+		/>
 
 		<PhotoTipModal
 			@close-tips-modal="toggleModal"
@@ -96,20 +82,27 @@
 import Dropzone from 'dropzone'
 
 import PhotoTipModal from '@/components/BecomeHost/PhotoTipModal'
+import Footer from '@/components/BecomeHost/Footer'
 
 export default {
-	components: { PhotoTipModal },
+	components: { PhotoTipModal, Footer },
 	props: {
 		next: { type: Function, required: true },
 		checkpoint: { type: Function, required: true },
 		uploadUrl: { type: String, required: true },
+		exitBtnClicked: { type: Boolean, required: true },
 	},
 	data() {
 		return {
 			uploaded: false,
 			modalOn: false,
-			images: [],
+			photos: [],
 		}
+	},
+	computed: {
+		nextBtnText() {
+			return this.photos.length ? 'Done' : 'Skip for now'
+		},
 	},
 	methods: {
 		back() {
@@ -117,6 +110,21 @@ export default {
 		},
 		toggleModal() {
 			this.modalOn = !this.modalOn
+		},
+		updateListingState() {
+			/*this.$store.dispatch('updatePhotos', {
+				photos: this.photos,
+			})*/
+		},
+		updateAndContinue() {
+			this.updateListingState()
+
+			this.next()
+		},
+		updateAndExit() {
+			this.updateListingState()
+
+			this.checkpoint()
 		},
 	},
 	mounted() {
@@ -127,10 +135,18 @@ export default {
 			paramName: 'file',
 			maxFilesize: 10,
 			success: (file, response) => {
-				this.images.push({ url: response.url })
+				this.photos.push({ url: response.url })
 			},
 			previewsContainer: false,
 		}
+	},
+	watch: {
+		exitBtnClicked: {
+			immediate: true,
+			handler: function(exitBtnClicked) {
+				if (exitBtnClicked) this.checkpoint()
+			},
+		},
 	},
 }
 </script>
