@@ -56,7 +56,7 @@
 		<Footer
 			:back="back"
 			:next="updateAndContinue"
-			:checkpoint="checkpoint"
+			:checkpoint="updateAndExit"
 		/>
 	</div>
 </template>
@@ -70,6 +70,7 @@ export default {
 		back: { type: Function, required: true },
 		next: { type: Function, required: true },
 		checkpoint: { type: Function, required: true },
+		exitBtnClicked: { type: Boolean, required: true },
 	},
 	data() {
 		return {
@@ -121,13 +122,21 @@ export default {
 				.replace(/[^a-zA-Z ]/g, ' ')
 				.replace(' ', '_')
 		},
-		updateAndContinue() {
+		updateListingState() {
 			this.$store.dispatch('updateAmenities', {
 				basic: this.checkedDefaultAmenities,
 				safety: this.checkedSafetyAmenities,
 			})
+		},
+		updateAndContinue() {
+			this.updateListingState()
 
 			this.next()
+		},
+		updateAndExit() {
+			this.updateListingState()
+
+			this.checkpoint()
 		},
 		initializeValues() {
 			let listing = this.$store.state.listing
@@ -141,6 +150,14 @@ export default {
 	},
 	created() {
 		this.initializeValues()
+	},
+	watch: {
+		exitBtnClicked: {
+			immediate: true,
+			handler: function(exitBtnClicked) {
+				if (exitBtnClicked) this.updateAndExit()
+			},
+		},
 	},
 }
 </script>

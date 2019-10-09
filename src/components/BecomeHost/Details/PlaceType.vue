@@ -203,7 +203,7 @@
 
 		<CaseModal @close-case-modal="toggleModal" v-if="caseModal" />
 
-		<Footer :back="back" :next="proceed" :checkpoint="checkpoint" />
+		<Footer :back="back" :next="proceed" :checkpoint="updateAndExit" />
 	</div>
 </template>
 
@@ -216,6 +216,7 @@ export default {
 	props: {
 		next: { type: Function, required: true },
 		checkpoint: { type: Function, required: true },
+		exitBtnClicked: { type: Boolean, required: true },
 	},
 	data() {
 		return {
@@ -423,7 +424,7 @@ export default {
 
 			if (!this.errors) this.updateAndContinue()
 		},
-		updateAndContinue() {
+		updateListingState() {
 			this.$store.dispatch('updatePlaceType', {
 				listing: this.listing,
 				property: this.type,
@@ -435,8 +436,16 @@ export default {
 			this.$store.dispatch('updateProgress', {
 				progress: 'step one in progress',
 			})
+		},
+		updateAndContinue() {
+			this.updateListingState()
 
 			this.next()
+		},
+		updateAndExit() {
+			this.updateListingState()
+
+			this.checkpoint()
 		},
 		toggleModal() {
 			this.caseModal = !this.caseModal
@@ -469,6 +478,12 @@ export default {
 					this.type == 'Pension (South Korea)' ||
 					this.type == 'Bed and breakfast' ||
 					this.type == 'Ryokan (Japan)'
+			},
+		},
+		exitBtnClicked: {
+			immediate: true,
+			handler: function(exitBtnClicked) {
+				if (exitBtnClicked) this.updateAndExit()
 			},
 		},
 	},

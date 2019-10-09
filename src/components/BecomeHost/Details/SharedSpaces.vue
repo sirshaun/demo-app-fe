@@ -44,6 +44,7 @@ export default {
 		back: { type: Function, required: true },
 		next: { type: Function, required: true },
 		checkpoint: { type: Function, required: true },
+		exitBtnClicked: { type: Boolean, required: true },
 	},
 	data() {
 		return {
@@ -82,6 +83,14 @@ export default {
 	},
 	created() {
 		this.initializeValues()
+	},
+	watch: {
+		exitBtnClicked: {
+			immediate: true,
+			handler: function(exitBtnClicked) {
+				if (exitBtnClicked) this.checkpoint()
+			},
+		},
 	},
 }
 </script>

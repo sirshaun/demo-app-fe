@@ -58,7 +58,7 @@
 			</div>
 		</div>
 
-		<Footer :back="back" :next="proceed" :checkpoint="checkpoint" />
+		<Footer :back="back" :next="proceed" :checkpoint="updateAndExit" />
 	</div>
 </template>
 
@@ -72,6 +72,7 @@ export default {
 		back: { type: Function, required: true },
 		next: { type: Function, required: true },
 		checkpoint: { type: Function, required: true },
+		exitBtnClicked: { type: Boolean, required: true },
 	},
 	data() {
 		return {
@@ -96,13 +97,21 @@ export default {
 
 			if (!this.privateBathroomError) this.updateAndContinue()
 		},
-		updateAndContinue() {
+		updateListingState() {
 			this.$store.dispatch('updateBaths', {
 				bathrooms: this.bathrooms,
 				private: this.privateBathroom,
 			})
+		},
+		updateAndContinue() {
+			this.updateListingState()
 
 			this.next()
+		},
+		updateAndExit() {
+			this.updateListingState()
+
+			this.checkpoint()
 		},
 		initializeValues() {
 			let listing = this.$store.state.listing
@@ -116,6 +125,14 @@ export default {
 	},
 	created() {
 		this.initializeValues()
+	},
+	watch: {
+		exitBtnClicked: {
+			immediate: true,
+			handler: function(exitBtnClicked) {
+				if (exitBtnClicked) this.updateAndExit()
+			},
+		},
 	},
 }
 </script>

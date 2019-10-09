@@ -1,5 +1,5 @@
 <template>
-	<div class="flex flex-col" v-show="countries[0]">
+	<div class="flex flex-col mb-20" v-show="countries[0]">
 		<h1 class="font-semibold text-2xl text-gray-900 px-4">
 			Where’s your place located?
 		</h1>
@@ -178,7 +178,7 @@
 			</div>
 		</div>
 
-		<Footer :back="back" :next="proceed" :checkpoint="checkpoint" />
+		<Footer :back="back" :next="proceed" :checkpoint="updateAndExit" />
 	</div>
 </template>
 
@@ -191,6 +191,7 @@ export default {
 		back: { type: Function, required: true },
 		next: { type: Function, required: true },
 		checkpoint: { type: Function, required: true },
+		exitBtnClicked: { type: Boolean, required: true },
 	},
 	data() {
 		return {
@@ -250,7 +251,7 @@ export default {
 
 			if (!this.errors) this.updateAndContinue()
 		},
-		updateAndContinue() {
+		updateListingState() {
 			this.$store.dispatch('updateLocation', {
 				address: this.address,
 				country: this.country,
@@ -265,8 +266,16 @@ export default {
 				long: this.long,
 				lat: this.lat,
 			})
+		},
+		updateAndContinue() {
+			this.updateListingState()
 
 			this.next()
+		},
+		updateAndExit() {
+			this.updateListingState()
+
+			this.checkpoint()
 		},
 		fetchCountries() {
 			this.$http.get('/location/countries').then(
@@ -301,6 +310,14 @@ export default {
 	},
 	created() {
 		this.initializeValues()
+	},
+	watch: {
+		exitBtnClicked: {
+			immediate: true,
+			handler: function(exitBtnClicked) {
+				if (exitBtnClicked) this.updateAndExit()
+			},
+		},
 	},
 }
 </script>

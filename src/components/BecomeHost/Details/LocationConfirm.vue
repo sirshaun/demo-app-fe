@@ -38,7 +38,7 @@
 		<Footer
 			:back="back"
 			:next="updateAndContinue"
-			:checkpoint="checkpoint"
+			:checkpoint="updateAndExit"
 			next-btn-text="Yes, that's right"
 		/>
 	</div>
@@ -54,37 +54,31 @@ export default {
 		back: { type: Function, required: true },
 		next: { type: Function, required: true },
 		checkpoint: { type: Function, required: true },
+		exitBtnClicked: { type: Boolean, required: true },
 	},
 	data() {
 		return {
 			address: '',
 			long: '',
 			lat: '',
-			markers: [
-				{
-					position: {
-						lat: 48.16091,
-						lng: 16.38333,
-					},
-				},
-				{
-					position: {
-						lat: 48.17427,
-						lng: 16.32962,
-					},
-				},
-				// ...
-			],
 		}
 	},
 	methods: {
-		updateAndContinue() {
+		updateListingState() {
 			this.$store.dispatch('updateCoordinates', {
 				long: this.long,
 				lat: this.lat,
 			})
+		},
+		updateAndContinue() {
+			this.updateListingState()
 
 			this.next()
+		},
+		updateAndExit() {
+			this.updateListingState()
+
+			this.checkpoint()
 		},
 		initializeValues() {
 			let listing = this.$store.state.listing
@@ -115,6 +109,14 @@ export default {
 	},
 	created() {
 		this.initializeValues()
+	},
+	watch: {
+		exitBtnClicked: {
+			immediate: true,
+			handler: function(exitBtnClicked) {
+				if (exitBtnClicked) this.updateAndExit()
+			},
+		},
 	},
 }
 </script>

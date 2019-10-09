@@ -23,42 +23,49 @@
 					:back="prevPage"
 					:next="nextPage"
 					:checkpoint="toggleCheckpoint"
+					:exit-btn-clicked="exitBtnClicked"
 				/>
 				<Bedrooms
 					v-if="page == 2 && !checkpoint"
 					:back="prevPage"
 					:next="nextPage"
 					:checkpoint="toggleCheckpoint"
+					:exit-btn-clicked="exitBtnClicked"
 				/>
 				<Baths
 					v-if="page == 3 && !checkpoint"
 					:back="prevPage"
 					:next="nextPage"
 					:checkpoint="toggleCheckpoint"
+					:exit-btn-clicked="exitBtnClicked"
 				/>
 				<Location
 					v-if="page == 4 && !checkpoint"
 					:back="prevPage"
 					:next="nextPage"
 					:checkpoint="toggleCheckpoint"
+					:exit-btn-clicked="exitBtnClicked"
 				/>
 				<LocationConfirm
 					v-if="page == 5 && !checkpoint"
 					:back="prevPage"
 					:next="nextPage"
 					:checkpoint="toggleCheckpoint"
+					:exit-btn-clicked="exitBtnClicked"
 				/>
 				<Amenities
 					v-if="page == 6 && !checkpoint"
 					:back="prevPage"
 					:next="nextPage"
 					:checkpoint="toggleCheckpoint"
+					:exit-btn-clicked="exitBtnClicked"
 				/>
 				<SharedSpaces
 					v-if="page == 7 && !checkpoint"
 					:back="prevPage"
 					:next="nextPage"
 					:checkpoint="toggleCheckpoint"
+					:exit-btn-clicked="exitBtnClicked"
 				/>
 
 				<!-- Checkpoint -->
@@ -79,6 +86,7 @@
 					v-if="page == 8 && !checkpoint"
 					:next="nextPage"
 					:checkpoint="toggleCheckpoint"
+					:exit-btn-clicked="exitBtnClicked"
 					:uploadUrl="''"
 				/>
 				<Description
@@ -86,12 +94,14 @@
 					:back="prevPage"
 					:next="nextPage"
 					:checkpoint="toggleCheckpoint"
+					:exit-btn-clicked="exitBtnClicked"
 				/>
 				<Name
 					v-if="page == 10 && !checkpoint"
 					:back="prevPage"
 					:next="nextPage"
 					:checkpoint="toggleCheckpoint"
+					:exit-btn-clicked="exitBtnClicked"
 				/>
 
 				<!-- Step Three -->
@@ -142,6 +152,7 @@ export default {
 			],
 			checkpoint: false,
 			review: false,
+			exitBtnClicked: false,
 		}
 	},
 	computed: {
@@ -199,7 +210,7 @@ export default {
 			this.page = 8
 		},
 		saveAndExit() {
-			this.$emit('save-and-exit', page)
+			this.exitBtnClicked = true
 		},
 	},
 	watch: {
@@ -211,6 +222,12 @@ export default {
 				} else if (page > 10 && this.step == 2) {
 					this.toggleCheckpoint()
 				}
+			},
+		},
+		checkpoint: {
+			immediate: true,
+			handler: function(checkpoint) {
+				if (checkpoint) this.exitBtnClicked = false
 			},
 		},
 	},

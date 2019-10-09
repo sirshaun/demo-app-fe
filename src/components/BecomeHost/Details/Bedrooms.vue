@@ -107,7 +107,7 @@
 		<Footer
 			:back="back"
 			:next="updateAndContinue"
-			:checkpoint="checkpoint"
+			:checkpoint="updateAndExit"
 		/>
 	</div>
 </template>
@@ -125,6 +125,7 @@ export default {
 		back: { type: Function, required: true },
 		next: { type: Function, required: true },
 		checkpoint: { type: Function, required: true },
+		exitBtnClicked: { type: Boolean, required: true },
 	},
 	data() {
 		return {
@@ -150,15 +151,23 @@ export default {
 		pluralize(word, count = 0, inclusive) {
 			return Pluralize(word, count, inclusive)
 		},
-		updateAndContinue() {
+		updateListingState() {
 			this.$store.dispatch('updateBedrooms', {
 				guests: this.guests,
 				bedrooms: this.bedrooms,
 				beds: this.beds,
 				bedroomSpaces: this.bedroomSpaces,
 			})
+		},
+		updateAndContinue() {
+			this.updateListingState()
 
 			this.next()
+		},
+		updateAndExit() {
+			this.updateListingState()
+
+			this.checkpoint()
 		},
 		initializeValues() {
 			let listing = this.$store.state.listing
@@ -209,6 +218,12 @@ export default {
 				} else {
 					this.bedroomComponents = parseInt(bedrooms[0])
 				}
+			},
+		},
+		exitBtnClicked: {
+			immediate: true,
+			handler: function(exitBtnClicked) {
+				if (exitBtnClicked) this.updateAndExit()
 			},
 		},
 	},
