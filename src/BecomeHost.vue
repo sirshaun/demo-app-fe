@@ -1,105 +1,16 @@
 <template>
 	<div>
-		<div v-if="!checkpoint">
-			<nav class="nav-float-alt pt-4">
-				<div class="flex items-center justify-between">
-					<div class="flex items-center text-white pl-6">
-						<router-link to="/">
-							<img
-								class="h-6"
-								src="/img/logo-mini.svg"
-								alt="Workcation"
-							/>
-						</router-link>
-						<div
-							class="ml-6 text-gray-900 font-light text-lg tracking-wide"
-						>
-							{{ navText }}
-						</div>
-					</div>
-					<div
-						class="font-light text-indigo-600 tracking-wide text-lg cursor-pointer pr-6 hover:text-indigo-400"
-						@click="checkpoint = true"
-						v-if="showSaveAndExitBtn"
-					>
-						Save and Exit
-					</div>
-				</div>
-				<div
-					class="flex justify-between mt-4 border-t border-gray-400 bg-gray-100"
-					v-if="review"
-				>
-					<div
-						class="w-1/6 border-r border-gray-400 py-2 px-3 cursor-pointer tracking-wider"
-						:class="{
-							'bg-gray-200': page == 1,
-							'hover:bg-gray-300': page != 1,
-						}"
-						@click="page = 1"
-					>
-						Place type
-					</div>
-					<div
-						class="w-1/6 border-r border-gray-400 py-2 px-3 cursor-pointer tracking-wider"
-						:class="{
-							'bg-gray-200': page == 2,
-							'hover:bg-gray-300': page != 2,
-						}"
-						@click="page = 2"
-					>
-						Bedrooms
-					</div>
-					<div
-						class="w-1/6 border-r border-gray-400 py-2 px-3 cursor-pointer tracking-wider"
-						:class="{
-							'bg-gray-200': page == 3,
-							'hover:bg-gray-300': page != 3,
-						}"
-						@click="page = 3"
-					>
-						Baths
-					</div>
-					<div
-						class="w-1/6 border-r border-gray-400 py-2 px-3 cursor-pointer tracking-wider"
-						:class="{
-							'bg-gray-200': page == 4 || page == 5,
-							'hover:bg-gray-300': page != 4 || page != 5,
-						}"
-						@click="page = 4"
-					>
-						Location
-					</div>
-					<div
-						class="w-1/6 border-r border-gray-400 py-2 px-3 cursor-pointer tracking-wider"
-						:class="{
-							'bg-gray-200': page == 6,
-							'hover:bg-gray-300': page != 6,
-						}"
-						@click="page = 6"
-					>
-						Amenities
-					</div>
-					<div
-						class="w-1/6 border-r border-gray-400 py-2 px-3 cursor-pointer tracking-wider"
-						:class="{
-							'bg-gray-200': page == 7,
-							'hover:bg-gray-300': page != 7,
-						}"
-						@click="page = 7"
-					>
-						Shared spaces
-					</div>
-				</div>
-				<div class="w-full">
-					<div class="h-1 relative bg-gray-200" v-if="!checkpoint">
-						<span
-							:style="{ width: progress }"
-							class="block h-full relative overflow-hidden bg-indigo-400"
-						></span>
-					</div>
-				</div>
-			</nav>
-		</div>
+		<Navbar
+			v-if="!checkpoint"
+			:header="navText"
+			:page="page"
+			:progress="progress"
+			:save-and-exit="saveAndExit"
+			:show-save-and-exit-btn="showSaveAndExitBtn"
+			:checkpoint="checkpoint"
+			:review="review"
+			:goto-page="gotoPage"
+		/>
 
 		<div class="bg-gray-100 min-h-screen w-3/5 px-6 pt-10 pb-20">
 			<div
@@ -190,6 +101,7 @@
 </template>
 
 <script>
+import Navbar from './components/BecomeHost/Navbar'
 import PlaceType from './components/BecomeHost/Details/PlaceType'
 import Bedrooms from './components/BecomeHost/Details/Bedrooms'
 import Baths from './components/BecomeHost/Details/Baths'
@@ -204,6 +116,7 @@ import Name from './components/BecomeHost/Scenery/Name'
 
 export default {
 	components: {
+		Navbar,
 		PlaceType,
 		Bedrooms,
 		Baths,
@@ -228,7 +141,7 @@ export default {
 				'Step 3: Get ready for guests',
 			],
 			checkpoint: false,
-			review: true,
+			review: false,
 		}
 	},
 	computed: {
@@ -266,6 +179,9 @@ export default {
 		nextPage() {
 			this.page += 1
 		},
+		gotoPage(page) {
+			this.page = page
+		},
 		toggleCheckpoint() {
 			this.checkpoint = !this.checkpoint
 		},
@@ -281,6 +197,9 @@ export default {
 		proceedStepThree() {
 			this.step = 2
 			this.page = 8
+		},
+		saveAndExit() {
+			this.$emit('save-and-exit', page)
 		},
 	},
 	watch: {
