@@ -1,74 +1,9 @@
 <template>
 	<div>
-		<div class="flex justify-between mt-22 pt-2 bg-gray-100" v-if="review">
-			<div
-				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4 cursor-pointer tracking-wider"
-				:class="{
-					'bg-gray-200': page == 1,
-					'hover:bg-gray-300': page != 1,
-				}"
-				@click="page = 1"
-			>
-				Place type
-			</div>
-			<div
-				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4 cursor-pointer tracking-wider"
-				:class="{
-					'bg-gray-200': page == 2,
-					'hover:bg-gray-300': page != 2,
-				}"
-				@click="page = 2"
-			>
-				Bedrooms
-			</div>
-			<div
-				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4 cursor-pointer tracking-wider"
-				:class="{
-					'bg-gray-200': page == 3,
-					'hover:bg-gray-300': page != 3,
-				}"
-				@click="page = 3"
-			>
-				Baths
-			</div>
-			<div
-				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4 cursor-pointer tracking-wider"
-				:class="{
-					'bg-gray-200': page == 4 || page == 5,
-					'hover:bg-gray-300': page != 4 || page != 5,
-				}"
-				@click="page = 4"
-			>
-				Location
-			</div>
-			<div
-				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4 cursor-pointer tracking-wider"
-				:class="{
-					'bg-gray-200': page == 6,
-					'hover:bg-gray-300': page != 6,
-				}"
-				@click="page = 6"
-			>
-				Amenities
-			</div>
-			<div
-				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4 cursor-pointer tracking-wider"
-				:class="{
-					'bg-gray-200': page == 7,
-					'hover:bg-gray-300': page != 7,
-				}"
-				@click="page = 7"
-			>
-				Shared spaces
-			</div>
-		</div>
-
-		<div class="bg-gray-100 min-h-screen w-3/5 px-6 pt-10 pb-20">
-			<div class="mb-10" v-if="!checkpoint">
-				<nav class="nav-float-alt justify-between">
-					<div
-						class="flex items-center flex-shrink-0 text-white pl-6"
-					>
+		<div v-if="!checkpoint">
+			<nav class="nav-float-alt pt-4">
+				<div class="flex items-center justify-between">
+					<div class="flex items-center text-white pl-6">
 						<router-link to="/">
 							<img
 								class="h-6"
@@ -89,20 +24,84 @@
 					>
 						Save and Exit
 					</div>
-					<div class="absolute bottom-0 left-0 w-full">
-						<div
-							class="h-1 relative bg-gray-200 w-full"
-							v-if="!checkpoint"
-						>
-							<span
-								:style="{ width: progress }"
-								class="block h-full relative overflow-hidden bg-indigo-400"
-							></span>
-						</div>
+				</div>
+				<div
+					class="flex justify-between mt-4 border-t border-gray-400 bg-gray-100"
+					v-if="review"
+				>
+					<div
+						class="w-1/6 border-r border-gray-400 py-2 px-3 cursor-pointer tracking-wider"
+						:class="{
+							'bg-gray-200': page == 1,
+							'hover:bg-gray-300': page != 1,
+						}"
+						@click="page = 1"
+					>
+						Place type
 					</div>
-				</nav>
-			</div>
+					<div
+						class="w-1/6 border-r border-gray-400 py-2 px-3 cursor-pointer tracking-wider"
+						:class="{
+							'bg-gray-200': page == 2,
+							'hover:bg-gray-300': page != 2,
+						}"
+						@click="page = 2"
+					>
+						Bedrooms
+					</div>
+					<div
+						class="w-1/6 border-r border-gray-400 py-2 px-3 cursor-pointer tracking-wider"
+						:class="{
+							'bg-gray-200': page == 3,
+							'hover:bg-gray-300': page != 3,
+						}"
+						@click="page = 3"
+					>
+						Baths
+					</div>
+					<div
+						class="w-1/6 border-r border-gray-400 py-2 px-3 cursor-pointer tracking-wider"
+						:class="{
+							'bg-gray-200': page == 4 || page == 5,
+							'hover:bg-gray-300': page != 4 || page != 5,
+						}"
+						@click="page = 4"
+					>
+						Location
+					</div>
+					<div
+						class="w-1/6 border-r border-gray-400 py-2 px-3 cursor-pointer tracking-wider"
+						:class="{
+							'bg-gray-200': page == 6,
+							'hover:bg-gray-300': page != 6,
+						}"
+						@click="page = 6"
+					>
+						Amenities
+					</div>
+					<div
+						class="w-1/6 border-r border-gray-400 py-2 px-3 cursor-pointer tracking-wider"
+						:class="{
+							'bg-gray-200': page == 7,
+							'hover:bg-gray-300': page != 7,
+						}"
+						@click="page = 7"
+					>
+						Shared spaces
+					</div>
+				</div>
+				<div class="w-full">
+					<div class="h-1 relative bg-gray-200" v-if="!checkpoint">
+						<span
+							:style="{ width: progress }"
+							class="block h-full relative overflow-hidden bg-indigo-400"
+						></span>
+					</div>
+				</div>
+			</nav>
+		</div>
 
+		<div class="bg-gray-100 min-h-screen w-3/5 px-6 pt-10 pb-20">
 			<div
 				class="ml-64"
 				:class="{ 'mt-32': !checkpoint, 'mt-6': checkpoint }"
