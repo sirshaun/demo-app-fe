@@ -5,13 +5,18 @@
 				Add photos to your listing
 			</h1>
 			<a
-				class="flex items-center text-indigo-600 hover:opacity-75 ml-10 cursor-pointer"
+				class="flex items-center text-indigo-600 hover:text-indigo-400 ml-10 cursor-pointer"
 				@click="toggleModal"
 			>
-				<img
-					src="/img/ikonate/lightbulb-indigo-600.svg"
-					class="h-6 mr-2"
-				/>
+				<svg
+					class="h-5 mr-2 fill-current"
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 20 20"
+				>
+					<path
+						d="M7 13.33a7 7 0 1 1 6 0V16H7v-2.67zM7 17h6v1.5c0 .83-.67 1.5-1.5 1.5h-3A1.5 1.5 0 0 1 7 18.5V17zm2-5.1V14h2v-2.1a5 5 0 1 0-2 0z"
+					/>
+				</svg>
 				<span>Photo tips</span>
 			</a>
 		</div>
@@ -27,18 +32,27 @@
 			id="my-awesome-dropzone"
 		>
 			<div
-				class="w-full dz-message cursor-pointer"
+				class="flex items-center justify-center w-full dz-message cursor-pointer"
 				style="height: 350px; background-image: url('/img/collage.png')"
 			>
 				<div class="flex flex-col items-center">
 					<div class="">
 						<a
-							class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
+							class="flex items-center bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
 						>
-							Continue
+							<svg
+								class="h-6 mr-2 fill-current"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 20 20"
+							>
+								<path
+									d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z"
+								/>
+							</svg>
+							<span>Upload photos</span>
 						</a>
 					</div>
-					<div class="text-gray-600 font-light tracking-wide">
+					<div class="text-gray-600 font-light tracking-wide mt-4">
 						or drag them in
 					</div>
 				</div>
