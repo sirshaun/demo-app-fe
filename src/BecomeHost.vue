@@ -2,38 +2,62 @@
 	<div>
 		<div class="flex justify-between mt-20 pt-2 bg-gray-100" v-if="review">
 			<div
-				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4"
-				:class="{ 'bg-gray-200': page == 1 }"
+				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4 cursor-pointer tracking-wider"
+				:class="{
+					'bg-gray-200': page == 1,
+					'hover:bg-gray-300': page != 1,
+				}"
+				@click="page = 1"
 			>
 				Place type
 			</div>
 			<div
-				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4"
-				:class="{ 'bg-gray-200': page == 2 }"
+				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4 cursor-pointer tracking-wider"
+				:class="{
+					'bg-gray-200': page == 2,
+					'hover:bg-gray-300': page != 2,
+				}"
+				@click="page = 2"
 			>
 				Bedrooms
 			</div>
 			<div
-				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4"
-				:class="{ 'bg-gray-200': page == 3 }"
+				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4 cursor-pointer tracking-wider"
+				:class="{
+					'bg-gray-200': page == 3,
+					'hover:bg-gray-300': page != 3,
+				}"
+				@click="page = 3"
 			>
 				Baths
 			</div>
 			<div
-				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4"
-				:class="{ 'bg-gray-200': page == 4 || page == 5 }"
+				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4 cursor-pointer tracking-wider"
+				:class="{
+					'bg-gray-200': page == 4 || page == 5,
+					'hover:bg-gray-300': page != 4 || page != 5,
+				}"
+				@click="page = 4"
 			>
 				Location
 			</div>
 			<div
-				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4"
-				:class="{ 'bg-gray-200': page == 6 }"
+				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4 cursor-pointer tracking-wider"
+				:class="{
+					'bg-gray-200': page == 6,
+					'hover:bg-gray-300': page != 6,
+				}"
+				@click="page = 6"
 			>
 				Amenities
 			</div>
 			<div
-				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4"
-				:class="{ 'bg-gray-200': page == 7 }"
+				class="w-1/6 border-r border-gray-400 py-3 pr-2 pl-4 cursor-pointer tracking-wider"
+				:class="{
+					'bg-gray-200': page == 7,
+					'hover:bg-gray-300': page != 7,
+				}"
+				@click="page = 7"
 			>
 				Shared spaces
 			</div>
