@@ -39,7 +39,11 @@
 			</div>
 		</div>
 
-		<div class="h-1 relative mt-22" v-if="!checkpoint">
+		<div
+			class="h-1 relative"
+			:class="{ 'mt-22': !review }"
+			v-if="!checkpoint"
+		>
 			<span
 				:style="{ width: progress }"
 				class="block h-full relative overflow-hidden bg-indigo-400"
@@ -48,10 +52,8 @@
 
 		<div class="bg-gray-100 min-h-screen w-3/5 px-6 pt-10 pb-20">
 			<div class="mb-10" v-if="!checkpoint">
-				<nav class="nav-float justify-start">
-					<div
-						class="flex items-center flex-shrink-0 text-white mr-6"
-					>
+				<nav class="nav-float justify-between">
+					<div class="flex items-center flex-shrink-0 text-white">
 						<router-link to="/">
 							<img
 								class="h-10"
@@ -59,11 +61,19 @@
 								alt="Workcation"
 							/>
 						</router-link>
+						<div
+							class="ml-6 text-gray-900 font-light text-lg tracking-wide"
+						>
+							{{ navText }}
+						</div>
 					</div>
-					<div class="font-light text-lg tracking-wide">
-						{{ navText }}
+					<div
+						class="font-light text-indigo-600 tracking-wide text-lg cursor-pointer hover:text-indigo-400"
+						@click="checkpoint = true"
+						v-if="showSaveAndExitBtn"
+					>
+						Save and Exit
 					</div>
-					<!-- TODO: Add save and exit button -->
 				</nav>
 			</div>
 
@@ -214,6 +224,11 @@ export default {
 			}
 
 			return progress + '%'
+		},
+		showSaveAndExitBtn() {
+			if (this.step == 1 && !this.review) return false
+
+			return true
 		},
 	},
 	methods: {
