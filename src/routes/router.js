@@ -18,35 +18,35 @@ import Logout from '@/Logout.vue'
 Vue.use(VueRouter)
 
 // 1. Define route components.
-const NotFound = { template: '<p>Page not found</p>' }
+// const NotFound = { template: "<p>Page not found</p>" };
 
 // 2. Define some routes
 // Each route should map to a component. The "component" can
 // either be an actual component constructor created via
 // `Vue.extend()`, or just a component options object.
 const routes = [
-	{ path: '/', component: App },
-	{ path: '/properties', component: Properties, props: false },
-	{ path: '/properties/:city', component: Properties, props: true },
-	{ path: '/sign-up', component: SignUp },
-	{ path: '/login', component: Login },
-	{ path: '/profile', component: Profile },
-	{ path: '/profile/reviews', component: Reviews },
-	{ path: '/wishlists', component: Wishlists },
-	{ path: '/wishlists/:wishlist', component: Wishlist },
-	{ path: '/trips', component: Trips },
-	{ path: '/become-a-host', component: BecomeHost },
-	{ path: '/messages', component: Messages },
-	{ path: '/messages/:user', component: Messages },
-	{ path: '/help', component: Help },
-	{ path: '/logout', component: Logout },
+  { path: '/', component: App },
+  { path: '/properties', component: Properties, props: false },
+  { path: '/properties/:city', component: Properties, props: true },
+  { path: '/sign-up', component: SignUp },
+  { path: '/login', component: Login },
+  { path: '/profile', component: Profile },
+  { path: '/profile/reviews', component: Reviews },
+  { path: '/wishlists', component: Wishlists },
+  { path: '/wishlists/:wishlist', component: Wishlist },
+  { path: '/trips', component: Trips },
+  { path: '/become-a-host', component: BecomeHost },
+  { path: '/messages', component: Messages },
+  { path: '/messages/:user', component: Messages },
+  { path: '/help', component: Help },
+  { path: '/logout', component: Logout },
 ]
 
 // 3. Create the router instance and pass the `routes` option
 // You can pass in additional options here, but let's
 // keep it simple for now.
 export default new VueRouter({
-	routes, // short for `routes: routes`
+  routes, // short for `routes: routes`
 })
 
 // 4. Create and mount the root instance.

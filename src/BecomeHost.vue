@@ -143,8 +143,8 @@ export default {
 		return {
 			user: {},
 			listing: {},
-			page: 1,
-			step: 1,
+			page: 8,
+			step: 2,
 			text: [
 				'Step 1: Start with the basics',
 				'Step 2: Set the scene',
@@ -162,13 +162,14 @@ export default {
 		progress() {
 			if (this.review) return '100%'
 
+			var progress = 0
 			if (this.step == 1) {
-				var progress = parseInt((this.page / 7) * 100)
+				progress = parseInt((this.page / 7) * 100)
 			}
 
 			if (this.step == 2) {
 				// starts at page 8 ergo page 8 is page 1 for step 2
-				var progress = parseInt(((this.page - 7) / 3) * 100)
+				progress = parseInt(((this.page - 7) / 3) * 100)
 			}
 
 			if (this.step == 3) {
@@ -194,7 +195,7 @@ export default {
 				)
 			}
 
-			return ''
+			return process.env.VUE_APP_API_URI + 'user/listings/1/image-upload'
 		},
 	},
 	methods: {
@@ -208,7 +209,7 @@ export default {
 			this.page = page
 		},
 		toggleCheckpoint() {
-			this.persist()
+			// this.persist()
 
 			this.checkpoint = !this.checkpoint
 		},

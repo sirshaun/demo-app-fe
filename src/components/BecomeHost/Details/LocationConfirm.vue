@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import GoogleMap from '@/components/GoogleMap'
+// import GoogleMap from "@/components/GoogleMap";
 import Footer from '@/components/BecomeHost/Footer'
 
 export default {
@@ -83,7 +83,7 @@ export default {
 		initializeValues() {
 			let listing = this.$store.state.listing
 
-			if (listing.hasOwnProperty('country')) var country = listing.country
+			/*if (listing.hasOwnProperty('country')) var country = listing.country
 
 			if (listing.hasOwnProperty('street')) var street = listing.street
 
@@ -94,7 +94,7 @@ export default {
 			if (listing.hasOwnProperty('state')) var state = listing.state
 
 			if (listing.hasOwnProperty('postcode'))
-				var postcode = listing.postcode
+				var postcode = listing.postcode*/
 
 			if (listing.hasOwnProperty('address'))
 				this.address = listing.address

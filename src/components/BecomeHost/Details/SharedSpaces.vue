@@ -15,6 +15,7 @@
 						type="checkbox"
 						:id="index"
 						:value="option"
+						:key="index"
 						v-model="checkedSpaces"
 					/>
 					<label

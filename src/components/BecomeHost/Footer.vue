@@ -71,7 +71,7 @@ export default {
 		},
 	},
 	mounted() {
-		const listener = e => this.onScroll()
+		const listener = () => this.onScroll()
 
 		window.addEventListener('scroll', listener)
 

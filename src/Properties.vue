@@ -12,7 +12,8 @@
 
             <div
                 class="min-h-screen px-12 inline-flex items-center justify-center"
-                v-for="property in properties"
+                v-for="(property, index) in properties"
+                :key="index"
             >
                 <PropertyCard :property="property" />
             </div>
