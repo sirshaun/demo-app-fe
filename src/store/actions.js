@@ -38,4 +38,12 @@ export const actions = {
   updatePhotos(context, data) {
     context.commit('UPDATE_LISTING_PHOTOS', data)
   },
+
+  updateSummary(context, data) {
+    context.commit('UPDATE_LISTING_SUMMARY', data)
+  },
+
+  updateTitle(context, data) {
+    context.commit('UPDATE_LISTING_TITLE', data)
+  },
 }

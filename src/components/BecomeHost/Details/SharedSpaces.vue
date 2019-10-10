@@ -26,14 +26,14 @@
     <Footer
       :back="back"
       :next="updateAndContinue"
-      :checkpoint="checkpoint"
+      :checkpoint="updateAndContinue"
       next-btn-text="Done"
     />
   </div>
 </template>
 
 <script>
-import Footer from "@/components/BecomeHost/Footer";
+import Footer from '@/components/BecomeHost/Footer'
 
 export default {
   components: { Footer },
@@ -41,52 +41,52 @@ export default {
     back: { type: Function, required: true },
     next: { type: Function, required: true },
     checkpoint: { type: Function, required: true },
-    exitBtnClicked: { type: Boolean, required: true }
+    exitBtnClicked: { type: Boolean, required: true },
   },
   data() {
     return {
       checkedSpaces: [],
       spaces: [
-        "Private living room",
-        "Kitchen",
-        "Laundry - washer",
-        "Laundry - dryer",
-        "Parking",
-        "Gym",
-        "Pool",
-        "Hot tub",
-        "Elevator"
-      ]
-    };
+        'Private living room',
+        'Kitchen',
+        'Laundry - washer',
+        'Laundry - dryer',
+        'Parking',
+        'Gym',
+        'Pool',
+        'Hot tub',
+        'Elevator',
+      ],
+    }
   },
   methods: {
     updateAndContinue() {
-      this.$store.dispatch("updateSharedSpaces", {
-        spaces: this.checkedSpaces
-      });
+      this.$store.dispatch('updateSharedSpaces', {
+        spaces: this.checkedSpaces,
+      })
 
-      this.$store.dispatch("updateProgress", {
-        progress: "step one completed"
-      });
+      this.$store.dispatch('updateProgress', {
+        progress: 'step one completed',
+      })
 
-      this.checkpoint();
+      this.checkpoint()
     },
     initializeValues() {
-      let listing = this.$store.state.listing;
+      let listing = this.$store.state.listing
 
-      if (listing.hasOwnProperty("spaces")) this.checkedSpaces = listing.spaces;
-    }
+      if (listing.hasOwnProperty('spaces')) this.checkedSpaces = listing.spaces
+    },
   },
   created() {
-    this.initializeValues();
+    this.initializeValues()
   },
   watch: {
     exitBtnClicked: {
       immediate: true,
       handler: function(exitBtnClicked) {
-        if (exitBtnClicked) this.checkpoint();
-      }
-    }
-  }
-};
+        if (exitBtnClicked) this.checkpoint()
+      },
+    },
+  },
+}
 </script>

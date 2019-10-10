@@ -13,10 +13,14 @@
         <textarea
           rows="6"
           class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white resize-none"
+          :class="{ 'border-red-500 bg-red-100': descriptionError }"
           id="grid-description"
           placeholder="Describe the decor, light, what’s nearby, etc..."
           v-model="description"
         ></textarea>
+        <p v-show="descriptionError" class="text-red-500 text-xs italic">
+          We need a description for your place
+        </p>
       </div>
     </div>
 
@@ -98,7 +102,7 @@
 
     <hr class="border-gray-300 my-6" />
 
-    <div class="flex flex-wrap">
+    <div class="flex flex-wrap mb-20">
       <label
         class="block tracking-wide text-gray-700 font-bold mb-2"
         for="grid-travel"
@@ -119,48 +123,89 @@
       </div>
     </div>
 
-    <hr class="border-gray-300 my-6" />
-
-    <div class="clearfix mt-6">
-      <div class="float-left">
-        <a
-          class="flex items-center text-indigo-600 hover:opacity-50 cursor-pointer"
-          @click="back"
-        >
-          <img
-            src="/img/ikonate/chevron-left-indigo-600.svg"
-            class="h-6 mr-1"
-          />
-          <span class="font-thin">Back</span>
-        </a>
-      </div>
-      <div class="float-right">
-        <a
-          class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
-          @click="next"
-        >
-          Next
-        </a>
-      </div>
-    </div>
+    <Footer :back="back" :next="proceed" :checkpoint="updateAndExit" />
   </div>
 </template>
 
 <script>
+import Footer from '@/components/BecomeHost/Footer'
+
 export default {
+  components: { Footer },
   props: {
     back: { type: Function, required: true },
     next: { type: Function, required: true },
-    checkpoint: { type: Function, required: true }
+    checkpoint: { type: Function, required: true },
+    exitBtnClicked: { type: Boolean, required: true },
   },
   data() {
     return {
-      description: "",
-      space: "",
-      availability: "",
-      neighborhood: "",
-      travel: ""
-    };
-  }
-};
+      description: '',
+      space: '',
+      availability: '',
+      neighborhood: '',
+      travel: '',
+      descriptionError: false,
+    }
+  },
+  methods: {
+    checkDescription() {
+      // char limit 500
+      this.descriptionError = this.description == ''
+    },
+    proceed() {
+      this.checkDescription()
+
+      if (!this.descriptionError) this.updateAndContinue()
+    },
+    updateListingState() {
+      this.$store.dispatch('updateSummary', {
+        description: this.description,
+        spaceDescription: this.space,
+        hostAvailability: this.availability,
+        neighborhood: this.neighborhood,
+        gettingAround: this.travel,
+      })
+    },
+    updateAndContinue() {
+      this.updateListingState()
+
+      this.next()
+    },
+    updateAndExit() {
+      this.updateListingState()
+
+      this.checkpoint()
+    },
+    initializeValues() {
+      let listing = this.$store.state.listing
+
+      if (listing.hasOwnProperty('description'))
+        this.description = listing.description
+
+      if (listing.hasOwnProperty('spaceDescription'))
+        this.space = listing.spaceDescription
+
+      if (listing.hasOwnProperty('hostAvailability'))
+        this.availability = listing.hostAvailability
+
+      if (listing.hasOwnProperty('neighborhood'))
+        this.neighborhood = listing.neighborhood
+
+      if (listing.hasOwnProperty('gettingAround'))
+        this.travel = listing.gettingAround
+    },
+  },
+  created() {
+    this.initializeValues()
+  },
+  watch: {
+    exitBtnClicked: {
+      immediate: true,
+      handler: function(exitBtnClicked) {
+        if (exitBtnClicked) this.updateAndExit()
+      },
+    },
+  },
+}
 </script>

@@ -64,4 +64,16 @@ export const mutations = {
   UPDATE_LISTING_PHOTOS(state, obj) {
     Vue.set(state.listing, 'photos', obj.photos)
   },
+
+  UPDATE_LISTING_SUMMARY(state, obj) {
+    Vue.set(state.listing, 'description', obj.description)
+    Vue.set(state.listing, 'spaceDescription', obj.spaceDescription)
+    Vue.set(state.listing, 'hostAvailability', obj.hostAvailability)
+    Vue.set(state.listing, 'neighborhood', obj.neighborhood)
+    Vue.set(state.listing, 'gettingAround', obj.gettingAround)
+  },
+
+  UPDATE_LISTING_TITLE(state, obj) {
+    Vue.set(state.listing, 'title', obj.title)
+  },
 }
