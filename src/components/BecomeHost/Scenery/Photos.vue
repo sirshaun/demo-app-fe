@@ -79,10 +79,10 @@
 </template>
 
 <script>
-import Dropzone from "dropzone";
+import Dropzone from 'dropzone'
 
-import PhotoTipModal from "@/components/BecomeHost/PhotoTipModal";
-import Footer from "@/components/BecomeHost/Footer";
+import PhotoTipModal from '@/components/BecomeHost/PhotoTipModal'
+import Footer from '@/components/BecomeHost/Footer'
 
 export default {
   components: { PhotoTipModal, Footer },
@@ -90,63 +90,63 @@ export default {
     next: { type: Function, required: true },
     checkpoint: { type: Function, required: true },
     uploadUrl: { type: String, required: true },
-    exitBtnClicked: { type: Boolean, required: true }
+    exitBtnClicked: { type: Boolean, required: true },
   },
   data() {
     return {
       uploaded: false,
       modalOn: false,
-      photos: []
-    };
+      photos: [],
+    }
   },
   computed: {
     nextBtnText() {
-      return this.photos.length ? "Done" : "Skip for now";
-    }
+      return this.photos.length ? 'Done' : 'Skip for now'
+    },
   },
   methods: {
     back() {
-      this.checkpoint();
+      this.checkpoint()
     },
     toggleModal() {
-      this.modalOn = !this.modalOn;
+      this.modalOn = !this.modalOn
     },
     updateListingState() {
       /*this.$store.dispatch('updatePhotos', {
-				photos: this.photos,
-			})*/
+        photos: this.photos,
+      })*/
     },
     updateAndContinue() {
-      this.updateListingState();
+      this.updateListingState()
 
-      this.next();
+      this.next()
     },
     updateAndExit() {
-      this.updateListingState();
+      this.updateListingState()
 
-      this.checkpoint();
-    }
+      this.checkpoint()
+    },
   },
   mounted() {
     Dropzone.options.myAwesomeDropzone = {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
-      paramName: "file",
+      paramName: 'file',
       maxFilesize: 10,
       success: (file, response) => {
-        this.photos.push({ url: response.url });
+        this.photos.push({ url: response.url })
       },
-      previewsContainer: false
-    };
+      previewsContainer: false,
+    }
   },
   watch: {
     exitBtnClicked: {
       immediate: true,
       handler: function(exitBtnClicked) {
-        if (exitBtnClicked) this.checkpoint();
-      }
-    }
-  }
-};
+        if (exitBtnClicked) this.checkpoint()
+      },
+    },
+  },
+}
 </script>

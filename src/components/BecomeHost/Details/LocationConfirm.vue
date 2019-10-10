@@ -45,8 +45,10 @@
 </template>
 
 <script>
+import googlemap from '@/map/google-map.js'
+
 // import GoogleMap from "@/components/GoogleMap";
-import Footer from "@/components/BecomeHost/Footer";
+import Footer from '@/components/BecomeHost/Footer'
 
 export default {
   components: { Footer },
@@ -54,67 +56,67 @@ export default {
     back: { type: Function, required: true },
     next: { type: Function, required: true },
     checkpoint: { type: Function, required: true },
-    exitBtnClicked: { type: Boolean, required: true }
+    exitBtnClicked: { type: Boolean, required: true },
   },
   data() {
     return {
-      address: "",
-      long: "",
-      lat: ""
-    };
+      address: '',
+      long: '',
+      lat: '',
+    }
   },
   methods: {
     updateListingState() {
-      this.$store.dispatch("updateCoordinates", {
+      this.$store.dispatch('updateCoordinates', {
         long: this.long,
-        lat: this.lat
-      });
+        lat: this.lat,
+      })
     },
     updateAndContinue() {
-      this.updateListingState();
+      this.updateListingState()
 
-      this.next();
+      this.next()
     },
     updateAndExit() {
-      this.updateListingState();
+      this.updateListingState()
 
-      this.checkpoint();
+      this.checkpoint()
     },
     initializeValues() {
-      let listing = this.$store.state.listing;
+      let listing = this.$store.state.listing
 
       /*if (listing.hasOwnProperty('country')) var country = listing.country
 
-			if (listing.hasOwnProperty('street')) var street = listing.street
+      if (listing.hasOwnProperty('street')) var street = listing.street
 
-			if (listing.hasOwnProperty('aptNum')) var aptNum = listing.aptNum
+      if (listing.hasOwnProperty('aptNum')) var aptNum = listing.aptNum
 
-			if (listing.hasOwnProperty('city')) var city = listing.city
+      if (listing.hasOwnProperty('city')) var city = listing.city
 
-			if (listing.hasOwnProperty('state')) var state = listing.state
+      if (listing.hasOwnProperty('state')) var state = listing.state
 
-			if (listing.hasOwnProperty('postcode'))
-				var postcode = listing.postcode*/
+      if (listing.hasOwnProperty('postcode'))
+        var postcode = listing.postcode*/
 
-      if (listing.hasOwnProperty("address")) this.address = listing.address;
+      if (listing.hasOwnProperty('address')) this.address = listing.address
 
-      if (listing.hasOwnProperty("longitude")) this.long = listing.longitude;
+      if (listing.hasOwnProperty('longitude')) this.long = listing.longitude
 
-      if (listing.hasOwnProperty("latitude")) this.lat = listing.latitude;
+      if (listing.hasOwnProperty('latitude')) this.lat = listing.latitude
 
       // '12 Lewton Road, Mount Waverley, VIC 3149, Australia'
-    }
+    },
   },
   created() {
-    this.initializeValues();
+    this.initializeValues()
   },
   watch: {
     exitBtnClicked: {
       immediate: true,
       handler: function(exitBtnClicked) {
-        if (exitBtnClicked) this.updateAndExit();
-      }
-    }
-  }
-};
+        if (exitBtnClicked) this.updateAndExit()
+      },
+    },
+  },
+}
 </script>

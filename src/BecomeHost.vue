@@ -108,18 +108,18 @@
 </template>
 
 <script>
-import Navbar from "./components/BecomeHost/Navbar";
-import PlaceType from "./components/BecomeHost/Details/PlaceType";
-import Bedrooms from "./components/BecomeHost/Details/Bedrooms";
-import Baths from "./components/BecomeHost/Details/Baths";
-import Location from "./components/BecomeHost/Details/Location";
-import LocationConfirm from "./components/BecomeHost/Details/LocationConfirm";
-import Amenities from "./components/BecomeHost/Details/Amenities";
-import SharedSpaces from "./components/BecomeHost/Details/SharedSpaces";
-import Checkpoint from "./components/BecomeHost/Checkpoint";
-import Photos from "./components/BecomeHost/Scenery/Photos";
-import Description from "./components/BecomeHost/Scenery/Description";
-import Name from "./components/BecomeHost/Scenery/Name";
+import Navbar from './components/BecomeHost/Navbar'
+import PlaceType from './components/BecomeHost/Details/PlaceType'
+import Bedrooms from './components/BecomeHost/Details/Bedrooms'
+import Baths from './components/BecomeHost/Details/Baths'
+import Location from './components/BecomeHost/Details/Location'
+import LocationConfirm from './components/BecomeHost/Details/LocationConfirm'
+import Amenities from './components/BecomeHost/Details/Amenities'
+import SharedSpaces from './components/BecomeHost/Details/SharedSpaces'
+import Checkpoint from './components/BecomeHost/Checkpoint'
+import Photos from './components/BecomeHost/Scenery/Photos'
+import Description from './components/BecomeHost/Scenery/Description'
+import Name from './components/BecomeHost/Scenery/Name'
 
 export default {
   components: {
@@ -134,7 +134,7 @@ export default {
     Checkpoint,
     Photos,
     Description,
-    Name
+    Name,
   },
   data() {
     return {
@@ -143,127 +143,127 @@ export default {
       page: 8,
       step: 2,
       text: [
-        "Step 1: Start with the basics",
-        "Step 2: Set the scene",
-        "Step 3: Get ready for guests"
+        'Step 1: Start with the basics',
+        'Step 2: Set the scene',
+        'Step 3: Get ready for guests',
       ],
       checkpoint: false,
       review: false,
-      exitBtnClicked: false
-    };
+      exitBtnClicked: false,
+    }
   },
   computed: {
     navText() {
-      return this.text[this.step - 1];
+      return this.text[this.step - 1]
     },
     progress() {
-      if (this.review) return "100%";
+      if (this.review) return '100%'
 
-      var progress = 0;
+      var progress = 0
       if (this.step == 1) {
-        progress = parseInt((this.page / 7) * 100);
+        progress = parseInt((this.page / 7) * 100)
       }
 
       if (this.step == 2) {
         // starts at page 8 ergo page 8 is page 1 for step 2
-        progress = parseInt(((this.page - 7) / 3) * 100);
+        progress = parseInt(((this.page - 7) / 3) * 100)
       }
 
       if (this.step == 3) {
         // TODO
       }
 
-      return progress + "%";
+      return progress + '%'
     },
     showSaveAndExitBtn() {
-      if (this.step == 1 && !this.review) return false;
+      if (this.step == 1 && !this.review) return false
 
-      return true;
+      return true
     },
     uploadUrl() {
-      var id = this.$store.getters.listing_id;
+      var id = this.$store.getters.listing_id
 
-      if (typeof id != "undefined") {
+      if (typeof id != 'undefined') {
         return (
-          process.env.VUE_APP_API_URI + "/user/listings/" + id + "/image-upload"
-        );
+          process.env.VUE_APP_API_URI + '/user/listings/' + id + '/image-upload'
+        )
       }
 
-      return process.env.VUE_APP_API_URI + "user/listings/1/image-upload";
-    }
+      return process.env.VUE_APP_API_URI + 'user/listings/1/image-upload'
+    },
   },
   methods: {
     prevPage() {
-      this.page -= 1;
+      this.page -= 1
     },
     nextPage() {
-      this.page += 1;
+      this.page += 1
     },
     gotoPage(page) {
-      this.page = page;
+      this.page = page
     },
     toggleCheckpoint() {
       // this.persist()
 
-      this.checkpoint = !this.checkpoint;
+      this.checkpoint = !this.checkpoint
     },
     stepOneReview() {
-      this.step = 1;
-      this.page = 1;
-      this.review = true;
+      this.step = 1
+      this.page = 1
+      this.review = true
     },
     proceedStepTwo() {
-      this.step = 2;
-      this.page = 8;
+      this.step = 2
+      this.page = 8
     },
     proceedStepThree() {
-      this.step = 2;
-      this.page = 8;
+      this.step = 2
+      this.page = 8
     },
     saveAndExit() {
-      this.exitBtnClicked = true;
+      this.exitBtnClicked = true
     },
     persist() {
       this.$http
-        .post("/user/listings/create", this.$store.state.listing, {
+        .post('/user/listings/create', this.$store.state.listing, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-          }
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
         })
         .then(res => {
-          this.$store.dispatch("setListingId", {
-            id: res.data.id
-          });
+          this.$store.dispatch('setListingId', {
+            id: res.data.id,
+          })
         })
         .catch(error => {
-          console.log(error);
-        });
-    }
+          console.log(error)
+        })
+    },
   },
   watch: {
     page: {
       immediate: true,
       handler: function(page) {
         if (page > 7 && this.step == 1) {
-          this.toggleCheckpoint();
+          this.toggleCheckpoint()
         } else if (page > 10 && this.step == 2) {
-          this.toggleCheckpoint();
+          this.toggleCheckpoint()
         }
-      }
+      },
     },
     checkpoint: {
       immediate: true,
       handler: function(checkpoint) {
-        if (checkpoint) this.exitBtnClicked = false;
-      }
-    }
+        if (checkpoint) this.exitBtnClicked = false
+      },
+    },
   },
   created() {
     if (!this.$store.state.isLogged) {
-      window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
     } else {
-      this.listing = this.$store.state.listing;
+      this.listing = this.$store.state.listing
     }
-  }
-};
+  },
+}
 </script>
