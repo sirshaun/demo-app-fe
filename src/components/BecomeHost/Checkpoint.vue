@@ -12,7 +12,9 @@
       <div class="clearfix mt-6">
         <div class="float-left">
           <div class="flex flex-col">
-            <div>Beds, bathrooms, amenities and more</div>
+            <div class="font-light text-gray-800">
+              Beds, bathrooms, amenities and more
+            </div>
             <div>
               <a
                 class="text-indigo-600 hover:opacity-50 cursor-pointer"
@@ -23,74 +25,86 @@
           </div>
         </div>
         <div class="float-right">
-          <img src="/img/ikonate/ok-circle-indigo-700.svg" class="h-10" />
+          <svg
+            class="h-10 text-indigo-700 fill-current"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+          >
+            <path
+              d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM6.7 9.29L9 11.6l4.3-4.3 1.4 1.42L9 14.4l-3.7-3.7 1.4-1.42z"
+            />
+          </svg>
         </div>
       </div>
 
       <hr class="border-gray-300 my-6" />
 
-      <div class="flex flex-col" :class="{ 'opacity-50': true }">
-        <div>Step 2</div>
-        <div>Set the scene</div>
-        <div>Set the Photos, short description, title</div>
-        <div v-if="false">
-          <a
-            class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
-            @click="continueToStepTwo"
-          >
-            Continue
-          </a>
-        </div>
-      </div>
+      <StepTwo
+        :continue-to-step-two="continueToStepTwo"
+        :review-step-two="reviewStepTwo"
+        :proceed-step-two="proceedStepTwo"
+        :photos-uploaded="photosUploaded"
+      />
 
       <hr class="border-gray-300 my-6" />
 
-      <div class="flex flex-col" :class="{ 'opacity-50': true }">
-        <div>Step 3</div>
-        <div>Get ready for guests</div>
-        <div>Booking settings, calendar, price</div>
-        <div v-if="false">
-          <a
-            class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded cursor-pointer focus:outline-none focus:shadow-outline"
-            @click="continueToStepThree"
-          >
-            Continue
-          </a>
-        </div>
-      </div>
+      <StepThree
+        :continue-to-step-three="continueToStepThree"
+        :review-step-three="reviewStepThree"
+        :proceed-step-three="proceedStepThree"
+      />
     </div>
     <div class="w-1/2"></div>
   </div>
 </template>
 
 <script>
+import StepTwo from './Checkpoint/StepTwo'
+import StepThree from './Checkpoint/StepThree'
+
 export default {
+  components: { StepTwo, StepThree },
   props: {
     step: { type: Number, required: true },
     page: { type: Number, required: true },
-    checkpoint: { type: Function, required: true }
+    checkpoint: { type: Function, required: true },
+  },
+  computed: {
+    photosUploaded() {
+      return this.$store.getters.photosUploaded
+    },
+    proceedStepTwo() {
+      var id = this.$store.getters.listing_id
+
+      return typeof id != 'undefined'
+    },
+    proceedStepThree() {
+      var title = this.$store.getters.title
+
+      return typeof title != 'undefined'
+    },
   },
   methods: {
     reviewStepOne() {
-      this.checkpoint();
-      this.$emit("review-step-one");
+      this.checkpoint()
+      this.$emit('review-step-one')
     },
     continueToStepTwo() {
-      this.checkpoint();
-      this.$emit("continue-to-step-two");
+      this.checkpoint()
+      this.$emit('continue-to-step-two')
     },
     reviewStepTwo() {
-      this.checkpoint();
-      this.$emit("review-step-two");
+      this.checkpoint()
+      this.$emit('review-step-two')
     },
     continueToStepThree() {
-      this.checkpoint();
-      this.$emit("continue-to-step-three");
+      this.checkpoint()
+      this.$emit('continue-to-step-three')
     },
     reviewStepThree() {
-      this.checkpoint();
-      this.$emit("review-step-three");
-    }
-  }
-};
+      this.checkpoint()
+      this.$emit('review-step-three')
+    },
+  },
+}
 </script>
