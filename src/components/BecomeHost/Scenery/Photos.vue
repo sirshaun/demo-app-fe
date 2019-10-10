@@ -59,9 +59,14 @@
       </div>
     </form>
 
-    <!-- <hr class="border-gray-300 my-6" /> -->
+    <hr class="border-gray-300 my-6" v-if="previewAvailable" />
 
-    <!-- TODO: Add carousel to preview the images that have been uploaded -->
+    <PreviewSlide
+      :images="photos"
+      :func="removePhoto"
+      v-if="previewAvailable"
+      class="mb-20"
+    />
 
     <Footer
       :back="back"
@@ -82,10 +87,11 @@
 import Dropzone from 'dropzone'
 
 import PhotoTipModal from '@/components/BecomeHost/PhotoTipModal'
+import PreviewSlide from '@/components/BecomeHost/PreviewSlide'
 import Footer from '@/components/BecomeHost/Footer'
 
 export default {
-  components: { PhotoTipModal, Footer },
+  components: { PhotoTipModal, PreviewSlide, Footer },
   props: {
     next: { type: Function, required: true },
     checkpoint: { type: Function, required: true },
@@ -103,18 +109,24 @@ export default {
     nextBtnText() {
       return this.photos.length ? 'Done' : 'Skip for now'
     },
+    previewAvailable() {
+      return this.photos.length
+    },
   },
   methods: {
     back() {
       this.checkpoint()
     },
+    removePhoto(index) {
+      this.photos.splice(index, 1)
+    },
     toggleModal() {
       this.modalOn = !this.modalOn
     },
     updateListingState() {
-      /*this.$store.dispatch('updatePhotos', {
+      this.$store.dispatch('updatePhotos', {
         photos: this.photos,
-      })*/
+      })
     },
     updateAndContinue() {
       this.updateListingState()
@@ -126,8 +138,13 @@ export default {
 
       this.checkpoint()
     },
+    initializeValues() {
+      let listing = this.$store.state.listing
+
+      if (listing.hasOwnProperty('photos')) this.photos = listing.photos
+    },
   },
-  mounted() {
+  created() {
     Dropzone.options.myAwesomeDropzone = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -135,10 +152,18 @@ export default {
       paramName: 'file',
       maxFilesize: 10,
       success: (file, response) => {
-        this.photos.push({ url: response.url })
+        // NOTE: success seems to run twice with the same paylod
+        // meaning image uris are added twice, check if image doesn't
+        // already exist before adding it
+        response.uris.forEach(e => {
+          if (this.photos.indexOf(e) == -1) this.photos.push(e)
+        })
       },
       previewsContainer: false,
+      uploadMultiple: true,
     }
+
+    this.initializeValues()
   },
   watch: {
     exitBtnClicked: {

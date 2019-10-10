@@ -9,7 +9,7 @@
         <img
           class="object-cover rounded-t-lg"
           :src="listing.imageUrl"
-          style="max-height: 239.95px; width: 359.5px"
+          style="height: 239.95px; width: 359.5px"
         />
         <!-- <div
                     class="bg-cover object-cover"
@@ -25,9 +25,9 @@
             <div
               class="text-gray-600 text-xs uppercase font-semibold tracking-wide ml-2"
             >
-              {{ pluralize("bed", listing.beds, true) }}
+              {{ pluralize('bed', listing.beds, true) }}
               &bull;
-              {{ pluralize("baths", listing.baths, true) }}
+              {{ pluralize('baths', listing.baths, true) }}
             </div>
           </div>
           <p class="font-semibold text-sm leading-tight truncate">
@@ -56,17 +56,17 @@
 </template>
 
 <script>
-import Pluralize from "pluralize";
+import Pluralize from 'pluralize'
 
-import Glider from "@/components/Glider";
+import Glider from '@/components/Glider'
 
 export default {
   components: { Glider },
-  props: ["listings"],
+  props: ['listings'],
   methods: {
     pluralize(word, count = 0, inclusive) {
-      return Pluralize(word, count, inclusive);
-    }
-  }
-};
+      return Pluralize(word, count, inclusive)
+    },
+  },
+}
 </script>
