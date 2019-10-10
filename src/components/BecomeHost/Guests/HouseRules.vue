@@ -7,34 +7,13 @@
       Guests must agree to your House Rules before they book.
     </p>
 
-    <div class="mt-6">
-      <div class="block tracking-wide text-gray-700 font-bold mb-4">
-        Additional Rules
-      </div>
-      <div
-        class="flex items-center justify-between mb-4"
-        v-for="(rule, index) in customRules"
-        :key="index"
-      >
-        <div>{{ rule }}</div>
-        <div
-          class="cursor-pointer text-gray-400 hover:text-gray-700"
-          @click="removeCustomRule(index)"
-        >
-          <svg
-            class="h-4 fill-current"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-          >
-            <path
-              d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"
-            />
-          </svg>
-        </div>
-      </div>
-    </div>
+    <DefaultRules />
 
-    <CustomRules :add-custom-rule="addCustomRule" />
+    <CustomRules
+      :remove-custom-rule="removeCustomRule"
+      :custom-rules="customRules"
+    />
+    <AddCustomRule :add-custom-rule="addCustomRule" />
 
     <ExtraDetails />
 
@@ -45,11 +24,18 @@
 <script>
 import DefaultRules from '@/components/BecomeHost/DefaultRules'
 import CustomRules from '@/components/BecomeHost/CustomRules'
+import AddCustomRule from '@/components/BecomeHost/AddCustomRule'
 import ExtraDetails from '@/components/BecomeHost/ExtraDetails'
 import Footer from '@/components/BecomeHost/Footer'
 
 export default {
-  components: { DefaultRules, CustomRules, ExtraDetails, Footer },
+  components: {
+    DefaultRules,
+    CustomRules,
+    AddCustomRule,
+    ExtraDetails,
+    Footer,
+  },
   props: {
     back: { type: Function, required: true },
     next: { type: Function, required: true },
