@@ -61,36 +61,36 @@
 </template>
 
 <script>
-import Modal from '@/components/Modal'
+import Modal from "@/components/Modal";
 
 export default {
   components: { Modal },
   data() {
     return {
       types: [
-        'Aparthotel',
-        'Bed & Breakfast',
-        'Boutique Hotel',
-        'Heritage Hotel (India)',
-        'Hotel',
-        'Ryokan (Japan)',
-        'Resort',
-        'Casa particular',
-        'Nature Lodge',
-        'Condohotel',
-        'Pension (Korea)',
-        'Minsu  (Taiwan)',
-        'Hostel',
-        'Pousada',
-        'Serviced Apartment',
-        'Timeshare',
-      ],
-    }
+        "Aparthotel",
+        "Bed & Breakfast",
+        "Boutique Hotel",
+        "Heritage Hotel (India)",
+        "Hotel",
+        "Ryokan (Japan)",
+        "Resort",
+        "Casa particular",
+        "Nature Lodge",
+        "Condohotel",
+        "Pension (Korea)",
+        "Minsu  (Taiwan)",
+        "Hostel",
+        "Pousada",
+        "Serviced Apartment",
+        "Timeshare"
+      ]
+    };
   },
   methods: {
     dismiss() {
-      this.$emit('close-case-modal')
-    },
-  },
-}
+      this.$emit("close-case-modal");
+    }
+  }
+};
 </script>

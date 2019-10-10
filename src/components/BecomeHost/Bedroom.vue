@@ -7,7 +7,7 @@
             <div class="flex flex-col">
               <div>{{ name }}</div>
               <div v-if="!addingBeds">
-                {{ pluralize('bed', beds, true) }}
+                {{ pluralize("bed", beds, true) }}
               </div>
               <div v-show="addingBeds">
                 <Bed
@@ -64,32 +64,32 @@
 </template>
 
 <script>
-import Pluralize from 'pluralize'
+import Pluralize from "pluralize";
 
-import Bed from './Bed'
+import Bed from "./Bed";
 
 const rooms = [
-  'double',
-  'queen',
-  'single',
-  'sofa',
-  'king',
-  'small',
-  'couch',
-  'bunk',
-  'floor',
-  'air',
-  'cot',
-  'toddler',
-  'hammock',
-  'water',
-]
+  "double",
+  "queen",
+  "single",
+  "sofa",
+  "king",
+  "small",
+  "couch",
+  "bunk",
+  "floor",
+  "air",
+  "cot",
+  "toddler",
+  "hammock",
+  "water"
+];
 
 export default {
   components: { Bed },
   props: {
     name: { type: String, required: true },
-    spaces: { type: Object },
+    spaces: { type: Object }
   },
   data() {
     return {
@@ -107,23 +107,23 @@ export default {
       toddler: 0,
       hammock: 0,
       water: 0,
-      defaultBeds: ['Double', 'Queen', 'Single', 'Sofa bed'],
+      defaultBeds: ["Double", "Queen", "Single", "Sofa bed"],
       bedOptions: [
-        'Add another bed',
-        'King',
-        'Small double (3/4)',
-        'Couch',
-        'Bunk bed',
-        'Floor matress',
-        'Air matress',
-        'Cot',
-        'Toddler bed',
-        'Hammock',
-        'Water bed',
+        "Add another bed",
+        "King",
+        "Small double (3/4)",
+        "Couch",
+        "Bunk bed",
+        "Floor matress",
+        "Air matress",
+        "Cot",
+        "Toddler bed",
+        "Hammock",
+        "Water bed"
       ],
       allBeds: [],
-      addingBeds: false,
-    }
+      addingBeds: false
+    };
   },
   computed: {
     beds() {
@@ -142,93 +142,93 @@ export default {
         this.toddler +
         this.hammock +
         this.water
-      )
+      );
     },
     nameSlug() {
-      return this.name.toLowerCase().replace(' ', '-')
+      return this.name.toLowerCase().replace(" ", "-");
     },
     addingBedsBtnText() {
-      if (this.beds == 0 && !this.addingBeds) return 'Add beds'
+      if (this.beds == 0 && !this.addingBeds) return "Add beds";
 
-      if (this.beds > 0 && !this.addingBeds) return 'Edit beds'
+      if (this.beds > 0 && !this.addingBeds) return "Edit beds";
 
-      return 'Done'
-    },
+      return "Done";
+    }
   },
   methods: {
     incrementBeds(bed, beds) {
-      this[this.shortName(bed)] = beds
+      this[this.shortName(bed)] = beds;
     },
     addBed(event) {
-      var $select = event.target
+      var $select = event.target;
       // document.querySelector('#grid-bed-add-' + this.nameSlug)
-      var bedType = event.target.value
+      var bedType = event.target.value;
 
       // remove option from select options
-      var index = this.bedOptions.indexOf(bedType)
+      var index = this.bedOptions.indexOf(bedType);
       if (index > -1) {
-        this.bedOptions.splice(index, 1)
+        this.bedOptions.splice(index, 1);
       }
 
       // add bed type to list
-      this.allBeds.push(bedType)
+      this.allBeds.push(bedType);
 
       // reset select
-      $select.value = 'Add another bed'
+      $select.value = "Add another bed";
     },
     isDefaultOption(option) {
-      return option == 'Add another bed'
+      return option == "Add another bed";
     },
     toggleView() {
-      if (this.addingBedsBtnText == 'Done')
-        this.$emit('bedroom-beds-updated', this.name, this.bedsAsArray())
+      if (this.addingBedsBtnText == "Done")
+        this.$emit("bedroom-beds-updated", this.name, this.bedsAsArray());
 
-      this.addingBeds = !this.addingBeds
+      this.addingBeds = !this.addingBeds;
     },
     bedsAsArray() {
-      var arr = {}
+      var arr = {};
 
       rooms.forEach(e => {
-        if (this[e] > 0) arr[e] = this[e]
-      })
+        if (this[e] > 0) arr[e] = this[e];
+      });
 
-      return arr
+      return arr;
     },
     initialCount(bed) {
-      return this[this.shortName(bed)]
+      return this[this.shortName(bed)];
     },
     pluralize(word, count = 0, inclusive) {
-      return Pluralize(word, count, inclusive)
+      return Pluralize(word, count, inclusive);
     },
     shortName(name) {
       // NOTE: names with white space are shortened to just the
       // first word of that name (to match the data in the parent)
 
       if (/\s/.test(name)) {
-        return name.substr(0, name.indexOf(' ')).toLowerCase()
+        return name.substr(0, name.indexOf(" ")).toLowerCase();
       }
 
-      return name.toLowerCase()
+      return name.toLowerCase();
     },
     restoreBeds() {
       if (
-        typeof this.spaces != 'undefined' &&
+        typeof this.spaces != "undefined" &&
         Object.keys(this.spaces).length
       ) {
-        var sluggedName = this.name.toLowerCase().replace(' ', '_')
+        var sluggedName = this.name.toLowerCase().replace(" ", "_");
 
-        var beds = this.spaces[sluggedName]
+        var beds = this.spaces[sluggedName];
 
         rooms.forEach(e => {
-          if (beds.hasOwnProperty(e)) this[e] = beds[e]
-        })
+          if (beds.hasOwnProperty(e)) this[e] = beds[e];
+        });
       }
-    },
+    }
   },
   created() {
-    this.allBeds = this.defaultBeds
+    this.allBeds = this.defaultBeds;
 
-    this.restoreBeds()
-  },
-}
+    this.restoreBeds();
+  }
+};
 </script>

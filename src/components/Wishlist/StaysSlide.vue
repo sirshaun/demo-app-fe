@@ -1,22 +1,22 @@
 <template>
-	<Glider :multi="true" :perView="1">
-		<ul class="glide__slides">
-			<li
-				class="glide__slide max-w"
-				v-for="(image, index) in images"
-				:key="index"
-			>
-				<img class="rounded" :src="image.url" :alt="image.alt" />
-			</li>
-		</ul>
-	</Glider>
+  <Glider :multi="true" :perView="1">
+    <ul class="glide__slides">
+      <li
+        class="glide__slide max-w"
+        v-for="(image, index) in images"
+        :key="index"
+      >
+        <img class="rounded" :src="image.url" :alt="image.alt" />
+      </li>
+    </ul>
+  </Glider>
 </template>
 
 <script>
-import Glider from '@/components/Glider'
+import Glider from "@/components/Glider";
 
 export default {
-	components: { Glider },
-	props: ['images'],
-}
+  components: { Glider },
+  props: ["images"]
+};
 </script>

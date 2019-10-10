@@ -34,7 +34,7 @@
           <select
             class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             :class="{
-              'border-red-500 bg-red-100 mb-1': countryError,
+              'border-red-500 bg-red-100 mb-1': countryError
             }"
             id="grid-country"
             v-model="country"
@@ -78,7 +78,7 @@
         <input
           class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
           :class="{
-            'border-red-500 bg-red-100 mb-1': streetError,
+            'border-red-500 bg-red-100 mb-1': streetError
           }"
           id="grid-street"
           type="text"
@@ -120,7 +120,7 @@
         <input
           class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
           :class="{
-            'border-red-500 bg-red-100 mb-1': cityError,
+            'border-red-500 bg-red-100 mb-1': cityError
           }"
           id="grid-city"
           type="text"
@@ -141,7 +141,7 @@
         <input
           class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
           :class="{
-            'border-red-500 bg-red-100 mb-1': stateError,
+            'border-red-500 bg-red-100 mb-1': stateError
           }"
           id="grid-state"
           type="text"
@@ -165,7 +165,7 @@
         <input
           class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
           :class="{
-            'border-red-500 bg-red-100 mb-1': postcodeError,
+            'border-red-500 bg-red-100 mb-1': postcodeError
           }"
           id="grid-postcode"
           type="text"
@@ -183,7 +183,7 @@
 </template>
 
 <script>
-import Footer from '@/components/BecomeHost/Footer'
+import Footer from "@/components/BecomeHost/Footer";
 
 export default {
   components: { Footer },
@@ -191,26 +191,26 @@ export default {
     back: { type: Function, required: true },
     next: { type: Function, required: true },
     checkpoint: { type: Function, required: true },
-    exitBtnClicked: { type: Boolean, required: true },
+    exitBtnClicked: { type: Boolean, required: true }
   },
   data() {
     return {
       countries: [],
-      address: '',
-      country: '',
-      street: '',
-      aptNum: '',
-      city: '',
-      state: '',
-      postcode: '',
-      lat: '',
-      long: '',
+      address: "",
+      country: "",
+      street: "",
+      aptNum: "",
+      city: "",
+      state: "",
+      postcode: "",
+      lat: "",
+      long: "",
       countryError: false,
       streetError: false,
       cityError: false,
       stateError: false,
-      postcodeError: false,
-    }
+      postcodeError: false
+    };
   },
   computed: {
     errors() {
@@ -220,102 +220,102 @@ export default {
         this.cityError ||
         this.stateError ||
         this.postcodeError
-      )
-    },
+      );
+    }
   },
   methods: {
     checkCountry() {
-      this.countryError = this.country == ''
+      this.countryError = this.country == "";
     },
     checkStreet() {
-      this.streetError = this.street == ''
+      this.streetError = this.street == "";
     },
     checkAptNum() {
-      this.aptNumError = this.aptNum == ''
+      this.aptNumError = this.aptNum == "";
     },
     checkCity() {
-      this.cityError = this.city == ''
+      this.cityError = this.city == "";
     },
     checkState() {
-      this.stateError = this.state == ''
+      this.stateError = this.state == "";
     },
     checkPostcode() {
-      this.postcodeError = this.postcode == ''
+      this.postcodeError = this.postcode == "";
     },
     proceed() {
       this.checkCountry() ||
         this.checkStreet() ||
         this.checkCity() ||
         this.checkState() ||
-        this.checkPostcode()
+        this.checkPostcode();
 
-      if (!this.errors) this.updateAndContinue()
+      if (!this.errors) this.updateAndContinue();
     },
     updateListingState() {
-      this.$store.dispatch('updateLocation', {
+      this.$store.dispatch("updateLocation", {
         address: this.address,
         country: this.country,
         street: this.street,
         aptNum: this.aptNum,
         city: this.city,
         state: this.state,
-        postcode: this.postcode,
-      })
+        postcode: this.postcode
+      });
 
-      this.$store.dispatch('updateCoordinates', {
+      this.$store.dispatch("updateCoordinates", {
         long: this.long,
-        lat: this.lat,
-      })
+        lat: this.lat
+      });
     },
     updateAndContinue() {
-      this.updateListingState()
+      this.updateListingState();
 
-      this.next()
+      this.next();
     },
     updateAndExit() {
-      this.updateListingState()
+      this.updateListingState();
 
-      this.checkpoint()
+      this.checkpoint();
     },
     fetchCountries() {
-      this.$http.get('/location/countries').then(
+      this.$http.get("/location/countries").then(
         res => {
-          this.countries = res.data
+          this.countries = res.data;
         },
         error => {
-          console.log(error)
+          console.log(error);
         }
-      )
+      );
     },
     initializeValues() {
-      let listing = this.$store.state.listing
+      let listing = this.$store.state.listing;
 
-      if (listing.hasOwnProperty('country')) this.country = listing.country
+      if (listing.hasOwnProperty("country")) this.country = listing.country;
 
-      if (listing.hasOwnProperty('street')) this.street = listing.street
+      if (listing.hasOwnProperty("street")) this.street = listing.street;
 
-      if (listing.hasOwnProperty('aptNum')) this.aptNum = listing.aptNum
+      if (listing.hasOwnProperty("aptNum")) this.aptNum = listing.aptNum;
 
-      if (listing.hasOwnProperty('city')) this.city = listing.city
+      if (listing.hasOwnProperty("city")) this.city = listing.city;
 
-      if (listing.hasOwnProperty('state')) this.state = listing.state
+      if (listing.hasOwnProperty("state")) this.state = listing.state;
 
-      if (listing.hasOwnProperty('postcode')) this.postcode = listing.postcode
-    },
+      if (listing.hasOwnProperty("postcode")) this.postcode = listing.postcode;
+    }
   },
   mounted() {
-    this.fetchCountries()
+    this.fetchCountries();
   },
   created() {
-    this.initializeValues()
+    this.initializeValues();
   },
   watch: {
     exitBtnClicked: {
       immediate: true,
       handler: function(exitBtnClicked) {
-        if (exitBtnClicked) this.updateAndExit()
-      },
-    },
-  },
-}
+        if (exitBtnClicked) this.updateAndExit();
+      }
+    }
+  }
+};
 </script>

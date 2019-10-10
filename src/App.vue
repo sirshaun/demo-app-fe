@@ -67,43 +67,43 @@
 </template>
 
 <script>
-import DestinationCard from './components/DestinationCard'
-import Footer from './components/Footer'
-import FooterButton from './components/FooterButton'
+import DestinationCard from "./components/DestinationCard";
+import Footer from "./components/Footer";
+import FooterButton from "./components/FooterButton";
 
 export default {
-  name: 'app',
+  name: "app",
   components: { DestinationCard, FooterButton, Footer },
   data() {
     return {
       popularDestinations: [],
-      footerBtn: true,
-    }
+      footerBtn: true
+    };
   },
   methods: {
     fetchDestinations() {
-      this.$http.get('/destination').then(
+      this.$http.get("/destination").then(
         res => {
-          this.popularDestinations = res.data
+          this.popularDestinations = res.data;
         },
         error => {
-          console.log(error)
+          console.log(error);
         }
-      )
+      );
     },
     toggleFooter() {
-      this.footerBtn = !this.footerBtn
-    },
+      this.footerBtn = !this.footerBtn;
+    }
   },
   computed: {
     whereTo() {
-      return this.$store.state.isLogged ? '/' : '/login'
-    },
+      return this.$store.state.isLogged ? "/" : "/login";
+    }
   },
   mounted() {
-    this.fetchDestinations()
-  },
-}
+    this.fetchDestinations();
+  }
+};
 </script>
 
 <style src="./main.css"></style>

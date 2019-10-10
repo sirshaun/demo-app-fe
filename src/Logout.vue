@@ -1,14 +1,14 @@
 <template>
-	<div></div>
+  <div></div>
 </template>
 
 <script>
 export default {
-	name: 'logout',
-	mounted() {
-		localStorage.removeItem('token')
-		this.$store.commit('LOGOUT_USER')
-		this.$router.push('/')
-	},
-}
+  name: "logout",
+  mounted() {
+    localStorage.removeItem("token");
+    this.$store.commit("LOGOUT_USER");
+    this.$router.push("/");
+  }
+};
 </script>

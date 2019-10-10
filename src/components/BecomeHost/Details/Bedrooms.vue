@@ -113,11 +113,11 @@
 </template>
 
 <script>
-import Pluralize from 'pluralize'
+import Pluralize from "pluralize";
 
-import Counter from '@/components/Form/Counter'
-import Bedroom from '@/components/BecomeHost/Bedroom'
-import Footer from '@/components/BecomeHost/Footer'
+import Counter from "@/components/Form/Counter";
+import Bedroom from "@/components/BecomeHost/Bedroom";
+import Footer from "@/components/BecomeHost/Footer";
 
 export default {
   components: { Counter, Bedroom, Footer },
@@ -125,109 +125,109 @@ export default {
     back: { type: Function, required: true },
     next: { type: Function, required: true },
     checkpoint: { type: Function, required: true },
-    exitBtnClicked: { type: Boolean, required: true },
+    exitBtnClicked: { type: Boolean, required: true }
   },
   data() {
     return {
       guests: 0,
-      bedrooms: '',
+      bedrooms: "",
       beds: 0,
       bedroomComponents: 0,
-      bedroomSpaces: {},
-    }
+      bedroomSpaces: {}
+    };
   },
   methods: {
     updateNumberOfGuests(num) {
-      this.guests = num
+      this.guests = num;
     },
     updateNumberOfBeds(num) {
-      this.beds = num
+      this.beds = num;
     },
     updateBedroomSpaces(name, data) {
-      var sluggedName = name.toLowerCase().replace(' ', '_')
+      var sluggedName = name.toLowerCase().replace(" ", "_");
 
-      this.bedroomSpaces[sluggedName] = data
+      this.bedroomSpaces[sluggedName] = data;
     },
     pluralize(word, count = 0, inclusive) {
-      return Pluralize(word, count, inclusive)
+      return Pluralize(word, count, inclusive);
     },
     updateListingState() {
-      this.$store.dispatch('updateBedrooms', {
+      this.$store.dispatch("updateBedrooms", {
         guests: this.guests,
         bedrooms: this.bedrooms,
         beds: this.beds,
-        bedroomSpaces: this.bedroomSpaces,
-      })
+        bedroomSpaces: this.bedroomSpaces
+      });
     },
     updateAndContinue() {
-      this.updateListingState()
+      this.updateListingState();
 
-      this.next()
+      this.next();
     },
     updateAndExit() {
-      this.updateListingState()
+      this.updateListingState();
 
-      this.checkpoint()
+      this.checkpoint();
     },
     initializeValues() {
-      let listing = this.$store.state.listing
+      let listing = this.$store.state.listing;
 
-      if (listing.hasOwnProperty('guests')) this.guests = listing.guests
+      if (listing.hasOwnProperty("guests")) this.guests = listing.guests;
 
-      if (listing.hasOwnProperty('bedrooms')) this.bedrooms = listing.bedrooms
+      if (listing.hasOwnProperty("bedrooms")) this.bedrooms = listing.bedrooms;
 
-      if (listing.hasOwnProperty('beds')) this.beds = listing.beds
+      if (listing.hasOwnProperty("beds")) this.beds = listing.beds;
 
-      if (listing.hasOwnProperty('bedroomSpaces')) {
-        this.bedroomSpaces = listing.bedroomSpaces
+      if (listing.hasOwnProperty("bedroomSpaces")) {
+        this.bedroomSpaces = listing.bedroomSpaces;
 
-        this.restoreSpaces()
+        this.restoreSpaces();
       }
     },
     restoreSpaces() {
-      this.bedroomComponents = Object.keys(this.bedroomSpaces).length - 1
-    },
+      this.bedroomComponents = Object.keys(this.bedroomSpaces).length - 1;
+    }
   },
   computed: {
     listingObj() {
-      return this.$store.state.listing
+      return this.$store.state.listing;
     },
     bedroomOptions() {
-      var options = []
+      var options = [];
 
-      options.push('Studio')
+      options.push("Studio");
 
       for (var i = 1; i < 51; i++) {
         if (i == 1) {
-          options.push(i + ' bedroom')
+          options.push(i + " bedroom");
         } else {
-          options.push(i + ' bedrooms')
+          options.push(i + " bedrooms");
         }
       }
 
-      return options
-    },
+      return options;
+    }
   },
   watch: {
     bedrooms: {
       immediate: false,
       handler: function(bedrooms) {
-        if (bedrooms == 'Studio') {
-          this.bedroomComponents = 0
+        if (bedrooms == "Studio") {
+          this.bedroomComponents = 0;
         } else {
-          this.bedroomComponents = parseInt(bedrooms[0])
+          this.bedroomComponents = parseInt(bedrooms[0]);
         }
-      },
+      }
     },
     exitBtnClicked: {
       immediate: true,
       handler: function(exitBtnClicked) {
-        if (exitBtnClicked) this.updateAndExit()
-      },
-    },
+        if (exitBtnClicked) this.updateAndExit();
+      }
+    }
   },
   created() {
-    this.initializeValues()
-  },
-}
+    this.initializeValues();
+  }
+};
 </script>

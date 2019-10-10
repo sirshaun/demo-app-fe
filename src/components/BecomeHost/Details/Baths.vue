@@ -63,8 +63,8 @@
 </template>
 
 <script>
-import Counter from '@/components/Form/Counter'
-import Footer from '@/components/BecomeHost/Footer'
+import Counter from "@/components/Form/Counter";
+import Footer from "@/components/BecomeHost/Footer";
 
 export default {
   components: { Counter, Footer },
@@ -72,67 +72,67 @@ export default {
     back: { type: Function, required: true },
     next: { type: Function, required: true },
     checkpoint: { type: Function, required: true },
-    exitBtnClicked: { type: Boolean, required: true },
+    exitBtnClicked: { type: Boolean, required: true }
   },
   data() {
     return {
       bathrooms: 1,
-      privateBathroom: '',
+      privateBathroom: "",
       privacyOptions: [
-        { key: 'yes', text: 'Yes' },
-        { key: 'no', text: 'No, they’re shared' },
+        { key: "yes", text: "Yes" },
+        { key: "no", text: "No, they’re shared" }
       ],
-      privateBathroomError: false,
-    }
+      privateBathroomError: false
+    };
   },
   methods: {
     checkPrivacyOption() {
-      this.privateBathroomError = this.privateBathroom == ''
+      this.privateBathroomError = this.privateBathroom == "";
     },
     updateNumberOfBathrooms(num) {
-      this.bathrooms = num
+      this.bathrooms = num;
     },
     proceed() {
-      this.checkPrivacyOption()
+      this.checkPrivacyOption();
 
-      if (!this.privateBathroomError) this.updateAndContinue()
+      if (!this.privateBathroomError) this.updateAndContinue();
     },
     updateListingState() {
-      this.$store.dispatch('updateBaths', {
+      this.$store.dispatch("updateBaths", {
         bathrooms: this.bathrooms,
-        private: this.privateBathroom,
-      })
+        private: this.privateBathroom
+      });
     },
     updateAndContinue() {
-      this.updateListingState()
+      this.updateListingState();
 
-      this.next()
+      this.next();
     },
     updateAndExit() {
-      this.updateListingState()
+      this.updateListingState();
 
-      this.checkpoint()
+      this.checkpoint();
     },
     initializeValues() {
-      let listing = this.$store.state.listing
+      let listing = this.$store.state.listing;
 
-      if (listing.hasOwnProperty('bathrooms'))
-        this.bathrooms = listing.bathrooms
+      if (listing.hasOwnProperty("bathrooms"))
+        this.bathrooms = listing.bathrooms;
 
-      if (listing.hasOwnProperty('private'))
-        this.privateBathroom = listing.private
-    },
+      if (listing.hasOwnProperty("private"))
+        this.privateBathroom = listing.private;
+    }
   },
   created() {
-    this.initializeValues()
+    this.initializeValues();
   },
   watch: {
     exitBtnClicked: {
       immediate: true,
       handler: function(exitBtnClicked) {
-        if (exitBtnClicked) this.updateAndExit()
-      },
-    },
-  },
-}
+        if (exitBtnClicked) this.updateAndExit();
+      }
+    }
+  }
+};
 </script>
