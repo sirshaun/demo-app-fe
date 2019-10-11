@@ -41,6 +41,9 @@
     >
       Explain why
     </div>
+    <p v-show="error" class="text-red-500 text-xs italic mt-px">
+      Please select an option
+    </p>
 
     <ExplanationModal
       :modal-on="explanationModalOn"
@@ -60,6 +63,8 @@ export default {
   components: { YesNo, ExplanationModal, Tooltip },
   props: {
     option: { type: Object, required: false },
+    index: { type: Number, required: true },
+    nextBtnClicked: { type: Boolean, required: true },
   },
   data() {
     return {
@@ -68,6 +73,7 @@ export default {
       explainWhyOn: false,
       explanationModalOn: false,
       tooltipOn: false,
+      error: false,
     }
   },
   computed: {
@@ -93,9 +99,24 @@ export default {
     },
   },
   watch: {
+    nextBtnClicked: {
+      immediate: false,
+      handler: function(nextBtnClicked) {
+        if (this.choice == '') {
+          this.error = true
+          this.$emit('input-error')
+        } else {
+          this.error = false
+        }
+      },
+    },
     choice: {
       immediate: true,
       handler: function(choice) {
+        if (choice != '' && this.error) {
+          this.error = false
+        }
+
         if (this.choice == 'No') {
           if (this.explanationOption && !this.explainWhyOn) {
             this.explainWhyOn = true
@@ -103,6 +124,14 @@ export default {
         } else if (this.explainWhyOn) {
           this.explainWhyOn = false
         }
+
+        this.$emit('update-choice', this.index, this.choice)
+      },
+    },
+    explanation: {
+      immediate: true,
+      handler: function(explanation) {
+        this.$emit('update-choice-reason', this.index, this.explanation)
       },
     },
   },

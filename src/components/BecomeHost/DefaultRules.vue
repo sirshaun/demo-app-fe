@@ -3,7 +3,12 @@
     <DefaultRule
       v-for="(option, index) in options"
       :key="index"
+      :index="index"
       :option="option"
+      :next-btn-clicked="nextBtnClicked"
+      @update-choice="updateRuleChoice"
+      @update-choice-reason="updateRuleChoiceExplanation"
+      @input-error="errorFound"
     />
   </div>
 </template>
@@ -13,9 +18,12 @@ import DefaultRule from './DefaultRule'
 
 export default {
   components: { DefaultRule },
-  props: {},
+  props: {
+    nextBtnClicked: { type: Boolean, required: true },
+  },
   data() {
     return {
+      rules: [],
       options: [
         {
           text: 'Suitable for children (2-12)',
@@ -54,6 +62,21 @@ export default {
         },
       ],
     }
+  },
+  methods: {
+    updateRuleChoice(index, choice) {
+      if (typeof this.rules[index] == 'undefined') {
+        this.rules[index] = { text: this.options[index].text, choice }
+      } else {
+        this.rules[index].choice = choice
+      }
+    },
+    updateRuleChoiceExplanation(index, explanation) {
+      this.rules[index].explanation = explanation
+    },
+    errorFound() {
+      this.$emit('input-error')
+    },
   },
 }
 </script>

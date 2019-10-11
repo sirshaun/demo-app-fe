@@ -7,7 +7,12 @@
       Guests must agree to your House Rules before they book.
     </p>
 
-    <DefaultRules />
+    <DefaultRules
+      :add-rule="addRule"
+      :remove-rule="removeRule"
+      :next-btn-clicked="nextBtnClicked"
+      @input-error="errorFound"
+    />
 
     <CustomRules
       :remove-custom-rule="removeCustomRule"
@@ -15,7 +20,7 @@
     />
     <AddCustomRule :add-custom-rule="addCustomRule" />
 
-    <ExtraDetails />
+    <ExtraDetails :add-detail="addDetail" :remove-detail="removeDetail" />
 
     <Footer :back="back" :next="proceed" :checkpoint="updateAndExit" />
   </div>
@@ -44,18 +49,44 @@ export default {
   },
   data() {
     return {
+      checkedRules: [],
       customRules: [],
+      checkedDetails: [],
+      nextBtnClicked: false,
+      error: false,
     }
   },
   methods: {
+    addRule(index, rule) {
+      this.checkedRules[index] = rule
+    },
+    removeRule(index) {
+      this.checkedRules.splice(index, 1)
+    },
     addCustomRule(rule) {
       this.customRules.push(rule)
     },
     removeCustomRule(index) {
       this.customRules.splice(index, 1)
     },
+    addDetail(index, detail) {
+      this.checkedDetails[index] = rule
+    },
+    removeDetail(index) {
+      this.customRules.splice(index, 1)
+    },
+    errorFound() {
+      this.error = true
+    },
     proceed() {
-      //
+      this.nextBtnClicked = true
+
+      // NOTE: wait an arbitrary number of milliseconds
+      // before moving to the next page, this is done to
+      // give the emits a chance to catch up (error check)
+      setTimeout(() => {
+        if (!this.error) this.updateAndContinue()
+      }, 14)
     },
     updateListingState() {
       // this.$store.dispatch('updateHouseRules', {})
