@@ -3,9 +3,13 @@
     <div class="flex justify-between">
       <div class="flex items-center">
         <span class="font-light">{{ option.text }}</span>
-        <span v-if="helpAvailable">
+        <span v-if="helpAvailable" @click="toggleTooltip">
           <svg
-            class="ml-2 h-4 text-indigo-400 fill-current cursor-pointer"
+            class="ml-2 h-4 fill-current cursor-pointer"
+            :class="{
+              'text-indigo-200': tooltipOn,
+              'text-indigo-400': !tooltipOn,
+            }"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
           >
@@ -14,6 +18,12 @@
             />
           </svg>
         </span>
+        <Tooltip
+          :tip="option.help"
+          :show="tooltipOn"
+          :toggle-tooltip="toggleTooltip"
+          v-if="tooltipOn"
+        />
       </div>
       <div>
         <YesNo
@@ -44,9 +54,10 @@
 <script>
 import ExplanationModal from './ExplanationModal'
 import YesNo from '@/components/Form/YesNo'
+import Tooltip from '@/components/Tooltip'
 
 export default {
-  components: { YesNo, ExplanationModal },
+  components: { YesNo, ExplanationModal, Tooltip },
   props: {
     option: { type: Object, required: false },
   },
@@ -56,6 +67,7 @@ export default {
       explanation: '',
       explainWhyOn: false,
       explanationModalOn: false,
+      tooltipOn: false,
     }
   },
   computed: {
@@ -69,6 +81,9 @@ export default {
   methods: {
     toggleExplanationModal() {
       this.explanationModalOn = !this.explanationModalOn
+    },
+    toggleTooltip() {
+      this.tooltipOn = !this.tooltipOn
     },
     updateChoice(choice) {
       this.choice = choice
