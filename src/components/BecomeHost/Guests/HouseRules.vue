@@ -44,7 +44,7 @@ export default {
   },
   data() {
     return {
-      customRules: ['No shoes in the house'],
+      customRules: [],
     }
   },
   methods: {
