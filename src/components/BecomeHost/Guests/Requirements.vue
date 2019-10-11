@@ -98,20 +98,48 @@
       >
     </div>
 
+    <hr class="border-gray-300 my-8" />
+
+    <a
+      class="text-indigo-600 cursor-pointer hover:text-indigo-200"
+      @click="toggleAdditionalRequirements"
+      v-show="!additionalRequirementsOn"
+      >Add additional requirements</a
+    >
+    <AdditionalRequirements
+      :update-additional-requirements="updateAdditionalRequirements"
+      v-if="additionalRequirementsOn"
+    />
+
     <Footer :back="back" :next="next" :checkpoint="checkpoint" />
   </div>
 </template>
 
 <script>
+import AdditionalRequirements from '@/components/BecomeHost/AdditionalRequirements'
 import Footer from '@/components/BecomeHost/Footer'
 
 export default {
-  components: { Footer },
+  components: { AdditionalRequirements, Footer },
   props: {
     back: { type: Function, required: true },
     next: { type: Function, required: true },
     checkpoint: { type: Function, required: true },
     exitBtnClicked: { type: Boolean, required: true },
+  },
+  data() {
+    return {
+      checkedAdditionalRequirements: [],
+      additionalRequirementsOn: false,
+    }
+  },
+  methods: {
+    updateAdditionalRequirements(additionalRequirements) {
+      this.checkedAdditionalRequirements = additionalRequirements
+    },
+    toggleAdditionalRequirements() {
+      this.additionalRequirementsOn = !this.additionalRequirementsOn
+    },
   },
   watch: {
     exitBtnClicked: {
