@@ -32,7 +32,15 @@
           <div
             class="pointer-events-none absolute inset-y-0 left-0 pl-4 flex items-center"
           >
-            <img class="h-5" src="/img/ikonate/search-light-gray.svg" alt="" />
+            <svg
+              class="h-4 text-gray-500 fill-current"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"
+              />
+            </svg>
           </div>
         </div>
         <div class="text-lg text-right lg:flex-grow">
@@ -137,24 +145,24 @@
 </template>
 
 <script>
-import NavDropdown from "./NavDropdown";
+import NavDropdown from './NavDropdown'
 
 export default {
   components: { NavDropdown },
   props: {
     showSearch: { type: Boolean, default: true },
-    profileImage: { type: String, default: "" },
-    isHost: { type: Boolean, default: false }
+    profileImage: { type: String, default: '' },
+    isHost: { type: Boolean, default: false },
   },
   data() {
     return {
-      searchTerm: ""
-    };
+      searchTerm: '',
+    }
   },
   computed: {
     loggedIn() {
-      return this.$store.state.isLogged;
-    }
-  }
-};
+      return this.$store.state.isLogged
+    },
+  },
+}
 </script>

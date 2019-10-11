@@ -19,21 +19,21 @@
 </template>
 
 <script>
-import OnClickOutside from "./OnClickOutside";
+import OnClickOutside from './OnClickOutside'
 
 export default {
   components: { OnClickOutside },
   data() {
     return {
-      open: false
-    };
+      open: false,
+    }
   },
   methods: {
     handleClickOutside() {
       if (this.open) {
-        this.open = false;
+        this.open = false
       }
-    }
-  }
-};
+    },
+  },
+}
 </script>
