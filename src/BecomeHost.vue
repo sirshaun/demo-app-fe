@@ -102,6 +102,29 @@
         />
 
         <!-- Step Three -->
+        <Requirements
+          v-if="page == 11 && !checkpoint"
+          :back="prevPage"
+          :next="nextPage"
+          :checkpoint="toggleCheckpoint"
+          :exit-btn-clicked="exitBtnClicked"
+        />
+        <HouseRules
+          v-if="page == 12 && !checkpoint"
+          :back="prevPage"
+          :next="nextPage"
+          :checkpoint="toggleCheckpoint"
+          :exit-btn-clicked="exitBtnClicked"
+        />
+        <ConfirmRequirements
+          v-if="page == 13 && !checkpoint"
+          :back="prevPage"
+          :next="nextPage"
+          :checkpoint="toggleCheckpoint"
+          :exit-btn-clicked="exitBtnClicked"
+          @review-requirements="gotoPage(11)"
+          @review-house-rules="gotoPage(12)"
+        />
       </div>
     </div>
   </div>
@@ -120,6 +143,9 @@ import Checkpoint from './components/BecomeHost/Checkpoint'
 import Photos from './components/BecomeHost/Scenery/Photos'
 import Description from './components/BecomeHost/Scenery/Description'
 import Name from './components/BecomeHost/Scenery/Name'
+import Requirements from './components/BecomeHost/Guests/Requirements'
+import ConfirmRequirements from './components/BecomeHost/Guests/ConfirmRequirements'
+import HouseRules from './components/BecomeHost/Guests/HouseRules'
 
 export default {
   components: {
@@ -135,6 +161,9 @@ export default {
     Photos,
     Description,
     Name,
+    Requirements,
+    ConfirmRequirements,
+    HouseRules,
   },
   data() {
     return {
@@ -189,7 +218,7 @@ export default {
         )
       }
 
-      return process.env.VUE_APP_API_URI + 'user/listings/1/image-upload'
+      return ''
     },
   },
   methods: {
@@ -217,8 +246,8 @@ export default {
       this.page = 8
     },
     proceedStepThree() {
-      this.step = 2
-      this.page = 8
+      this.step = 3
+      this.page = 11
     },
     saveAndExit() {
       this.exitBtnClicked = true
