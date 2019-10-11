@@ -75,9 +75,16 @@ export default {
   methods: {
     addDetail(index, detail) {
       this.extraDetails[index] = detail
+
+      this.updateDetails()
     },
     removeDetail(index) {
       this.extraDetails.splice(index, 1)
+
+      this.updateDetails()
+    },
+    updateDetails() {
+      this.$emit('update-checked-details', this.extraDetails)
     },
     updateDetailDescription(index, description) {
       this.extraDetails[index].description = description

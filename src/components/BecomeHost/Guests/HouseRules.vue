@@ -8,8 +8,6 @@
     </p>
 
     <DefaultRules
-      :add-rule="addRule"
-      :remove-rule="removeRule"
       :next-btn-clicked="nextBtnClicked"
       @input-error="errorFound"
       @update-checked-rules="updateCheckedRules"
@@ -21,7 +19,11 @@
     />
     <AddCustomRule :add-custom-rule="addCustomRule" />
 
-    <ExtraDetails :add-detail="addDetail" :remove-detail="removeDetail" />
+    <ExtraDetails
+      :add-detail="addDetail"
+      :remove-detail="removeDetail"
+      @update-checked-details="updateCheckedDetails"
+    />
 
     <Footer :back="back" :next="proceed" :checkpoint="updateAndExit" />
   </div>
@@ -58,12 +60,6 @@ export default {
     }
   },
   methods: {
-    addRule(index, rule) {
-      this.checkedRules[index] = rule
-    },
-    removeRule(index) {
-      this.checkedRules.splice(index, 1)
-    },
     updateCheckedRules(rules) {
       this.checkedRules = rules
     },
@@ -73,11 +69,8 @@ export default {
     removeCustomRule(index) {
       this.customRules.splice(index, 1)
     },
-    addDetail(index, detail) {
-      this.checkedDetails[index] = rule
-    },
-    removeDetail(index) {
-      this.customRules.splice(index, 1)
+    updateCheckedDetails(details) {
+      this.checkedDetails = details
     },
     errorFound() {
       this.error = true
