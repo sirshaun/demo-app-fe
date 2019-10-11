@@ -6,6 +6,8 @@ export const getters = {
 		return state.listing.id
 	},
 	photosUploaded: state => {
+		if (typeof state.listing.photos == 'undefined') return false
+
 		return !!state.listing.photos.length
 	},
 	title: state => {
