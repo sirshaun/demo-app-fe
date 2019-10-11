@@ -125,6 +125,13 @@
           @review-requirements="gotoPage(11)"
           @review-house-rules="gotoPage(12)"
         />
+        <BookingSteps
+          v-if="page == 14 && !checkpoint"
+          :back="prevPage"
+          :next="nextPage"
+          :checkpoint="toggleCheckpoint"
+          :exit-btn-clicked="exitBtnClicked"
+        />
       </div>
     </div>
   </div>
@@ -144,8 +151,9 @@ import Photos from './components/BecomeHost/Scenery/Photos'
 import Description from './components/BecomeHost/Scenery/Description'
 import Name from './components/BecomeHost/Scenery/Name'
 import Requirements from './components/BecomeHost/Guests/Requirements'
-import ConfirmRequirements from './components/BecomeHost/Guests/ConfirmRequirements'
 import HouseRules from './components/BecomeHost/Guests/HouseRules'
+import ConfirmRequirements from './components/BecomeHost/Guests/ConfirmRequirements'
+import BookingSteps from './components/BecomeHost/Guests/BookingSteps'
 
 export default {
   components: {
@@ -162,8 +170,9 @@ export default {
     Description,
     Name,
     Requirements,
-    ConfirmRequirements,
     HouseRules,
+    ConfirmRequirements,
+    BookingSteps,
   },
   data() {
     return {
