@@ -50,4 +50,8 @@ export const actions = {
   updateAdditionalRequirements(context, data) {
     context.commit('UPDATE_LISTING_ADDITIONAL_REQUIREMENTS', data)
   },
+
+  updateHouseRules(context, data) {
+    context.commit('UPDATE_LISTING_HOUSE_RULES', data)
+  },
 }

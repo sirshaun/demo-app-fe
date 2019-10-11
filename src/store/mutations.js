@@ -80,4 +80,10 @@ export const mutations = {
   UPDATE_LISTING_ADDITIONAL_REQUIREMENTS(state, obj) {
     Vue.set(state.listing, 'additionalRequirements', obj.additionalRequirements)
   },
+
+  UPDATE_LISTING_HOUSE_RULES(state, obj) {
+    Vue.set(state.listing, 'houseRules', obj.houseRules)
+    Vue.set(state.listing, 'customRules', obj.customRules)
+    Vue.set(state.listing, 'houseDetails', obj.houseDetails)
+  },
 }
