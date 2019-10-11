@@ -59,13 +59,14 @@
 export default {
   props: {
     name: { type: String, required: true },
+    initialChoice: { type: String, required: false },
     noOption: { type: Object, required: true },
     yesOption: { type: Object, required: true },
     updateChoice: { type: Function, required: true },
   },
   data() {
     return {
-      choice: '',
+      choice: this.initialChoice,
       selected: '',
     }
   },
@@ -85,7 +86,7 @@ export default {
   },
   watch: {
     choice: {
-      immediate: false,
+      immediate: true,
       handler: function(choice) {
         this.updateChoice(choice)
 

@@ -8,6 +8,7 @@
     </p>
 
     <DefaultRules
+      :initial-house-rules="checkedRules"
       :next-btn-clicked="nextBtnClicked"
       @input-error="errorFound"
       @update-checked-rules="updateCheckedRules"
@@ -20,8 +21,7 @@
     <AddCustomRule :add-custom-rule="addCustomRule" />
 
     <ExtraDetails
-      :add-detail="addDetail"
-      :remove-detail="removeDetail"
+      :initial-extra-details="checkedDetails"
       @update-checked-details="updateCheckedDetails"
     />
 
@@ -86,7 +86,11 @@ export default {
       }, 14)
     },
     updateListingState() {
-      // this.$store.dispatch('updateHouseRules', {})
+      this.$store.dispatch('updateHouseRules', {
+        houseRules: this.checkedRules,
+        customRules: this.customRules,
+        houseDetails: this.checkedDetails,
+      })
     },
     updateAndContinue() {
       this.updateListingState()
@@ -101,7 +105,14 @@ export default {
     initializeValues() {
       let listing = this.$store.state.listing
 
-      //
+      if (listing.hasOwnProperty('houseRules'))
+        this.checkedRules = JSON.parse(JSON.stringify(listing.houseRules))
+
+      if (listing.hasOwnProperty('customRules'))
+        this.customRules = listing.customRules
+
+      if (listing.hasOwnProperty('houseDetails'))
+        this.checkedDetails = listing.houseDetails
     },
   },
   created() {

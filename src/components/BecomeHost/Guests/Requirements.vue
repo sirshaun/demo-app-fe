@@ -8,8 +8,12 @@
     </p>
 
     <p class="mt-10 font-light text-xl">All Workcation guests must provide:</p>
-
-    <div class="flex items-center mt-4">
+    <div
+      class="flex items-center"
+      :class="{ 'mt-4': index == 0, 'mt-1': index != 0 }"
+      v-for="(info, index) in requiredInformation"
+      :key="index"
+    >
       <svg
         class="h-5 text-indigo-600 fill-current"
         xmlns="http://www.w3.org/2000/svg"
@@ -17,39 +21,20 @@
       >
         <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
       </svg>
-      <span class="font-light text-lg text-gray-900 ml-4">Email address</span>
-    </div>
-    <div class="flex items-center mt-1">
-      <svg
-        class="h-5 text-indigo-600 fill-current"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-      >
-        <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
-      </svg>
-      <span class="font-light text-lg text-gray-900 ml-4"
-        >Confirmed phone number</span
-      >
-    </div>
-    <div class="flex items-center mt-1">
-      <svg
-        class="h-5 text-indigo-600 fill-current"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-      >
-        <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
-      </svg>
-      <span class="font-light text-lg text-gray-900 ml-4"
-        >Payment information</span
-      >
+      <span class="font-light text-lg text-gray-900 ml-4">{{ info }}</span>
     </div>
 
     <hr class="border-gray-300 my-8" />
 
-    <p class="mt-10 font-light text-xl">
+    <p class="font-light text-xl">
       Before booking your home, each guest must:
     </p>
-    <div class="flex items-center mt-4">
+    <div
+      class="flex items-center"
+      :class="{ 'mt-4': index == 0, 'mt-1': index != 0 }"
+      v-for="(rule, index) in defaultRules"
+      :key="100 - index"
+    >
       <svg
         class="h-5 text-indigo-600 fill-current"
         xmlns="http://www.w3.org/2000/svg"
@@ -57,61 +42,28 @@
       >
         <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
       </svg>
-      <span class="font-light text-lg text-gray-900 ml-4"
-        >Agree to your House Rules</span
-      >
-    </div>
-    <div class="flex items-center mt-1">
-      <svg
-        class="h-5 text-indigo-600 fill-current"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-      >
-        <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
-      </svg>
-      <span class="font-light text-lg text-gray-900 ml-4"
-        >Message you about their trip</span
-      >
-    </div>
-    <div class="flex items-center mt-1">
-      <svg
-        class="h-5 text-indigo-600 fill-current"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-      >
-        <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
-      </svg>
-      <span class="font-light text-lg text-gray-900 ml-4"
-        >Let you know how many guests are coming</span
-      >
-    </div>
-    <div class="flex items-center mt-1">
-      <svg
-        class="h-5 text-indigo-600 fill-current"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-      >
-        <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
-      </svg>
-      <span class="font-light text-lg text-gray-900 ml-4"
-        >Confirm their check-in time if they’re arriving within 2 days</span
-      >
+      <span class="font-light text-lg text-gray-900 ml-4">{{ rule }}</span>
     </div>
 
     <hr class="border-gray-300 my-8" />
 
     <a
-      class="text-indigo-600 cursor-pointer hover:text-indigo-200"
+      class="text-indigo-600 cursor-pointer hover:text-indigo-200 mb-20"
       @click="toggleAdditionalRequirements"
-      v-show="!additionalRequirementsOn"
+      v-if="!additionalRequirementsOn"
       >Add additional requirements</a
     >
     <AdditionalRequirements
       :update-additional-requirements="updateAdditionalRequirements"
+      :initial-checked-additional-requirements="checkedAdditionalRequirements"
       v-if="additionalRequirementsOn"
     />
 
-    <Footer :back="back" :next="next" :checkpoint="checkpoint" />
+    <Footer
+      :back="back"
+      :next="updateAndContinue"
+      :checkpoint="updateAndExit"
+    />
   </div>
 </template>
 
@@ -131,6 +83,17 @@ export default {
     return {
       checkedAdditionalRequirements: [],
       additionalRequirementsOn: false,
+      requiredInformation: [
+        'Email address',
+        'Confirmed phone number',
+        'Payment information',
+      ],
+      defaultRules: [
+        'Agree to your House Rules',
+        'Message you about their trip',
+        'Let you know how many guests are coming',
+        'Confirm their check-in time if they’re arriving within 2 days',
+      ],
     }
   },
   methods: {
@@ -140,6 +103,34 @@ export default {
     toggleAdditionalRequirements() {
       this.additionalRequirementsOn = !this.additionalRequirementsOn
     },
+    updateListingState() {
+      this.$store.dispatch('updateAdditionalRequirements', {
+        additionalRequirements: this.checkedAdditionalRequirements,
+      })
+    },
+    updateAndContinue() {
+      this.updateListingState()
+
+      this.next()
+    },
+    updateAndExit() {
+      this.updateListingState()
+
+      this.checkpoint()
+    },
+    initializeValues() {
+      let listing = this.$store.state.listing
+
+      if (listing.hasOwnProperty('additionalRequirements')) {
+        this.checkedAdditionalRequirements = listing.additionalRequirements
+
+        this.additionalRequirementsOn = !!this.checkedAdditionalRequirements
+          .length
+      }
+    },
+  },
+  created() {
+    this.initializeValues()
   },
   watch: {
     exitBtnClicked: {

@@ -1,6 +1,6 @@
 <template>
   <div class="mb-20">
-    <p class="mt-10 tracking wide">
+    <p class="tracking wide">
       Add additional requirements
     </p>
 
@@ -29,11 +29,17 @@
 <script>
 export default {
   props: {
+    initialCheckedAdditionalRequirements: {
+      type: Array,
+      default: () => {
+        return []
+      },
+    },
     updateAdditionalRequirements: { type: Function, required: true },
   },
   data() {
     return {
-      checkedRequirements: [],
+      checkedRequirements: this.initialCheckedAdditionalRequirements,
       options: [
         'Government-issued ID submitted to Airbnb',
         'Recommended by other hosts and have no negative reviews',

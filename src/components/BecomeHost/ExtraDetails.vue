@@ -12,6 +12,7 @@
       :add-detail="addDetail"
       :remove-detail="removeDetail"
       :update-detail-description="updateDetailDescription"
+      :initial-details="extraDetails[index]"
     />
   </div>
 </template>
@@ -21,10 +22,17 @@ import AddExtraDetail from './AddExtraDetail'
 
 export default {
   components: { AddExtraDetail },
-  props: {},
+  props: {
+    initialExtraDetails: {
+      type: Array,
+      default: () => {
+        return []
+      },
+    },
+  },
   data() {
     return {
-      extraDetails: [],
+      extraDetails: this.initialExtraDetails,
       options: [
         {
           text: 'Must climb stairs',

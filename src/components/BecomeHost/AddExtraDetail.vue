@@ -6,6 +6,7 @@
           type="checkbox"
           :id="'extra-detail-' + index"
           :name="'extra-detail-' + index"
+          v-model="detail"
           @click="toggleDescriptionField"
         />
         <label
@@ -35,6 +36,7 @@ export default {
   props: {
     index: { type: Number, required: true },
     option: { type: Object, required: true },
+    initialDetails: { required: false },
     addDetail: { type: Function, required: true },
     removeDetail: { type: Function, required: true },
     updateDetailDescription: { type: Function, required: true },
@@ -43,6 +45,7 @@ export default {
     return {
       descriptionFieldOn: false,
       description: '',
+      detail: '',
     }
   },
   methods: {
@@ -74,6 +77,18 @@ export default {
         this.updateDetailDescription(this.index, this.description)
       },
     },
+  },
+  created() {
+    if (!!this.initialDetails) {
+      if (this.initialDetails.hasOwnProperty('description')) {
+        this.description = this.initialDetails.description
+
+        this.toggleDescriptionField()
+      }
+
+      if (this.initialDetails.hasOwnProperty('detail'))
+        this.detail = this.initialDetails.detail
+    }
   },
 }
 </script>

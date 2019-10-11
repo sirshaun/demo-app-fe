@@ -9,6 +9,8 @@
       @update-choice="updateRuleChoice"
       @update-choice-reason="updateRuleChoiceExplanation"
       @input-error="errorFound"
+      :initial-choice="initialChoice(index)"
+      :initial-explanation="initialExplanation(index)"
     />
   </div>
 </template>
@@ -19,11 +21,17 @@ import DefaultRule from './DefaultRule'
 export default {
   components: { DefaultRule },
   props: {
+    initialHouseRules: {
+      type: Array,
+      default: () => {
+        return []
+      },
+    },
     nextBtnClicked: { type: Boolean, required: true },
   },
   data() {
     return {
-      rules: [],
+      rules: this.initialHouseRules,
       options: [
         {
           text: 'Suitable for children (2-12)',
@@ -83,6 +91,24 @@ export default {
     },
     errorFound() {
       this.$emit('input-error')
+    },
+    initialChoice(index) {
+      if (!!this.rules[index]) {
+        if (this.rules[index].hasOwnProperty('choice')) {
+          return this.rules[index].choice
+        }
+
+        return ''
+      }
+    },
+    initialExplanation(index) {
+      if (!!this.rules[index]) {
+        if (this.rules[index].hasOwnProperty('explanation')) {
+          return this.rules[index].explanation
+        }
+
+        return ''
+      }
     },
   },
 }

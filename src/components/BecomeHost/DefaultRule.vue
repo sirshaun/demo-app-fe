@@ -28,6 +28,7 @@
       <div>
         <YesNo
           name="children"
+          :initial-choice="choice"
           :yes-option="{ key: 'yes', text: 'Yes' }"
           :no-option="{ key: 'no', text: 'No' }"
           :update-choice="updateChoice"
@@ -62,14 +63,16 @@ import Tooltip from '@/components/Tooltip'
 export default {
   components: { YesNo, ExplanationModal, Tooltip },
   props: {
+    initialChoice: { type: String, required: false },
+    initialExplanation: { type: String, required: false },
     option: { type: Object, required: false },
     index: { type: Number, required: true },
     nextBtnClicked: { type: Boolean, required: true },
   },
   data() {
     return {
-      choice: '',
-      explanation: '',
+      choice: this.initialChoice,
+      explanation: this.initialExplanation,
       explainWhyOn: false,
       explanationModalOn: false,
       tooltipOn: false,
@@ -100,7 +103,7 @@ export default {
   },
   watch: {
     nextBtnClicked: {
-      immediate: false,
+      immediate: true,
       handler: function(nextBtnClicked) {
         if (this.choice == '') {
           this.error = true
@@ -129,7 +132,7 @@ export default {
       },
     },
     explanation: {
-      immediate: true,
+      immediate: false,
       handler: function(explanation) {
         this.$emit('update-choice-reason', this.index, this.explanation)
       },
