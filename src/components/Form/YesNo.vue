@@ -4,26 +4,10 @@
       <div
         class="bg-transparent rounded-full border p-2 cursor-pointer"
         :class="{
-          'bg-indigo-400 text-white border-gray-300': !yesSelected,
-          'border-gray-500text-gray-700': yesSelected,
+          'bg-indigo-400 text-white border-gray-300': selected == 'no',
+          'border-gray-500 text-gray-700': selected != 'no',
         }"
         @click="toggleRadio(false)"
-      >
-        <svg
-          class="h-3 fill-current"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-        >
-          <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
-        </svg>
-      </div>
-      <div
-        class="ml-3 bg-transparent rounded-full border p-2 cursor-pointer"
-        :class="{
-          'bg-indigo-400 text-white border-gray-300': yesSelected,
-          'border-gray-500 text-gray-700': !yesSelected,
-        }"
-        @click="toggleRadio(true)"
       >
         <svg
           class="h-3 fill-current"
@@ -33,6 +17,22 @@
           <path
             d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"
           />
+        </svg>
+      </div>
+      <div
+        class="ml-3 bg-transparent rounded-full border p-2 cursor-pointer"
+        :class="{
+          'bg-indigo-400 text-white border-gray-300': selected == 'yes',
+          'border-gray-500 text-gray-700': selected != 'yes',
+        }"
+        @click="toggleRadio(true)"
+      >
+        <svg
+          class="h-3 fill-current"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+        >
+          <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
         </svg>
       </div>
     </div>
@@ -61,10 +61,12 @@ export default {
     name: { type: String, required: true },
     noOption: { type: Object, required: true },
     yesOption: { type: Object, required: true },
+    updateChoice: { type: Function, required: true },
   },
   data() {
     return {
       choice: '',
+      selected: '',
     }
   },
   computed: {
@@ -85,7 +87,13 @@ export default {
     choice: {
       immediate: false,
       handler: function(choice) {
-        //
+        this.updateChoice(choice)
+
+        if (choice == this.yesOption.text) {
+          this.selected = 'yes'
+        } else {
+          this.selected = 'no'
+        }
       },
     },
   },
