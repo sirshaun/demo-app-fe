@@ -12,6 +12,7 @@
       :remove-rule="removeRule"
       :next-btn-clicked="nextBtnClicked"
       @input-error="errorFound"
+      @update-checked-rules="updateCheckedRules"
     />
 
     <CustomRules
@@ -62,6 +63,9 @@ export default {
     },
     removeRule(index) {
       this.checkedRules.splice(index, 1)
+    },
+    updateCheckedRules(rules) {
+      this.checkedRules = rules
     },
     addCustomRule(rule) {
       this.customRules.push(rule)

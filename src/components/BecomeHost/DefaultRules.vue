@@ -70,9 +70,16 @@ export default {
       } else {
         this.rules[index].choice = choice
       }
+
+      this.updateRules()
     },
     updateRuleChoiceExplanation(index, explanation) {
       this.rules[index].explanation = explanation
+
+      this.updateRules()
+    },
+    updateRules() {
+      this.$emit('update-checked-rules', this.rules)
     },
     errorFound() {
       this.$emit('input-error')
