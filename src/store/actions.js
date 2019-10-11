@@ -46,4 +46,8 @@ export const actions = {
   updateTitle(context, data) {
     context.commit('UPDATE_LISTING_TITLE', data)
   },
+
+  updateAdditionalRequirements(context, data) {
+    context.commit('UPDATE_LISTING_ADDITIONAL_REQUIREMENTS', data)
+  },
 }

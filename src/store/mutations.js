@@ -76,4 +76,8 @@ export const mutations = {
   UPDATE_LISTING_TITLE(state, obj) {
     Vue.set(state.listing, 'title', obj.title)
   },
+
+  UPDATE_LISTING_ADDITIONAL_REQUIREMENTS(state, obj) {
+    Vue.set(state.listing, 'additionalRequirements', obj.additionalRequirements)
+  },
 }
