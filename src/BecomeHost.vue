@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex">
     <Navbar
       v-if="!checkpoint"
       :header="navText"
@@ -132,7 +132,32 @@
           :checkpoint="toggleCheckpoint"
           :exit-btn-clicked="exitBtnClicked"
         />
+        <CalendarWarning
+          v-if="page == 15 && !checkpoint"
+          :back="prevPage"
+          :next="nextPage"
+          :checkpoint="toggleCheckpoint"
+          :exit-btn-clicked="exitBtnClicked"
+        />
+        <SettingsIntro
+          v-if="page == 16 && !checkpoint"
+          :back="prevPage"
+          :next="nextPage"
+          :checkpoint="toggleCheckpoint"
+          :exit-btn-clicked="exitBtnClicked"
+        />
+        <NoticePeriod
+          v-if="page == 17 && !checkpoint"
+          :back="prevPage"
+          :next="nextPage"
+          :checkpoint="toggleCheckpoint"
+          :exit-btn-clicked="exitBtnClicked"
+        />
       </div>
+    </div>
+
+    <div class="bg-gray-200 min-h-screen w-2/5 px-6 pt-10 pb-20">
+      <CalendarSnippet v-if="page == 17 && !checkpoint" />
     </div>
   </div>
 </template>
@@ -154,6 +179,10 @@ import Requirements from './components/BecomeHost/Guests/Requirements'
 import HouseRules from './components/BecomeHost/Guests/HouseRules'
 import ConfirmRequirements from './components/BecomeHost/Guests/ConfirmRequirements'
 import BookingSteps from './components/BecomeHost/Guests/BookingSteps'
+import CalendarWarning from './components/BecomeHost/Guests/CalendarWarning'
+import SettingsIntro from './components/BecomeHost/Guests/SettingsIntro'
+import NoticePeriod from './components/BecomeHost/Guests/NoticePeriod'
+import CalendarSnippet from './components/BecomeHost/Guests/CalendarSnippet'
 
 export default {
   components: {
@@ -173,6 +202,10 @@ export default {
     HouseRules,
     ConfirmRequirements,
     BookingSteps,
+    CalendarWarning,
+    SettingsIntro,
+    NoticePeriod,
+    CalendarSnippet,
   },
   data() {
     return {

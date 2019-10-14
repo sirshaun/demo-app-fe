@@ -337,6 +337,18 @@ export default {
     this.initializeValues()
   },
   watch: {
+    notice: {
+      immediate: true,
+      handler: function(notice) {
+        if (notice == 'Same day') {
+          this.$root.$emit('update-days-for-calendar-snippet', 1)
+        } else {
+          // var days = notice.replace(/^\D+/g, '')
+
+          this.$root.$emit('update-days-for-calendar-snippet', parseInt(notice))
+        }
+      },
+    },
     exitBtnClicked: {
       immediate: true,
       handler: function(exitBtnClicked) {
