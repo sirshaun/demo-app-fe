@@ -62,4 +62,8 @@ export const actions = {
   updateSettingsIntro(context, data) {
     context.commit('UPDATE_HOST_INTRO_SETTINGS', data)
   },
+
+  updateNoticePeriod(context, data) {
+    context.commit('UPDATE_LISTING_NOTICE_PERIOD', data)
+  },
 }

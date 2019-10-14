@@ -95,4 +95,11 @@ export const mutations = {
     Vue.set(state.listing, 'hostExperience', obj.experience)
     Vue.set(state.listing, 'hostingFrequency', obj.frequency)
   },
+
+  UPDATE_LISTING_NOTICE_PERIOD(state, obj) {
+    Vue.set(state.listing, 'noticePeriod', obj.period)
+    Vue.set(state.listing, 'deadlineTime', obj.deadline)
+    Vue.set(state.listing, 'checkInStart', obj.checkInStart)
+    Vue.set(state.listing, 'checkInEnd', obj.checkInEnd)
+  },
 }
