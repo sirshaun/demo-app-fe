@@ -104,7 +104,7 @@
         When can guests check in?
       </p>
       <div class="flex flex-wrap mt-2">
-        <div class="w-1/2">
+        <div class="w-1/3 pr-3">
           <label
             class="block text-gray-600 tracking-wide text-light mb-2"
             for="grid-checkin-from"
@@ -139,7 +139,7 @@
             Please select an option
           </p>
         </div>
-        <div class="w-1/2">
+        <div class="w-1/3 pl-3">
           <label
             class="block text-gray-600 tracking-wide text-light mb-2"
             for="grid-checkin-to"
@@ -307,9 +307,11 @@ export default {
       if (!this.errors) this.updateAndContinue()
     },
     updateListing() {
-      this.$store.dispatch('updateSettingsIntro', {
-        experience: this.experience,
-        frequency: this.frequency,
+      this.$store.dispatch('updateNoticePeriod', {
+        period: this.notice,
+        deadline: this.deadline,
+        checkInStart: this.from,
+        checkInEnd: this.to,
       })
     },
     updateAndContinue() {
@@ -331,6 +333,17 @@ export default {
 
       if (listing.hasOwnProperty('noticePeriod'))
         this.notice = listing.noticePeriod
+
+      if (listing.hasOwnProperty('deadlineTime'))
+        this.deadline = listing.deadlineTime
+
+      if (listing.hasOwnProperty('checkInStart')) {
+        if (listing.checkInStart) this.showCheckinPeriod = true
+
+        this.from = listing.checkInStart
+      }
+
+      if (listing.hasOwnProperty('checkInEnd')) this.to = listing.checkInEnd
     },
   },
   created() {
@@ -343,8 +356,6 @@ export default {
         if (notice == 'Same day') {
           this.$root.$emit('update-days-for-calendar-snippet', 1)
         } else {
-          // var days = notice.replace(/^\D+/g, '')
-
           this.$root.$emit('update-days-for-calendar-snippet', parseInt(notice))
         }
       },
