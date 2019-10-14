@@ -7,7 +7,12 @@
 
       <div class="flex justify-between mt-10">
         <div class="flex flex-col border border-gray-400 p-3 mr-3">
-          <div><!-- Image goes here --></div>
+          <div class="mb-6">
+            <img
+              class="w-full h-32 mx-auto object-contain"
+              src="/img/undraw_begin_chat_c6pj.svg"
+            />
+          </div>
           <div class=" text-gray-900 mb-3">
             <span class="mr-1 text-lg font-light">1.</span>
             <span class="font-semibold"
@@ -20,7 +25,12 @@
           </div>
         </div>
         <div class="flex flex-col border border-gray-400 p-3 mr-3">
-          <div><!-- Image goes here --></div>
+          <div class="mb-6">
+            <img
+              class="w-full h-32 mx-auto object-cover"
+              src="/img/undraw_personal_settings_kihd.svg"
+            />
+          </div>
           <div class=" text-gray-900 mb-3">
             <span class="mr-1 text-lg font-light">2.</span>
             <span class="font-semibold">You set controls for who can book</span>
@@ -36,7 +46,12 @@
           </div>
         </div>
         <div class="flex flex-col border border-gray-400 p-3">
-          <div><!-- Image goes here --></div>
+          <div class="mb-6">
+            <img
+              class="w-full h-32 mx-auto object-cover"
+              src="/img/undraw_messages1_9ah2.svg"
+            />
+          </div>
           <div class=" text-gray-900 mb-3">
             <span class="mr-1 text-lg font-light">3.</span>
             <span class="font-semibold"
@@ -67,9 +82,9 @@
             />
           </svg>
         </div>
-        <div class="w-4/6 text-gray-700 leading-snug">
+        <div class="w-4/6 text-gray-700 leading-snug mb-20">
           In the rare case there are issues, Airbnb has you covered with 24/7
-          customer support, a $1,000,000 AUD Host Guarantee, and completely
+          customer support, a $1,000,000 USD Host Guarantee, and completely
           penalty-free cancellations if you’re uncomfortable with a reservation.
         </div>
       </div>
