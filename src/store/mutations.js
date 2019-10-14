@@ -86,4 +86,13 @@ export const mutations = {
     Vue.set(state.listing, 'customRules', obj.customRules)
     Vue.set(state.listing, 'houseDetails', obj.houseDetails)
   },
+
+  UPDATE_LISTING_CALENDAR_CONSENT(state, obj) {
+    Vue.set(state.listing, 'calendarConsent', obj.calendarConsent)
+  },
+
+  UPDATE_HOST_INTRO_SETTINGS(state, obj) {
+    Vue.set(state.listing, 'hostExperience', obj.experience)
+    Vue.set(state.listing, 'hostingFrequency', obj.frequency)
+  },
 }

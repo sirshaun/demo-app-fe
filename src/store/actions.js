@@ -54,4 +54,12 @@ export const actions = {
   updateHouseRules(context, data) {
     context.commit('UPDATE_LISTING_HOUSE_RULES', data)
   },
+
+  updateCalendarConsent(context, data) {
+    context.commit('UPDATE_LISTING_CALENDAR_CONSENT', data)
+  },
+
+  updateSettingsIntro(context, data) {
+    context.commit('UPDATE_HOST_INTRO_SETTINGS', data)
+  },
 }
