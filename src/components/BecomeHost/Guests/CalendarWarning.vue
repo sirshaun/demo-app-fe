@@ -66,13 +66,16 @@ export default {
     checkAgreement() {
       this.agreeError = this.agree == ''
     },
+    updateListing() {
+      this.$store.dispatch('updateCalendarConsent', {
+        calendarConsent: this.agree,
+      })
+    },
     updateAndContinue() {
       this.checkAgreement()
 
       if (!this.agreeError) {
-        this.$store.dispatch('updateCalendarAgreement', {
-          calendarConsent: this.agree,
-        })
+        this.updateListing()
 
         this.next()
       }
@@ -81,9 +84,7 @@ export default {
       this.checkAgreement()
 
       if (!this.agreeError) {
-        this.$store.dispatch('updateCalendarAgreement', {
-          calendarConsent: this.agree,
-        })
+        this.updateListing()
 
         this.checkpoint()
       }
