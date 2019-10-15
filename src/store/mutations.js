@@ -106,4 +106,10 @@ export const mutations = {
   UPDATE_LISTING_ADVANCED_BOOKING_PERIOD(state, obj) {
     Vue.set(state.listing, 'advancePeriod', obj.advancePeriod)
   },
+
+  UPDATE_LISTING_STAY_LIMITS(state, obj) {
+    Vue.set(state.listing, 'minNightStays', obj.minNightStays)
+    Vue.set(state.listing, 'maxNightStays', obj.maxNightStays)
+    Vue.set(state.listing, 'stayException', obj.stayException)
+  },
 }

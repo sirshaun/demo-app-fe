@@ -70,4 +70,8 @@ export const actions = {
   updateBookingInAdvancePeriod(context, data) {
     context.commit('UPDATE_LISTING_ADVANCED_BOOKING_PERIOD', data)
   },
+
+  updateListingStayLimit(context, data) {
+    context.commit('UPDATE_LISTING_STAY_LIMITS', data)
+  },
 }
