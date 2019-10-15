@@ -66,4 +66,8 @@ export const actions = {
   updateNoticePeriod(context, data) {
     context.commit('UPDATE_LISTING_NOTICE_PERIOD', data)
   },
+
+  updateBookingInAdvancePeriod(context, data) {
+    context.commit('UPDATE_LISTING_ADVANCED_BOOKING_PERIOD', data)
+  },
 }

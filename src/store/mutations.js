@@ -102,4 +102,8 @@ export const mutations = {
     Vue.set(state.listing, 'checkInStart', obj.checkInStart)
     Vue.set(state.listing, 'checkInEnd', obj.checkInEnd)
   },
+
+  UPDATE_LISTING_ADVANCED_BOOKING_PERIOD(state, obj) {
+    Vue.set(state.listing, 'advancePeriod', obj.advancePeriod)
+  },
 }
