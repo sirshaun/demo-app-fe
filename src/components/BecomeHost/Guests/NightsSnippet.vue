@@ -64,7 +64,7 @@ import Pluralize from 'pluralize'
 export default {
   data() {
     return {
-      MinStay: 1,
+      minStay: 1,
       trueMinStay: 0,
       maxStay: 0,
       initMinClasses: true,
