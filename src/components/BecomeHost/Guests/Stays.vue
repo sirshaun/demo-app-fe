@@ -173,10 +173,10 @@ export default {
     initializeValues() {
       let listing = this.$store.state.listing
 
-      if (listing.hasOwnProperty('minNightStays'))
+      if (listing.hasOwnProperty('minNightStays') && listing.minNightStays)
         this.minStay = listing.minNightStays
 
-      if (listing.hasOwnProperty('maxNightStays'))
+      if (listing.hasOwnProperty('maxNightStays') && listing.maxNightStays)
         this.maxStay = listing.maxNightStays
 
       if (listing.hasOwnProperty('stayException'))
