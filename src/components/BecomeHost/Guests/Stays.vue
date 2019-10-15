@@ -54,26 +54,37 @@
         />
       </div>
       <div class="w-full px-3">
-        <div
-          :class="{ 'mb-3': index != exceptionOptions.length - 1 }"
-          v-for="(option, index) in exceptionOptions"
-          :key="index"
-        >
+        <div>
           <input
             type="radio"
-            :id="index"
-            :value="option.text"
+            id="radio-1"
+            value="Manually review and approve reservation requests"
             name="overLimit"
             v-model="limitException"
           />
-          <label :for="index" class="ml-2 font-light inline-block w-11/12"
-            >{{ option.text }}
+          <label for="radio-1" class="ml-2 font-light inline-block w-11/12">
+            Manually review and approve reservation requests
             <span
               class="bg-gray-300 uppercase text-sm font-normal tracking-wide p-1"
-              v-if="option.recommended"
               >recommended</span
             ></label
           >
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="radio-2"
+            :value="
+              'Don\'t allow reservation requests for stays longer than' +
+                pluralize('night', maxStay, true)
+            "
+            name="overLimit"
+            v-model="limitException"
+          />
+          <label for="radio-2" class="ml-2 font-light inline-block w-11/12">
+            Don't allow reservation requests for stays longer than
+            {{ pluralize('night', maxStay, true) }}
+          </label>
         </div>
       </div>
     </div>
@@ -91,6 +102,8 @@
 </template>
 
 <script>
+import Pluralize from 'pluralize'
+
 import InlineCounter from '@/components/Form/InlineCounter'
 import Tooltip from '@/components/Tooltip'
 import Footer from '@/components/BecomeHost/Footer'
@@ -109,17 +122,6 @@ export default {
       maxStay: 0,
       maxStayError: false,
       limitException: 'Manually review and approve reservation requests',
-      exceptionOptions: [
-        {
-          text: 'Manually review and approve reservation requests',
-          recommended: true,
-        },
-        {
-          text:
-            "Don't allow reservation requests for stays longer than 1 night",
-          recommended: false,
-        },
-      ],
       tooltipOn: false,
       tooltipText:
         "Your listing will show up in more guest search results if you allow reservation requests. For stays of this length you'll still be able to manually approve every reservation request",
@@ -127,11 +129,12 @@ export default {
   },
   computed: {
     tip() {
-      if (
-        this.limitException ==
-        "Don't allow reservation requests for stays longer than 1 night"
-      )
-        return 'Your maximum trip length setting is set to 1 nights. To host stays one week and longer, change this to 7 nights or more.'
+      if (this.limitException.includes('reservation requests for stays'))
+        return (
+          'Your maximum trip length setting is set to ' +
+          this.maxStay +
+          ' nights. To host stays one week and longer, change this to 7 nights or more.'
+        )
 
       return 'Shorter trips can mean more reservations, but you might have to turn over your space more often.'
     },
@@ -178,6 +181,9 @@ export default {
 
       if (listing.hasOwnProperty('stayException'))
         this.limitException = listing.stayException
+    },
+    pluralize(word, count = 0, inclusive) {
+      return Pluralize(word, count, inclusive)
     },
   },
   created() {
