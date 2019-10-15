@@ -23,6 +23,10 @@
             :initial-count="parseInt(maxStay)"
           />
         </div>
+
+        <p v-show="maxStayError" class="text-red-500 text-xs italic mt-2">
+          Minimum nights can’t be higher than maximum nights.
+        </p>
       </div>
     </div>
 
@@ -193,6 +197,10 @@ export default {
     minStay: {
       immediate: true,
       handler: function(minStay) {
+        if (minStay > this.maxStay) {
+          this.maxStayError = true
+        }
+
         this.$root.$emit('update-stays-for-night-snippet', ['min', minStay])
       },
     },
