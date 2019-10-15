@@ -1,27 +1,56 @@
 <template>
   <div class="mt-32 px-4">
-    <div class="w-3/5">
+    <div class="w-1/2">
       <div class="h-16 relative bg-gray-200">
-        <div
-          class="text-gray-500"
-          :class="{ 'ml-14': initMinClasses, 'ml-22': !initMinClasses }"
-        >
-          {{ pluralize('night', minStay, true) }}
+        <!-- labels -->
+        <div class="relative h-5">
+          <!-- min stay label -->
+          <div
+            class="absolute font-light text-gray-600"
+            :style="{ left: elemOffsetMin, top: '0%' }"
+          >
+            {{ pluralize('night', minStay, true) }}
+          </div>
+          <!-- max stay label -->
+          <div
+            class="absolute font-light text-gray-600"
+            :style="{ left: elemOffsetMax, top: '0%' }"
+          >
+            {{ maxStayLabel }}
+          </div>
         </div>
-        <div
-          class="h-6 border-r-2 border-gray-400"
-          :class="{ 'w-2/12': initMinClasses, 'w-3/12': !initMinClasses }"
-        ></div>
+        <!-- pointers -->
+        <div class="relative h-4">
+          <!-- min stay pointer -->
+          <div
+            class="absolute border-r-2 h-6 border-gray-400"
+            :style="{ left: elemOffsetMin, top: '0%' }"
+          ></div>
+          <!-- max stay pointer -->
+          <div
+            class="absolute border-r-2 h-6 border-gray-400"
+            :style="{ left: elemOffsetMax, top: '0%' }"
+          ></div>
+        </div>
+        <!-- parent span -> default linear gradient -->
         <span
           style="width: 75%"
           class="block h-full relative overflow-hidden rounded-full fade-right-grad"
         >
+          <!-- max stay span -->
           <span
             style="width: 100%"
             class="block h-full relative overflow-hidden rounded-full z-20"
             :class="{ 'fade-left-grad': maxStay > 0 }"
           >
-            <img class="h-16" src="/img/undraw_female_avatar_l3ey.svg" />
+            <!-- min stay span -->
+            <span
+              style="width: 49%"
+              class="block h-full relative overflow-hidden rounded-full z-30"
+              :class="{ 'bg-indigo-200': this.trueMinStay > 0 }"
+            >
+              <img class="h-16" src="/img/undraw_female_avatar_l3ey.svg" />
+            </span>
           </span>
         </span>
       </div>
@@ -35,11 +64,26 @@ import Pluralize from 'pluralize'
 export default {
   data() {
     return {
-      minStay: 1,
+      MinStay: 1,
+      trueMinStay: 0,
       maxStay: 0,
       initMinClasses: true,
-      progress: '50%',
     }
+  },
+  computed: {
+    maxStayLabel() {
+      if (this.maxStay == 0) return 'No max'
+
+      return this.pluralize('night', this.maxStay, true)
+    },
+    elemOffsetMin() {
+      if (this.trueMinStay == 0) return '21%'
+
+      return '28%'
+    },
+    elemOffsetMax() {
+      return '64%'
+    },
   },
   methods: {
     pluralize(word, count = 0, inclusive) {
@@ -51,7 +95,8 @@ export default {
       var [type, count] = data
 
       if (type == 'min') {
-        this.minStay = count || 1
+        this.trueMinStay = count
+        this.minStay = this.trueMinStay || 1
 
         if (count <= 1) {
           this.initMinClasses = true
@@ -73,6 +118,6 @@ export default {
 }
 .fade-left-grad {
   background-color: #c3dafe;
-  background-image: linear-gradient(to left, #c3dafe, #edf2f7);
+  background-image: linear-gradient(to left, #c3dafe, #ebf4ff);
 }
 </style>
