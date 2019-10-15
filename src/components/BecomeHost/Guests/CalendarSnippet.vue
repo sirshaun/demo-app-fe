@@ -81,31 +81,31 @@ export default {
 .blocked {
   background: -webkit-repeating-linear-gradient(
     45deg,
-    #edefed,
-    #edefed 4px,
-    #e6e6e6 2px,
-    #e6e6e6 6px
+    #edf2f7,
+    #edf2f7 4px,
+    #e2e8f0 2px,
+    #e2e8f0 6px
   );
   background: -moz-repeating-linear-gradient(
     45deg,
-    #edefed,
-    #edefed 4px,
-    #e6e6e6 2px,
-    #e6e6e6 6px
+    #edf2f7,
+    #edf2f7 4px,
+    #e2e8f0 2px,
+    #e2e8f0 6px
   );
   background: -o-repeating-linear-gradient(
     45deg,
-    #edefed,
-    #edefed 4px,
-    #e6e6e6 2px,
-    #e6e6e6 6px
+    #edf2f7,
+    #edf2f7 4px,
+    #e2e8f0 2px,
+    #e2e8f0 6px
   );
   background: repeating-linear-gradient(
     45deg,
-    #edefed,
-    #edefed 4px,
-    #e6e6e6 2px,
-    #e6e6e6 6px
+    #edf2f7,
+    #edf2f7 4px,
+    #e2e8f0 2px,
+    #e2e8f0 6px
   );
 }
 </style>

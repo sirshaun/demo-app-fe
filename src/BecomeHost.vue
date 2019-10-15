@@ -165,6 +165,8 @@
 
     <div class="bg-gray-200 min-h-screen w-2/5 px-6 pt-10 pb-20">
       <CalendarSnippet v-if="page == 17 && !checkpoint" />
+
+      <AdvancedCalendarSnippet v-if="page == 18 && !checkpoint" />
     </div>
   </div>
 </template>
@@ -191,6 +193,7 @@ import SettingsIntro from './components/BecomeHost/Guests/SettingsIntro'
 import NoticePeriod from './components/BecomeHost/Guests/NoticePeriod'
 import CalendarSnippet from './components/BecomeHost/Guests/CalendarSnippet'
 import BookingInAdvance from './components/BecomeHost/Guests/BookingInAdvance'
+import AdvancedCalendarSnippet from './components/BecomeHost/Guests/AdvancedCalendarSnippet'
 
 export default {
   components: {
@@ -215,6 +218,7 @@ export default {
     NoticePeriod,
     CalendarSnippet,
     BookingInAdvance,
+    AdvancedCalendarSnippet,
   },
   data() {
     return {

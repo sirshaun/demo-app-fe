@@ -38,7 +38,11 @@
       guests by only unblocking dates you can host.
     </div>
 
-    <Footer :back="back" :next="proceed" :checkpoint="updateAndExit" />
+    <Footer
+      :back="back"
+      :next="updateAndContinue"
+      :checkpoint="updateAndExit"
+    />
   </div>
 </template>
 
@@ -67,44 +71,27 @@ export default {
       ],
     }
   },
-  computed: {
-    errors() {
-      // return this.noticeError
-    },
-  },
   methods: {
-    checkBooking() {
-      // this.noticeError = this.notice == ''
-    },
-    proceed() {
-      this.checkNotice()
-
-      if (!this.errors) this.updateAndContinue()
-    },
     updateListing() {
-      this.$store.dispatch('updateNoticePeriod', {
-        // period: this.notice,
+      this.$store.dispatch('updateBookingInAdvancePeriod', {
+        advancePeriod: this.booking,
       })
     },
     updateAndContinue() {
-      if (!this.bookingError) {
-        this.updateListing()
+      this.updateListing()
 
-        this.next()
-      }
+      this.next()
     },
     updateAndExit() {
-      if (!this.bookingError) {
-        this.updateListing()
+      this.updateListing()
 
-        this.checkpoint()
-      }
+      this.checkpoint()
     },
     initializeValues() {
       let listing = this.$store.state.listing
 
-      // if (listing.hasOwnProperty('noticePeriod'))
-      //   this.notice = listing.noticePeriod
+      if (listing.hasOwnProperty('advancePeriod'))
+        this.booking = listing.advancePeriod
     },
   },
   created() {
@@ -115,16 +102,20 @@ export default {
       immediate: true,
       handler: function(booking) {
         if (booking == 'Any time') {
-          this.$root.$emit('update-months-for-calendar-snippet', 'any')
+          this.$root.$emit('update-months-for-calendar-snippet', ['year', 3])
         } else if (booking == 'Dates unavailable by default') {
-          this.$root.$emit('update-months-for-calendar-snippet', 'unavailable')
+          this.$root.$emit('update-months-for-calendar-snippet', [
+            'month',
+            3,
+            'unavailable',
+          ])
         } else if (booking == '1 year') {
-          this.$root.$emit('update-months-for-calendar-snippet', 12)
+          this.$root.$emit('update-months-for-calendar-snippet', ['year', 2])
         } else {
-          this.$root.$emit(
-            'update-months-for-calendar-snippet',
-            parseInt(booking)
-          )
+          this.$root.$emit('update-months-for-calendar-snippet', [
+            'month',
+            parseInt(booking),
+          ])
         }
       },
     },
