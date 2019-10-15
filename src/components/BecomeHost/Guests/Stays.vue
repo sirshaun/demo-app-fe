@@ -190,12 +190,20 @@ export default {
     this.initializeValues()
   },
   watch: {
+    minStay: {
+      immediate: true,
+      handler: function(minStay) {
+        this.$root.$emit('update-stays-for-night-snippet', ['min', minStay])
+      },
+    },
     maxStay: {
       immediate: true,
       handler: function(maxStay) {
         if (maxStay < this.minStay) {
           this.maxStayError = true
         }
+
+        this.$root.$emit('update-stays-for-night-snippet', ['max', maxStay])
       },
     },
     exitBtnClicked: {
