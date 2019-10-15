@@ -7,11 +7,21 @@
     <div class="flex flex-wrap mt-10">
       <div class="w-3/5">
         <div>
-          <InlineCounter text="nights min" :func="updateMinStay" />
+          <InlineCounter
+            text="nights min"
+            id="min"
+            :func="updateMinStay"
+            :initial-count="parseInt(minStay)"
+          />
         </div>
 
         <div class="mt-4">
-          <InlineCounter text="nights max" :func="updateMaxStay" />
+          <InlineCounter
+            text="nights max"
+            id="max"
+            :func="updateMaxStay"
+            :initial-count="parseInt(maxStay)"
+          />
         </div>
       </div>
     </div>
@@ -20,7 +30,7 @@
       <div
         class="flex items-center text-gray-900 font-semibold tracking-wide mb-2"
       >
-        For stays longer than 1 night
+        For stays longer than {{ maxStay }} night
         <span @click="toggleTooltip">
           <svg
             class="ml-2 h-4 fill-current cursor-pointer"
@@ -97,6 +107,7 @@ export default {
     return {
       minStay: 0,
       maxStay: 0,
+      maxStayError: false,
       limitException: 'Manually review and approve reservation requests',
       exceptionOptions: [
         {
@@ -143,14 +154,18 @@ export default {
       })
     },
     updateAndContinue() {
-      this.updateListing()
+      if (!this.maxStayError) {
+        this.updateListing()
 
-      this.next()
+        this.next()
+      }
     },
     updateAndExit() {
-      this.updateListing()
+      if (!this.maxStayError) {
+        this.updateListing()
 
-      this.checkpoint()
+        this.checkpoint()
+      }
     },
     initializeValues() {
       let listing = this.$store.state.listing
@@ -169,6 +184,14 @@ export default {
     this.initializeValues()
   },
   watch: {
+    maxStay: {
+      immediate: true,
+      handler: function(maxStay) {
+        if (maxStay < this.minStay) {
+          this.maxStayError = true
+        }
+      },
+    },
     exitBtnClicked: {
       immediate: true,
       handler: function(exitBtnClicked) {
