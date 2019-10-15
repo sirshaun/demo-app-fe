@@ -160,6 +160,13 @@
           :checkpoint="toggleCheckpoint"
           :exit-btn-clicked="exitBtnClicked"
         />
+        <Stays
+          v-if="page == 19 && !checkpoint"
+          :back="prevPage"
+          :next="nextPage"
+          :checkpoint="toggleCheckpoint"
+          :exit-btn-clicked="exitBtnClicked"
+        />
       </div>
     </div>
 
@@ -194,6 +201,7 @@ import NoticePeriod from './components/BecomeHost/Guests/NoticePeriod'
 import CalendarSnippet from './components/BecomeHost/Guests/CalendarSnippet'
 import BookingInAdvance from './components/BecomeHost/Guests/BookingInAdvance'
 import AdvancedCalendarSnippet from './components/BecomeHost/Guests/AdvancedCalendarSnippet'
+import Stays from './components/BecomeHost/Guests/Stays'
 
 export default {
   components: {
@@ -219,6 +227,7 @@ export default {
     CalendarSnippet,
     BookingInAdvance,
     AdvancedCalendarSnippet,
+    Stays,
   },
   data() {
     return {
