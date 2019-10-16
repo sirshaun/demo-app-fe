@@ -193,6 +193,8 @@
       <NightsSnippet v-if="page == 19 && !checkpoint" />
 
       <PricingHelp v-if="page == 20 && !checkpoint" />
+
+      <SpecialOfferHelp v-if="page == 21 && !checkpoint" />
     </div>
   </div>
 </template>
@@ -225,6 +227,7 @@ import NightsSnippet from './components/BecomeHost/Guests/NightsSnippet'
 import Pricing from './components/BecomeHost/Guests/Pricing'
 import PricingHelp from './components/BecomeHost/Guests/PricingHelp'
 import SpecialOffer from './components/BecomeHost/Guests/SpecialOffer'
+import SpecialOfferHelp from './components/BecomeHost/Guests/SpecialOfferHelp'
 
 export default {
   components: {
@@ -255,6 +258,7 @@ export default {
     Pricing,
     PricingHelp,
     SpecialOffer,
+    SpecialOfferHelp,
   },
   data() {
     return {
