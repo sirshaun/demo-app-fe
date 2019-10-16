@@ -29,7 +29,7 @@
           results, which will help your listing stand out. New listings that get
           booked and reviewed in the first month appear more often in search
           results and get an average of 3.6x more bookings in their first 3
-          months
+          months.
           <!-- tooltip -->
         </div>
       </div>
