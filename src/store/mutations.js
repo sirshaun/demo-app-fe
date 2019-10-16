@@ -112,4 +112,11 @@ export const mutations = {
     Vue.set(state.listing, 'maxNightStays', obj.maxNightStays)
     Vue.set(state.listing, 'stayException', obj.stayException)
   },
+
+  UPDATE_LISTING_PRICING(state, obj) {
+    Vue.set(state.listing, 'basePrice', obj.basePrice)
+    Vue.set(state.listing, 'minimumPrice', obj.minPrice)
+    Vue.set(state.listing, 'maximumPrice', obj.maxPrice)
+    Vue.set(state.listing, 'currency', obj.currency)
+  },
 }
