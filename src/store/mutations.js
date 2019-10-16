@@ -119,4 +119,8 @@ export const mutations = {
     Vue.set(state.listing, 'maximumPrice', obj.maxPrice)
     Vue.set(state.listing, 'currency', obj.currency)
   },
+
+  UPDATE_LISTING_SPECIAL_OFFER_FIRST(state, obj) {
+    Vue.set(state.listing, 'specialOfferFirst', obj.specialOffer)
+  },
 }
