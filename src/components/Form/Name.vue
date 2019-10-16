@@ -62,47 +62,47 @@
 export default {
   data() {
     return {
-      firstname: "",
+      firstname: '',
       firstnameError: false,
-      middlename: "",
-      lastname: "",
-      lastnameError: false
-    };
+      middlename: '',
+      lastname: '',
+      lastnameError: false,
+    }
   },
   methods: {
     checkFirstNameNotEmpty() {
-      if (this.firstname == "") {
-        this.firstnameError = true;
+      if (this.firstname == '') {
+        this.firstnameError = true
       } else {
-        this.firstnameError = false;
-        this.fullNameAcquired();
+        this.firstnameError = false
+        this.fullNameAcquired()
       }
     },
     checkLastNameNotEmpty() {
-      if (this.lastname == "") {
-        this.lastnameError = true;
+      if (this.lastname == '') {
+        this.lastnameError = true
       } else {
-        this.lastnameError = false;
-        this.fullNameAcquired();
+        this.lastnameError = false
+        this.fullNameAcquired()
       }
     },
     fullNameAcquired() {
       if (!this.firstnameError && !this.lastnameError) {
-        this.$emit("names-filled-out", [
+        this.$emit('names-filled-out', [
           this.firstname,
           this.middlename,
           this.lastname,
-          false
-        ]);
+          false,
+        ])
       } else {
-        this.$emit("names-filled-out", [
+        this.$emit('names-filled-out', [
           this.firstname,
           this.middlename,
           this.lastname,
-          true
-        ]);
+          true,
+        ])
       }
-    }
-  }
-};
+    },
+  },
+}
 </script>

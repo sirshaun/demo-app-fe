@@ -27,12 +27,12 @@
 export default {
   props: {
     title: { type: String },
-    message: { type: String, required: true }
+    message: { type: String, required: true },
   },
   methods: {
     dismiss() {
-      this.$emit("dismiss-form-error-message");
-    }
-  }
-};
+      this.$emit('dismiss-form-error-message')
+    },
+  },
+}
 </script>

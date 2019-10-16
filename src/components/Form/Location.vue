@@ -75,56 +75,56 @@
 export default {
   data() {
     return {
-      city: "",
+      city: '',
       cityError: true,
-      state: "",
+      state: '',
       stateError: true,
       states: [],
-      cities: []
-    };
+      cities: [],
+    }
   },
   methods: {
     checkCity() {
-      if (this.city != "") {
-        this.cityError = false;
-        this.locationInfoAcquired();
+      if (this.city != '') {
+        this.cityError = false
+        this.locationInfoAcquired()
       }
     },
     checkState() {
-      if (this.state != "") {
-        this.stateError = false;
-        this.locationInfoAcquired();
+      if (this.state != '') {
+        this.stateError = false
+        this.locationInfoAcquired()
       }
     },
     locationInfoAcquired() {
       if (!this.cityError && !this.stateError) {
-        this.$emit("location-info-filled-out", [this.city, this.state, false]);
+        this.$emit('location-info-filled-out', [this.city, this.state, false])
       }
     },
     fetchStates() {
-      this.$http.get("/location/state").then(
+      this.$http.get('/location/state').then(
         res => {
-          this.states = res.data;
+          this.states = res.data
         },
         error => {
-          console.log(error);
+          console.log(error)
         }
-      );
+      )
     },
     fetchCities() {
-      this.$http.get("/location/city").then(
+      this.$http.get('/location/city').then(
         res => {
-          this.cities = res.data;
+          this.cities = res.data
         },
         error => {
-          console.log(error);
+          console.log(error)
         }
-      );
-    }
+      )
+    },
   },
   mounted() {
-    this.fetchStates();
-    this.fetchCities();
-  }
-};
+    this.fetchStates()
+    this.fetchCities()
+  },
+}
 </script>

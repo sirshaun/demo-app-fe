@@ -47,68 +47,68 @@
 export default {
   data() {
     return {
-      username: "",
+      username: '',
       usernameError: false,
-      usernameErrorMessage: "",
-      password: "",
+      usernameErrorMessage: '',
+      password: '',
       passwordError: false,
-      passwordErrorMessage: ""
-    };
+      passwordErrorMessage: '',
+    }
   },
   methods: {
     checkUsername() {
-      if (this.username == "") {
-        this.usernameError = true;
-        this.usernameErrorMessage = "Please fill out this field.";
+      if (this.username == '') {
+        this.usernameError = true
+        this.usernameErrorMessage = 'Please fill out this field.'
       } else {
-        this.usernameError = false;
+        this.usernameError = false
 
-        this.isUsernameUnique();
+        this.isUsernameUnique()
 
-        this.loginCredentialsAcquired();
+        this.loginCredentialsAcquired()
       }
     },
     checkPassword() {
-      var decimal = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+      var decimal = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/
 
-      if (this.password == "" || !this.password.match(decimal)) {
-        this.passwordError = true;
+      if (this.password == '' || !this.password.match(decimal)) {
+        this.passwordError = true
         this.passwordErrorMessage =
-          this.password == ""
-            ? "Please fill out this field."
-            : "Password must be between 8 to 15 characters, and contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.";
+          this.password == ''
+            ? 'Please fill out this field.'
+            : 'Password must be between 8 to 15 characters, and contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.'
       } else {
-        this.passwordError = false;
-        this.loginCredentialsAcquired();
+        this.passwordError = false
+        this.loginCredentialsAcquired()
       }
     },
     loginCredentialsAcquired() {
       if (!this.usernameError && !this.passwordError) {
-        this.$emit("login-creds-filled-out", [
+        this.$emit('login-creds-filled-out', [
           this.username,
           this.password,
-          false
-        ]);
+          false,
+        ])
       } else {
-        this.$emit("login-creds-filled-out", [
+        this.$emit('login-creds-filled-out', [
           this.username,
           this.password,
-          true
-        ]);
+          true,
+        ])
       }
     },
     async isUsernameUnique() {
       let response = await this.$http.get(
-        "/user/username/" + this.username + "/unique"
-      );
+        '/user/username/' + this.username + '/unique'
+      )
 
       if (!response.data.isUnique) {
-        this.usernameError = true;
-        this.usernameErrorMessage = "Username already in use.";
+        this.usernameError = true
+        this.usernameErrorMessage = 'Username already in use.'
       } else {
-        this.usernameError = false;
+        this.usernameError = false
       }
-    }
-  }
-};
+    },
+  },
+}
 </script>

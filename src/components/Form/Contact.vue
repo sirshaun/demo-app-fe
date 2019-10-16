@@ -47,50 +47,50 @@
 export default {
   data() {
     return {
-      email: "",
+      email: '',
       emailError: false,
-      mobile: "",
+      mobile: '',
       mobileError: false,
-      emailErrorMessage: "",
-      mobileErrorMessage: ""
-    };
+      emailErrorMessage: '',
+      mobileErrorMessage: '',
+    }
   },
   methods: {
     checkEmail() {
-      var re = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+      var re = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
 
-      if (this.email == "" || !re.test(this.email)) {
-        this.emailError = true;
+      if (this.email == '' || !re.test(this.email)) {
+        this.emailError = true
         this.emailErrorMessage =
-          this.email == ""
-            ? "Please fill out this field."
-            : "Please enter a valid email address.";
+          this.email == ''
+            ? 'Please fill out this field.'
+            : 'Please enter a valid email address.'
       } else {
-        this.emailError = false;
-        this.checkContatInfoAcquired();
+        this.emailError = false
+        this.checkContatInfoAcquired()
       }
     },
     checkMobile() {
-      var re = /^0\d{9}$/;
+      var re = /^0\d{9}$/
 
-      if (this.mobile == "" || !re.test(this.mobile)) {
-        this.mobileError = true;
+      if (this.mobile == '' || !re.test(this.mobile)) {
+        this.mobileError = true
         this.mobileErrorMessage =
-          this.mobile == ""
-            ? "Please fill out this field."
-            : "Please enter a valid mobile address.";
+          this.mobile == ''
+            ? 'Please fill out this field.'
+            : 'Please enter a valid mobile address.'
       } else {
-        this.mobileError = false;
-        this.checkContatInfoAcquired();
+        this.mobileError = false
+        this.checkContatInfoAcquired()
       }
     },
     checkContatInfoAcquired() {
       if (!this.emailError && !this.mobileError) {
-        this.$emit("contact-info-filled-out", [this.email, this.mobile, false]);
+        this.$emit('contact-info-filled-out', [this.email, this.mobile, false])
       } else {
-        this.$emit("contact-info-filled-out", [this.email, this.mobile, true]);
+        this.$emit('contact-info-filled-out', [this.email, this.mobile, true])
       }
-    }
-  }
-};
+    },
+  },
+}
 </script>
