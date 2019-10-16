@@ -302,14 +302,16 @@ export default {
   methods: {
     checkBasePrice() {
       this.basePriceError =
-        this.basePrice == '' || this.basePrice <= 0 || !re.test(this.basePrice)
+        this.basePrice == '' || this.basePrice <= 0 || !reg.test(this.basePrice)
     },
     checkMinimumPrice() {
       if (this.smartPricingOn) {
         this.minimumPriceError =
           this.minimumPrice == '' ||
           this.minimumPrice <= 0 ||
-          !re.test(this.minimumPrice)
+          !reg.test(this.minimumPrice)
+      } else {
+        this.minimumPriceError = false
       }
     },
     checkMaximumPrice() {
@@ -317,7 +319,9 @@ export default {
         this.maximumPriceError =
           this.maximumPrice == '' ||
           this.maximumPrice <= 0 ||
-          !re.test(this.maximumPrice)
+          !reg.test(this.maximumPrice)
+      } else {
+        this.maximumPriceError = false
       }
     },
     toggleSmartPricing() {
