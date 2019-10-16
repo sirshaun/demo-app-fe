@@ -175,6 +175,13 @@
           :checkpoint="toggleCheckpoint"
           :exit-btn-clicked="exitBtnClicked"
         />
+        <SpecialOffer
+          v-if="page == 21 && !checkpoint"
+          :back="prevPage"
+          :next="nextPage"
+          :checkpoint="toggleCheckpoint"
+          :exit-btn-clicked="exitBtnClicked"
+        />
       </div>
     </div>
 
@@ -217,6 +224,7 @@ import Stays from './components/BecomeHost/Guests/Stays'
 import NightsSnippet from './components/BecomeHost/Guests/NightsSnippet'
 import Pricing from './components/BecomeHost/Guests/Pricing'
 import PricingHelp from './components/BecomeHost/Guests/PricingHelp'
+import SpecialOffer from './components/BecomeHost/Guests/SpecialOffer'
 
 export default {
   components: {
@@ -246,6 +254,7 @@ export default {
     NightsSnippet,
     Pricing,
     PricingHelp,
+    SpecialOffer,
   },
   data() {
     return {
