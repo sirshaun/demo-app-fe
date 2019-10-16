@@ -178,12 +178,14 @@
       </div>
     </div>
 
-    <div class="bg-gray-200 min-h-screen w-2/5 px-6 pt-10 pb-20">
+    <div class="relative bg-gray-200 w-2/5 px-6 pt-10 pb-20">
       <CalendarSnippet v-if="page == 17 && !checkpoint" />
 
       <AdvancedCalendarSnippet v-if="page == 18 && !checkpoint" />
 
       <NightsSnippet v-if="page == 19 && !checkpoint" />
+
+      <PricingHelp v-if="page == 20 && !checkpoint" />
     </div>
   </div>
 </template>
@@ -214,6 +216,7 @@ import AdvancedCalendarSnippet from './components/BecomeHost/Guests/AdvancedCale
 import Stays from './components/BecomeHost/Guests/Stays'
 import NightsSnippet from './components/BecomeHost/Guests/NightsSnippet'
 import Pricing from './components/BecomeHost/Guests/Pricing'
+import PricingHelp from './components/BecomeHost/Guests/PricingHelp'
 
 export default {
   components: {
@@ -242,6 +245,7 @@ export default {
     Stays,
     NightsSnippet,
     Pricing,
+    PricingHelp,
   },
   data() {
     return {
