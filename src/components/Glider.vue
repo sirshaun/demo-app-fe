@@ -11,11 +11,16 @@
           data-glide-dir="<"
           v-show="!sliderStart"
         >
-          <img
-            :src="'/img/ikonate/chevron-left' + chevronColor + '.svg'"
-            class="h-10"
-            :class="{ 'md:h-16': multi }"
-          />
+          <svg
+            class="fill-current h-10"
+            :class="{ 'md:h-16 text-white': multi, 'text-gray-900': !multi }"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+          >
+            <path
+              d="M7.05 9.293L6.343 10 12 15.657l1.414-1.414L9.172 10l4.242-4.243L12 4.343z"
+            />
+          </svg>
         </a>
         <a
           class="glide__arrow glide__arrow--right"
@@ -23,11 +28,16 @@
           data-glide-dir=">"
           v-show="!sliderEnd"
         >
-          <img
-            :src="'/img/ikonate/chevron-right' + chevronColor + '.svg'"
-            class="h-10"
-            :class="{ 'md:h-16': multi }"
-          />
+          <svg
+            class="h-10 fill-current"
+            :class="{ 'md:h-16 text-white': multi, 'text-gray-900': !multi }"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+          >
+            <path
+              d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"
+            />
+          </svg>
         </a>
       </div>
     </div>
@@ -35,72 +45,69 @@
 </template>
 
 <script>
-import Glide from "@glidejs/glide";
-import "@glidejs/glide/dist/css/glide.core.min.css";
+import Glide from '@glidejs/glide'
+import '@glidejs/glide/dist/css/glide.core.min.css'
 // import '@glidejs/glide/dist/css/glide.theme.min.css'
 
 export default {
   props: {
     multi: {
       type: Boolean,
-      default: false
+      default: false,
     },
     perView: {
       type: Number,
-      default: 2
-    }
+      default: 2,
+    },
   },
   data() {
     return {
       glide: {},
-      glideRun: {}
-    };
+      glideRun: {},
+    }
   },
   mounted() {
-    this.multi ? this.loadMultipleCarousels() : this.loadSingleCarousel();
+    this.multi ? this.loadMultipleCarousels() : this.loadSingleCarousel()
   },
   computed: {
     sliderStart() {
-      if (this.multi) return false;
+      if (this.multi) return false
 
-      return this.glideRun.hasOwnProperty("isStart")
+      return this.glideRun.hasOwnProperty('isStart')
         ? this.glideRun.isStart()
-        : true;
+        : true
     },
     sliderEnd() {
-      if (this.multi) return false;
+      if (this.multi) return false
 
-      return this.glideRun.hasOwnProperty("isEnd")
+      return this.glideRun.hasOwnProperty('isEnd')
         ? this.glideRun.isEnd()
-        : true;
+        : true
     },
-    chevronColor() {
-      return this.multi ? "-white" : "";
-    }
   },
   methods: {
     loadMultipleCarousels() {
-      const carousels = document.querySelectorAll(".glide");
+      const carousels = document.querySelectorAll('.glide')
 
       Object.values(carousels).map(carousel => {
         const slider = new Glide(carousel, {
-          type: "carousel",
-          perView: 1
-        });
-        slider.mount();
-      });
+          type: 'carousel',
+          perView: 1,
+        })
+        slider.mount()
+      })
     },
     loadSingleCarousel() {
-      this.glide = new Glide(".glide", {
-        perView: this.perView
-      });
+      this.glide = new Glide('.glide', {
+        perView: this.perView,
+      })
 
-      this.glide.mount();
+      this.glide.mount()
 
-      this.glideRun = this.glide._c.Run;
-    }
-  }
-};
+      this.glideRun = this.glide._c.Run
+    },
+  },
+}
 </script>
 
 <style scoped>
