@@ -29,9 +29,9 @@ export default {
     }
   },
   methods: {
-    handleClickOutside() {
+    handleClickOutside(e) {
       if (this.open) {
-        this.toggleTooltip()
+        this.toggleTooltip(e)
       } else {
         this.open = true
       }
