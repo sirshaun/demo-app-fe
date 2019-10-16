@@ -167,6 +167,14 @@
           :checkpoint="toggleCheckpoint"
           :exit-btn-clicked="exitBtnClicked"
         />
+        <!-- Calendar days skipped here -->
+        <Pricing
+          v-if="page == 20 && !checkpoint"
+          :back="prevPage"
+          :next="nextPage"
+          :checkpoint="toggleCheckpoint"
+          :exit-btn-clicked="exitBtnClicked"
+        />
       </div>
     </div>
 
@@ -174,6 +182,8 @@
       <CalendarSnippet v-if="page == 17 && !checkpoint" />
 
       <AdvancedCalendarSnippet v-if="page == 18 && !checkpoint" />
+
+      <NightsSnippet v-if="page == 19 && !checkpoint" />
     </div>
   </div>
 </template>
@@ -202,6 +212,8 @@ import CalendarSnippet from './components/BecomeHost/Guests/CalendarSnippet'
 import BookingInAdvance from './components/BecomeHost/Guests/BookingInAdvance'
 import AdvancedCalendarSnippet from './components/BecomeHost/Guests/AdvancedCalendarSnippet'
 import Stays from './components/BecomeHost/Guests/Stays'
+import NightsSnippet from './components/BecomeHost/Guests/NightsSnippet'
+import Pricing from './components/BecomeHost/Guests/Pricing'
 
 export default {
   components: {
@@ -228,6 +240,8 @@ export default {
     BookingInAdvance,
     AdvancedCalendarSnippet,
     Stays,
+    NightsSnippet,
+    Pricing,
   },
   data() {
     return {
