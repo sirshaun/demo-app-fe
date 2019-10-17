@@ -18,71 +18,24 @@
           Save and Exit
         </div>
       </div>
-      <div
-        class="flex justify-between mt-4 border-t border-gray-400 bg-gray-100"
-        v-if="review"
-      >
-        <div
-          class="w-1/6 border-r border-gray-400 py-2 px-3 cursor-pointer tracking-wider"
-          :class="{
-            'bg-gray-200': page == 1,
-            'hover:bg-gray-300': page != 1
-          }"
-          @click="gotoPage(1)"
-        >
-          Place type
-        </div>
-        <div
-          class="w-1/6 border-r border-gray-400 py-2 px-3 cursor-pointer tracking-wider"
-          :class="{
-            'bg-gray-200': page == 2,
-            'hover:bg-gray-300': page != 2
-          }"
-          @click="gotoPage(2)"
-        >
-          Bedrooms
-        </div>
-        <div
-          class="w-1/6 border-r border-gray-400 py-2 px-3 cursor-pointer tracking-wider"
-          :class="{
-            'bg-gray-200': page == 3,
-            'hover:bg-gray-300': page != 3
-          }"
-          @click="gotoPage(3)"
-        >
-          Baths
-        </div>
-        <div
-          class="w-1/6 border-r border-gray-400 py-2 px-3 cursor-pointer tracking-wider"
-          :class="{
-            'bg-gray-200': page == 4 || page == 5,
-            'hover:bg-gray-300': page != 4 || page != 5
-          }"
-          @click="gotoPage(4)"
-        >
-          Location
-        </div>
-        <div
-          class="w-1/6 border-r border-gray-400 py-2 px-3 cursor-pointer tracking-wider"
-          :class="{
-            'bg-gray-200': page == 6,
-            'hover:bg-gray-300': page != 6
-          }"
-          @click="gotoPage(6)"
-        >
-          Amenities
-        </div>
-        <div
-          class="w-1/6 border-r border-gray-400 py-2 px-3 cursor-pointer tracking-wider"
-          :class="{
-            'bg-gray-200': page == 7,
-            'hover:bg-gray-300': page != 7
-          }"
-          @click="gotoPage(7)"
-        >
-          Shared spaces
-        </div>
-      </div>
+      <StepOne
+        :goto-page="gotoPage"
+        :page="page"
+        :review="review"
+        v-if="step == 1"
+      />
+      <StepTwo
+        :goto-page="gotoPage"
+        :page="page"
+        :review="review"
+        v-if="step == 2"
+      />
+      <StepThree
+        :goto-page="gotoPage"
+        :page="page"
+        :review="review"
+        v-if="step == 3"
+      />
       <div class="w-full" :class="{ 'absolute bottom-0 left-0': !review }">
         <div class="h-1 relative bg-gray-200" v-if="!checkpoint">
           <span
@@ -96,16 +49,22 @@
 </template>
 
 <script>
+import StepOne from './Review/StepOne'
+import StepTwo from './Review/StepTwo'
+import StepThree from './Review/StepThree'
+
 export default {
+  components: { StepOne, StepTwo, StepThree },
   props: {
     header: { type: String, required: true },
     saveAndExit: { type: Function, required: true },
     showSaveAndExitBtn: { type: Boolean, required: true },
     checkpoint: { type: Boolean, required: true },
     review: { type: Boolean, required: true },
+    step: { type: Number, required: true },
     page: { type: Number, required: true },
     progress: { type: String, required: true },
-    gotoPage: { type: Function, required: true }
-  }
-};
+    gotoPage: { type: Function, required: true },
+  },
+}
 </script>

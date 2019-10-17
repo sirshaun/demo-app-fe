@@ -4,6 +4,7 @@
       v-if="!checkpoint"
       :header="navText"
       :page="page"
+      :step="step"
       :progress="progress"
       :save-and-exit="saveAndExit"
       :show-save-and-exit-btn="showSaveAndExitBtn"
@@ -72,9 +73,9 @@
           :page="page"
           @review-step-one="stepOneReview"
           @continue-to-step-two="proceedStepTwo"
-          @review-step-two="proceedStepTwo"
+          @review-step-two="stepTwoReview"
           @continue-to-step-three="proceedStepThree"
-          @review-step-three="proceedStepThree"
+          @review-step-three="stepThreeReview"
           v-if="checkpoint"
         />
 
@@ -353,9 +354,19 @@ export default {
       this.step = 2
       this.page = 8
     },
+    stepTwoReview() {
+      this.step = 2
+      this.page = 8
+      this.review = true
+    },
     proceedStepThree() {
       this.step = 3
       this.page = 11
+    },
+    stepThreeReview() {
+      this.step = 3
+      this.page = 11
+      this.review = true
     },
     saveAndExit() {
       this.exitBtnClicked = true
