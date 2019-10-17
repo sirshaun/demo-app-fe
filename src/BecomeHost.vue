@@ -182,6 +182,13 @@
           :checkpoint="toggleCheckpoint"
           :exit-btn-clicked="exitBtnClicked"
         />
+        <DiscountOffers
+          v-if="page == 22 && !checkpoint"
+          :back="prevPage"
+          :next="nextPage"
+          :checkpoint="toggleCheckpoint"
+          :exit-btn-clicked="exitBtnClicked"
+        />
       </div>
     </div>
 
@@ -195,6 +202,8 @@
       <PricingHelp v-if="page == 20 && !checkpoint" />
 
       <SpecialOfferHelp v-if="page == 21 && !checkpoint" />
+
+      <DiscountHelper v-if="page == 22 && !checkpoint" />
     </div>
   </div>
 </template>
@@ -228,6 +237,8 @@ import Pricing from './components/BecomeHost/Guests/Pricing'
 import PricingHelp from './components/BecomeHost/Guests/PricingHelp'
 import SpecialOffer from './components/BecomeHost/Guests/SpecialOffer'
 import SpecialOfferHelp from './components/BecomeHost/Guests/SpecialOfferHelp'
+import DiscountOffers from './components/BecomeHost/Guests/DiscountOffers'
+import DiscountHelper from './components/BecomeHost/Guests/DiscountHelper'
 
 export default {
   components: {
@@ -259,6 +270,8 @@ export default {
     PricingHelp,
     SpecialOffer,
     SpecialOfferHelp,
+    DiscountOffers,
+    DiscountHelper,
   },
   data() {
     return {

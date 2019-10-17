@@ -22,7 +22,7 @@
           class="text-sm font-light tracking-wide leading-snug mb-2"
           v-if="showWeeklyPriceWithDiscount"
         >
-          Average weekly price with 90% discount
+          Average weekly price with {{ weeklyDiscount }}% discount
           <strong>{{ weeklyPriceWithDiscount }}</strong>
         </div>
         <div class="relative overflow-hidden">
@@ -46,9 +46,11 @@
         </p>
         <div
           class="text-indigo-600 font-light text-lg mt-2 cursor-pointer hover:text-indigo-200"
+          @click="useWeeklyTip"
         >
-          Tip: 21 %
+          Tip: {{ suggestedWeeklyDiscount }} %
         </div>
+        <div class="mt-1 font-light text-sm">{{ weeklyDiscountFeedback }}</div>
       </div>
     </div>
 
@@ -64,10 +66,10 @@
           class="text-sm font-light tracking-wide leading-snug mb-2"
           v-if="showMonthlyPriceWithDiscount"
         >
-          Average monthly price with 90% discount
+          Average monthly price with {{ monthlyDiscount }}% discount
           <strong>{{ monthlyPriceWithDiscount }}</strong>
         </div>
-        <div class="relative">
+        <div class="relative overflow-hidden">
           <input
             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-6 leading-tight focus:outline-none focus:bg-white"
             :class="{ 'border-red-500 bg-red-100 mb-1': monthlyDiscountError }"
@@ -76,26 +78,29 @@
             placeholder=""
             v-model="monthlyDiscount"
           />
-          <div
-            class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2 text-gray-700"
+          <span
+            id="monthlyDiscountLabel"
+            class="absolute font-light text-gray-600 w-20"
+            style="top: 11px; left: 45px"
+            >% off</span
           >
-            $
-          </div>
         </div>
         <p v-show="monthlyDiscountError" class="text-red-500 text-xs italic">
           Please make your weekly discount at least as high as your monthly.
         </p>
         <div
           class="text-indigo-600 font-light text-lg mt-2 cursor-pointer hover:text-indigo-200"
+          @click="useMonthlyTip"
         >
-          Tip: 49 %
+          Tip: {{ suggestedMonthlyDiscount }} %
         </div>
+        <div class="mt-1 font-light text-sm">{{ monthlyDiscountFeedback }}</div>
       </div>
     </div>
 
     <!-- dummy divs -->
     <div class="dummy" id="weeklyDiscountText">{{ weeklyDiscount }}</div>
-    <div v-show="false" id="monthlyDiscountText">{{ monthlyDiscount }}</div>
+    <div class="dummy" id="monthlyDiscountText">{{ monthlyDiscount }}</div>
 
     <Footer :back="back" :next="proceed" :checkpoint="updateAndExit" />
   </div>
@@ -103,9 +108,6 @@
 
 <script>
 import Footer from '@/components/BecomeHost/Footer'
-
-// const dummyDivMonthly = document.getElementById('monthlyDiscountText')
-// const labelMonthlyDiscount = document.getElementById('')
 
 export default {
   components: { Footer },
@@ -131,6 +133,27 @@ export default {
     showMonthlyPriceWithDiscount() {
       return this.monthlyPriceWithDiscount != 0
     },
+    weeklyDiscountFeedback() {
+      if (this.weeklyDiscount == '')
+        return 'Travellers searching for stays longer than a week typically book listings with discounts.'
+
+      if (this.weeklyDiscount < 16)
+        return 'Increase your discount to raise the chance of getting booked by weekly travellers searching in suburb_here.'
+
+      return 'Nice! Get ready to host week-long stays.'
+    },
+    monthlyDiscountFeedback() {
+      this.checkMonthlyDiscount()
+      if (this.monthlyDiscountError) return ''
+
+      if (this.monthlyDiscount == '')
+        return '68% of travellers staying longer than one month book listings with discounts greater than 20%.'
+
+      if (this.monthlyDiscount < 44)
+        return 'Set a higher discount to increase the likelihood you get booked by travellers searching for monthly stays in suburb_here.'
+
+      return 'Great! Your discount helps make your listing attractive to travellers searching for month-long stays.'
+    },
   },
   data() {
     return {
@@ -138,9 +161,17 @@ export default {
       weeklyDiscountError: false,
       monthlyDiscount: 0,
       monthlyDiscountError: false,
+      suggestedWeeklyDiscount: 21,
+      suggestedMonthlyDiscount: 49,
     }
   },
   methods: {
+    useWeeklyTip() {
+      this.weeklyDiscount = this.suggestedWeeklyDiscount
+    },
+    useMonthlyTip() {
+      this.monthlyDiscount = this.suggestedMonthlyDiscount
+    },
     checkWeeklyDiscount() {
       this.weeklyDiscountError = this.weeklyDiscount > this.monthlyDiscount
     },
@@ -189,6 +220,8 @@ export default {
     weeklyDiscount: {
       immediate: true,
       handler: function(weeklyDiscount) {
+        if (weeklyDiscount == 0) this.weeklyDiscount = ''
+
         const dummyDivWeekly = document.getElementById('weeklyDiscountText')
         const labelWeeklyDiscount = document.getElementById(
           'weeklyDiscountLabel'
@@ -196,10 +229,10 @@ export default {
 
         if (dummyDivWeekly) {
           if (weeklyDiscount == '') {
-            var offset = 45
+            var offset = 50
           } else {
             var width = dummyDivWeekly.clientWidth
-            var offset = width + 45
+            var offset = width + 50
           }
 
           labelWeeklyDiscount.style.left = offset + 'px'
@@ -209,7 +242,23 @@ export default {
     monthlyDiscount: {
       immediate: true,
       handler: function(monthlyDiscount) {
-        // var width = dummyDivMonthly.clientWidth
+        if (monthlyDiscount == 0) this.monthlyDiscount = ''
+
+        const dummyDivMonthly = document.getElementById('monthlyDiscountText')
+        const labelMonthlyDiscount = document.getElementById(
+          'monthlyDiscountLabel'
+        )
+
+        if (dummyDivMonthly) {
+          if (monthlyDiscount == '') {
+            var offset = 50
+          } else {
+            var width = dummyDivMonthly.clientWidth
+            var offset = width + 50
+          }
+
+          labelMonthlyDiscount.style.left = offset + 'px'
+        }
       },
     },
     exitBtnClicked: {
