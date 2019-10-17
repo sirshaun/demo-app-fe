@@ -75,6 +75,10 @@ export const actions = {
     context.commit('UPDATE_LISTING_STAY_LIMITS', data)
   },
 
+  updateListingAvailability(context, data) {
+    //
+  },
+
   updateListingPricing(context, data) {
     context.commit('UPDATE_LISTING_PRICING', data)
   },
