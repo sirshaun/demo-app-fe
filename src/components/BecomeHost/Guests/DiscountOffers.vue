@@ -42,7 +42,7 @@
           >
         </div>
         <p v-show="weeklyDiscountError" class="text-red-500 text-xs italic">
-          Please make your monthly discount at least as high as your weekly.
+          {{ weeklyDiscountErrorMessage }}
         </p>
         <div
           class="text-indigo-600 font-light text-lg mt-2 cursor-pointer hover:text-indigo-200"
@@ -86,7 +86,7 @@
           >
         </div>
         <p v-show="monthlyDiscountError" class="text-red-500 text-xs italic">
-          Please make your weekly discount at least as high as your monthly.
+          {{ monthlyDiscountErrorMessage }}
         </p>
         <div
           class="text-indigo-600 font-light text-lg mt-2 cursor-pointer hover:text-indigo-200"
@@ -122,16 +122,24 @@ export default {
       return this.weeklyDiscountError || this.monthlyDiscountError
     },
     weeklyPriceWithDiscount() {
-      return 90
+      var price = this.price * 7 * ((100 - this.weeklyDiscount) / 100)
+      return this.moneyFormat(price)
     },
     monthlyPriceWithDiscount() {
-      return 90
+      var price = this.price * 30 * ((100 - this.monthlyDiscount) / 100)
+      return this.moneyFormat(price)
     },
     showWeeklyPriceWithDiscount() {
-      return this.weeklyPriceWithDiscount != 0
+      return (
+        (this.weeklyDiscount != 0 || this.weeklyDiscount != '') &&
+        this.weeklyDiscount < 100
+      )
     },
     showMonthlyPriceWithDiscount() {
-      return this.monthlyPriceWithDiscount != 0
+      return (
+        (this.monthlyDiscount != 0 || this.monthlyDiscount != '') &&
+        this.monthlyDiscount < 100
+      )
     },
     weeklyDiscountFeedback() {
       if (this.weeklyDiscount == '')
@@ -143,7 +151,6 @@ export default {
       return 'Nice! Get ready to host week-long stays.'
     },
     monthlyDiscountFeedback() {
-      this.checkMonthlyDiscount()
       if (this.monthlyDiscountError) return ''
 
       if (this.monthlyDiscount == '')
@@ -154,6 +161,18 @@ export default {
 
       return 'Great! Your discount helps make your listing attractive to travellers searching for month-long stays.'
     },
+    weeklyDiscountErrorMessage() {
+      if (this.weeklyDiscount > 99 || this.weeklyDiscount < 0)
+        return 'Please use a weekly discount of at least 0 but no more than 99'
+
+      return 'Please make your monthly discount at least as high as your weekly.'
+    },
+    monthlyDiscountErrorMessage() {
+      if (this.monthlyDiscount > 99 || this.monthlyDiscount < 0)
+        return 'Please use a monthly discount of at least 0 but no more than 99'
+
+      return 'Please make your monthly discount at least as high as your weekly.'
+    },
   },
   data() {
     return {
@@ -163,6 +182,8 @@ export default {
       monthlyDiscountError: false,
       suggestedWeeklyDiscount: 21,
       suggestedMonthlyDiscount: 49,
+      price: 0,
+      suburb: '',
     }
   },
   methods: {
@@ -173,10 +194,15 @@ export default {
       this.monthlyDiscount = this.suggestedMonthlyDiscount
     },
     checkWeeklyDiscount() {
-      this.weeklyDiscountError = this.weeklyDiscount > this.monthlyDiscount
+      this.weeklyDiscountError =
+        this.weeklyDiscount > this.monthlyDiscount || this.weeklyDiscount > 99
     },
     checkMonthlyDiscount() {
-      this.monthlyDiscountError = this.weeklyDiscount > this.monthlyDiscount
+      this.monthlyDiscountError =
+        this.weeklyDiscount > this.monthlyDiscount || this.monthlyDiscount > 99
+    },
+    moneyFormat(num) {
+      return num.toFixed(0).replace(/\d(?=(\d{3})+\.)/g, '$&,')
     },
     proceed() {
       this.checkSpecialOffer()
@@ -211,6 +237,9 @@ export default {
 
       if (listing.hasOwnProperty('monthlyDiscount'))
         this.monthlyDiscount = listing.monthlyDiscount
+
+      this.price = listing.basePrice
+      this.suburb = listing.suburb || 'Mount Waverly'
     },
   },
   created() {
@@ -220,6 +249,12 @@ export default {
     weeklyDiscount: {
       immediate: true,
       handler: function(weeklyDiscount) {
+        this.checkWeeklyDiscount()
+        this.checkMonthlyDiscount()
+
+        // supress monthly discount error so user focuses on one error
+        if (this.monthlyDiscountError) this.monthlyDiscountError = false
+
         if (weeklyDiscount == 0) this.weeklyDiscount = ''
 
         const dummyDivWeekly = document.getElementById('weeklyDiscountText')
@@ -242,6 +277,12 @@ export default {
     monthlyDiscount: {
       immediate: true,
       handler: function(monthlyDiscount) {
+        this.checkWeeklyDiscount()
+        this.checkMonthlyDiscount()
+
+        // supress weekly discount error so user focuses on one error
+        if (this.weeklyDiscountError) this.weeklyDiscountError = false
+
         if (monthlyDiscount == 0) this.monthlyDiscount = ''
 
         const dummyDivMonthly = document.getElementById('monthlyDiscountText')
