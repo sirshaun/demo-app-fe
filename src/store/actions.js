@@ -82,4 +82,8 @@ export const actions = {
   updateListingSpecialOfferFirst(context, data) {
     context.commit('UPDATE_LISTING_SPECIAL_OFFER_FIRST', data)
   },
+
+  updateListingDiscounts(context, data) {
+    context.commit('UPDATE_LISTING_LONG_STAY_DISCOUNTS', data)
+  },
 }

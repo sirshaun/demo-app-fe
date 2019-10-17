@@ -123,4 +123,9 @@ export const mutations = {
   UPDATE_LISTING_SPECIAL_OFFER_FIRST(state, obj) {
     Vue.set(state.listing, 'specialOfferFirst', obj.specialOffer)
   },
+
+  UPDATE_LISTING_LONG_STAY_DISCOUNTS(state, obj) {
+    Vue.set(state.listing, 'weeklyDiscount', obj.weeklyDiscount)
+    Vue.set(state.listing, 'monthlyDiscounts', obj.monthlyDiscounts)
+  },
 }
