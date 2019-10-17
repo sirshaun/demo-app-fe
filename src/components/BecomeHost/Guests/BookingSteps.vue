@@ -90,11 +90,7 @@
       </div>
     </div>
 
-    <Footer
-      :back="back"
-      :next="updateAndContinue"
-      :checkpoint="updateAndExit"
-    />
+    <Footer :back="back" :next="next" :checkpoint="checkpoint" />
   </div>
 </template>
 
