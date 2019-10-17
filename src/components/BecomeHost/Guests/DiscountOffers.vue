@@ -205,7 +205,7 @@ export default {
       return num.toFixed(0).replace(/\d(?=(\d{3})+\.)/g, '$&,')
     },
     proceed() {
-      this.checkSpecialOffer()
+      this.checkWeeklyDiscount() || this.checkMonthlyDiscount()
 
       if (!this.errors) this.updateAndContinue()
     },
