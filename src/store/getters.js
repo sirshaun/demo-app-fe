@@ -19,7 +19,10 @@ export const getters = {
 
     return !!state.listing.photos.length
   },
-  title: state => {
-    return state.listing.title
+  stepTwoComplete: state => {
+    return typeof state.listing.title != 'undefined'
+  },
+  stepThreeComplete: state => {
+    return state.listing.status == 'complete'
   },
 }
