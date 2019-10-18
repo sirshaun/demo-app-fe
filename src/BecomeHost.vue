@@ -1,7 +1,7 @@
 <template>
   <div class="flex">
     <Navbar
-      v-if="!checkpoint"
+      v-if="!checkpoint && page != 30"
       :header="navText"
       :page="page"
       :step="step"
@@ -18,6 +18,7 @@
         <!-- Step One -->
         <PlaceType
           v-if="page == 1 && !checkpoint"
+          :review="review"
           :back="prevPage"
           :next="nextPage"
           :checkpoint="toggleCheckpoint"
@@ -76,6 +77,7 @@
           @review-step-two="stepTwoReview"
           @continue-to-step-three="proceedStepThree"
           @review-step-three="stepThreeReview"
+          @publish-listing="publishListing"
           v-if="checkpoint"
         />
 
@@ -168,27 +170,55 @@
           :checkpoint="toggleCheckpoint"
           :exit-btn-clicked="exitBtnClicked"
         />
-        <!-- Calendar days skipped here -->
-        <Pricing
+        <Calendar
           v-if="page == 20 && !checkpoint"
           :back="prevPage"
           :next="nextPage"
           :checkpoint="toggleCheckpoint"
           :exit-btn-clicked="exitBtnClicked"
         />
-        <SpecialOffer
+        <Pricing
           v-if="page == 21 && !checkpoint"
           :back="prevPage"
           :next="nextPage"
           :checkpoint="toggleCheckpoint"
           :exit-btn-clicked="exitBtnClicked"
         />
-        <DiscountOffers
+        <SpecialOffer
           v-if="page == 22 && !checkpoint"
           :back="prevPage"
           :next="nextPage"
           :checkpoint="toggleCheckpoint"
           :exit-btn-clicked="exitBtnClicked"
+        />
+        <DiscountOffers
+          v-if="page == 23 && !checkpoint"
+          :back="prevPage"
+          :next="nextPage"
+          :checkpoint="toggleCheckpoint"
+          :exit-btn-clicked="exitBtnClicked"
+        />
+        <WhatToExpect
+          v-if="page == 24 && !checkpoint"
+          :back="prevPage"
+          :next="nextPage"
+          :checkpoint="toggleCheckpoint"
+          :exit-btn-clicked="exitBtnClicked"
+        />
+        <Laws
+          v-if="page == 25 && !checkpoint"
+          :review="review"
+          :back="prevPage"
+          :next="nextPage"
+          :checkpoint="toggleCheckpoint"
+          :exit-btn-clicked="exitBtnClicked"
+        />
+
+        <!-- End -->
+        <Publish
+          :checkpoint="toggleCheckpoint"
+          :publish="publishListing"
+          v-if="complete && !checkpoint && page == 30"
         />
       </div>
     </div>
@@ -234,12 +264,16 @@ import BookingInAdvance from './components/BecomeHost/Guests/BookingInAdvance'
 import AdvancedCalendarSnippet from './components/BecomeHost/Guests/AdvancedCalendarSnippet'
 import Stays from './components/BecomeHost/Guests/Stays'
 import NightsSnippet from './components/BecomeHost/Guests/NightsSnippet'
+import Calendar from './components/BecomeHost/Guests/Calendar'
 import Pricing from './components/BecomeHost/Guests/Pricing'
 import PricingHelp from './components/BecomeHost/Guests/PricingHelp'
 import SpecialOffer from './components/BecomeHost/Guests/SpecialOffer'
 import SpecialOfferHelp from './components/BecomeHost/Guests/SpecialOfferHelp'
 import DiscountOffers from './components/BecomeHost/Guests/DiscountOffers'
 import DiscountHelper from './components/BecomeHost/Guests/DiscountHelper'
+import WhatToExpect from './components/BecomeHost/Guests/WhatToExpect'
+import Laws from './components/BecomeHost/Guests/Laws'
+import Publish from './components/BecomeHost/Publish'
 
 export default {
   components: {
@@ -267,12 +301,16 @@ export default {
     AdvancedCalendarSnippet,
     Stays,
     NightsSnippet,
+    Calendar,
     Pricing,
     PricingHelp,
     SpecialOffer,
     SpecialOfferHelp,
     DiscountOffers,
     DiscountHelper,
+    WhatToExpect,
+    Laws,
+    Publish,
   },
   data() {
     return {
@@ -288,6 +326,7 @@ export default {
       checkpoint: false,
       review: false,
       exitBtnClicked: false,
+      complete: false,
     }
   },
   computed: {
@@ -308,7 +347,8 @@ export default {
       }
 
       if (this.step == 3) {
-        // TODO
+        // starts at page 11 ergo page 11 is page 1 for step 3
+        progress = parseInt(((this.page - 11) / 14) * 100)
       }
 
       return progress + '%'
@@ -371,6 +411,9 @@ export default {
     saveAndExit() {
       this.exitBtnClicked = true
     },
+    publishListing() {
+      //
+    },
     persist() {
       this.$http
         .post('/user/listings/create', this.$store.state.listing, {
@@ -389,20 +432,18 @@ export default {
     },
   },
   watch: {
-    page: {
-      immediate: true,
-      handler: function(page) {
-        if (page > 7 && this.step == 1) {
-          this.toggleCheckpoint()
-        } else if (page > 10 && this.step == 2) {
-          this.toggleCheckpoint()
-        }
-      },
-    },
     checkpoint: {
       immediate: true,
       handler: function(checkpoint) {
         if (checkpoint) this.exitBtnClicked = false
+      },
+    },
+    page: {
+      immediate: true,
+      handler: function(page) {
+        if (page == 30) {
+          this.complete = true
+        }
       },
     },
   },
@@ -410,6 +451,18 @@ export default {
     if (!this.$store.state.isLogged) {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
     } else {
+      if (this.$store.getters.step) this.step = this.$store.getters.step
+
+      if (this.$store.getters.page) this.page = this.$store.getters.page
+
+      if (this.$store.getters.status) {
+        this.checkpoint = this.$store.getters.checkpoint
+
+        this.complete = this.$store.getters.status == 'complete'
+      }
+
+      if (this.complete && this.page < 30) this.review = true
+
       this.listing = this.$store.state.listing
     }
   },

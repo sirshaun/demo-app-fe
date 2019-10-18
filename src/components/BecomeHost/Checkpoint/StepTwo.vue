@@ -1,10 +1,6 @@
 <template>
   <div>
-    <div
-      class="flex flex-col"
-      :class="{ 'opacity-50': !proceedStepTwo }"
-      v-if="!photosUploaded"
-    >
+    <div class="flex flex-col" v-if="!stepTwoComplete">
       <div class="uppercase font-bold text-sm tracking-wider text-gray-600">
         Step 2
       </div>
@@ -14,17 +10,17 @@
       <div class="font-light text-gray-800">
         Set the Photos, short description, title
       </div>
-      <div v-if="proceedStepTwo">
+      <div class="mt-6">
         <a
           class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
           @click="continueToStepTwo"
         >
-          Add Photos
+          {{ btnText }}
         </a>
       </div>
     </div>
 
-    <div class="clearfix mt-6" v-if="photosUploaded">
+    <div class="clearfix mt-6" v-if="stepTwoComplete">
       <div class="float-left">
         <div class="flex flex-col">
           <div class="font-light text-gray-800">
@@ -57,10 +53,16 @@
 <script>
 export default {
   props: {
-    photosUploaded: { type: Boolean, default: false },
-    proceedStepTwo: { type: Boolean, default: false },
     reviewStepTwo: { type: Function, required: true },
-    continueToStepTwo: { type: Function, default: false },
+    continueToStepTwo: { type: Function, required: true },
+  },
+  computed: {
+    stepTwoComplete() {
+      return this.$store.getters.stepTwoComplete
+    },
+    btnText() {
+      return this.$store.getters.photosUploaded ? 'Continue' : 'Add photos'
+    },
   },
 }
 </script>

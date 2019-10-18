@@ -42,8 +42,6 @@
       <StepTwo
         :continue-to-step-two="continueToStepTwo"
         :review-step-two="reviewStepTwo"
-        :proceed-step-two="proceedStepTwo"
-        :photos-uploaded="photosUploaded"
       />
 
       <hr class="border-gray-300 my-6" />
@@ -51,8 +49,18 @@
       <StepThree
         :continue-to-step-three="continueToStepThree"
         :review-step-three="reviewStepThree"
-        :proceed-step-three="proceedStepThree"
       />
+
+      <div class="mt-6" v-if="completed">
+        <hr class="border-gray-300 my-6" />
+
+        <a
+          class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded cursor-pointer focus:outline-none focus:shadow-outline"
+          @click="publishListing"
+        >
+          Publish listing
+        </a>
+      </div>
     </div>
     <div class="w-1/2"></div>
   </div>
@@ -70,21 +78,26 @@ export default {
     checkpoint: { type: Function, required: true },
   },
   computed: {
-    photosUploaded() {
-      return this.$store.getters.photosUploaded
+    headerText() {
+      return this.$store.getters.status == 'complete'
+        ? 'You’re ready to publish!'
+        : 'Great progress!' // todo: add name
     },
-    proceedStepTwo() {
-      var id = this.$store.getters.listing_id
-
-      return typeof id != 'undefined'
+    subHeaderText() {
+      return this.$store.getters.status == 'complete'
+        ? 'You’ll be able to welcome your first guest after you set your availability, which you can easily do after you hit publish.'
+        : 'Now let’s get some details about your place so you can publish your listing.' // todo: add name
     },
-    proceedStepThree() {
-      var title = this.$store.getters.title
-
-      return typeof title != 'undefined'
+    completed() {
+      return this.$store.getters.status == 'complete'
     },
   },
   methods: {
+    updateProgress(checkpoint) {
+      this.$store.dispatch('updateProgress', {
+        checkpoint: true,
+      })
+    },
     reviewStepOne() {
       this.checkpoint()
       this.$emit('review-step-one')
@@ -105,6 +118,15 @@ export default {
       this.checkpoint()
       this.$emit('review-step-three')
     },
+    publishListing() {
+      this.$emit('publish-listing')
+    },
+  },
+  mounted() {
+    this.updateProgress(true)
+  },
+  destroyed() {
+    this.updateProgress(false)
   },
 }
 </script>
