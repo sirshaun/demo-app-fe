@@ -348,7 +348,7 @@ export default {
 
       if (this.step == 3) {
         // starts at page 11 ergo page 11 is page 1 for step 3
-        progress = parseInt(((this.page - 11) / 14) * 100)
+        progress = parseInt(((this.page - 10) / 14) * 100)
       }
 
       return progress + '%'
@@ -395,6 +395,8 @@ export default {
       this.page = 8
     },
     stepTwoReview() {
+      this.noteLastPage()
+
       this.step = 2
       this.page = 8
       this.review = true
@@ -404,9 +406,16 @@ export default {
       this.page = 11
     },
     stepThreeReview() {
+      this.noteLastPage()
+
       this.step = 3
       this.page = 11
       this.review = true
+    },
+    noteLastPage() {
+      this.$store.dispatch('updateProgress', {
+        lastPageNumber: this.page,
+      })
     },
     saveAndExit() {
       this.exitBtnClicked = true

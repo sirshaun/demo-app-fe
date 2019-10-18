@@ -10,6 +10,14 @@
       <div class="font-light text-gray-800">
         Set the Photos, short description, title
       </div>
+      <div class="mt-6 w-full" v-if="showProgressBar">
+        <div class="h-1 relative bg-gray-200">
+          <span
+            :style="{ width: progress }"
+            class="block h-full relative overflow-hidden bg-indigo-400"
+          ></span>
+        </div>
+      </div>
       <div class="mt-6">
         <a
           class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
@@ -62,6 +70,21 @@ export default {
     },
     btnText() {
       return this.$store.getters.photosUploaded ? 'Continue' : 'Add photos'
+    },
+    showProgressBar() {
+      return (
+        this.$store.getters.lastPageNumber > 7 &&
+        this.$store.getters.lastPageNumber < 11
+      )
+    },
+    progress() {
+      if (this.showProgressBar) {
+        var progress = parseInt(
+          ((this.$store.getters.lastPageNumber - 7) / 3) * 100
+        )
+
+        return progress + '%'
+      }
     },
   },
 }

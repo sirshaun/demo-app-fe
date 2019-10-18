@@ -14,6 +14,14 @@
       <div class="font-light text-gray-800">
         Booking settings, calendar, price
       </div>
+      <div class="mt-6 w-full" v-if="showProgressBar">
+        <div class="h-1 relative bg-gray-200">
+          <span
+            :style="{ width: progress }"
+            class="block h-full relative overflow-hidden bg-indigo-400"
+          ></span>
+        </div>
+      </div>
       <div class="mt-6" v-if="proceedStepThree">
         <a
           class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded cursor-pointer focus:outline-none focus:shadow-outline"
@@ -72,6 +80,18 @@ export default {
     },
     stepThreeComplete() {
       return this.$store.getters.stepThreeComplete
+    },
+    showProgressBar() {
+      return this.$store.getters.lastPageNumber > 10
+    },
+    progress() {
+      if (this.showProgressBar) {
+        var progress = parseInt(
+          ((this.$store.getters.lastPageNumber - 10) / 14) * 100
+        )
+
+        return progress + '%'
+      }
     },
   },
 }
