@@ -11,6 +11,9 @@ export const getters = {
   checkpoint: state => {
     return state.listing.checkpoint
   },
+  lastPageNumber: state => {
+    return state.listing.lastPageNumber
+  },
   listing_id: state => {
     return state.listing.id
   },
