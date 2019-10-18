@@ -1,11 +1,11 @@
 <template>
   <div class="flex flex-col">
-    <h1 class="font-semibold text-2xl text-gray-900 px-4">
+    <h1 class="font-semibold text-2xl text-gray-900">
       What kind of place are you listing?
     </h1>
 
     <div class="flex flex-wrap mt-10">
-      <div class="w-3/5 px-3">
+      <div class="w-3/5">
         <label
           class="block text-gray-600 tracking-wide text-light mb-2"
           for="grid-listing"
@@ -47,7 +47,7 @@
     </div>
 
     <div class="flex flex-wrap mt-8">
-      <div class="w-3/5 px-3">
+      <div class="w-3/5">
         <label
           class="block text-gray-600 tracking-wide text-light mb-2"
           for="grid-type"
@@ -90,7 +90,7 @@
     </div>
 
     <div class="flex flex-wrap mt-8" v-show="totalRoomsOptionShow">
-      <div class="w-3/5 px-3">
+      <div class="w-3/5">
         <label
           class="block text-gray-600 tracking-wide text-light mb-2"
           for="grid-total-rooms"
@@ -134,7 +134,7 @@
     </div>
 
     <div class="flex flex-wrap mt-8" v-show="guestOptionShow">
-      <div class="w-full px-3">
+      <div class="w-full">
         <label
           class="block text-gray-600 tracking-wide text-light mb-4"
           for="grid-type"
@@ -169,7 +169,7 @@
     </div>
 
     <div class="flex flex-wrap mt-8 mb-10" v-show="guestOptionShow">
-      <div class="w-full px-3">
+      <div class="w-full">
         <label
           class="block text-gray-600 tracking-wide text-light mb-2"
           for="grid-type"
@@ -202,7 +202,7 @@
 
     <CaseModal @close-case-modal="toggleModal" v-if="caseModal" />
 
-    <Footer :back="back" :next="proceed" :checkpoint="updateAndExit" />
+    <Footer :back="back" :next="proceed" />
   </div>
 </template>
 
@@ -214,6 +214,7 @@ export default {
   components: { CaseModal, Footer },
   props: {
     next: { type: Function, required: true },
+    review: { type: Boolean, default: false },
     checkpoint: { type: Function, required: true },
     exitBtnClicked: { type: Boolean, required: true },
   },
@@ -430,18 +431,32 @@ export default {
         roomType: this.room,
         spaceType: this.space,
       })
-
-      this.$store.dispatch('updateProgress', {
-        progress: 'step one in progress',
-      })
+    },
+    updateProgress(step) {
+      if (this.review) {
+        this.$store.dispatch('updateProgress', {
+          step: 1,
+          page: step ? 2 : 1,
+        })
+      } else {
+        this.$store.dispatch('updateProgress', {
+          step: 1,
+          page: step ? 2 : 1,
+          status: 'in progress',
+        })
+      }
     },
     updateAndContinue() {
       this.updateListingState()
+
+      this.updateProgress(true)
 
       this.next()
     },
     updateAndExit() {
       this.updateListingState()
+
+      this.updateProgress(false)
 
       this.checkpoint()
     },

@@ -1,14 +1,14 @@
 <template>
   <div class="flex flex-col">
-    <h1 class="font-semibold text-2xl text-gray-900 px-4">
+    <h1 class="font-semibold text-2xl text-gray-900">
       How many bathrooms?
     </h1>
-    <p class="px-4">
+    <p class="font-light tracking-wide">
       Count bathrooms that don’t have a shower or bathtub as a half bathroom.
     </p>
 
     <div class="flex flex-wrap mt-6">
-      <div class="w-full px-3">
+      <div class="w-full">
         <div class="flex flex-wrap items-center mt-6">
           <div class="w-1/3 font-light leading-none">Bathrooms</div>
           <div class="w-1/3">
@@ -24,7 +24,7 @@
     </div>
 
     <div class="flex flex-wrap mt-6">
-      <div class="w-full px-3">
+      <div class="w-full">
         <label
           class="block text-gray-600 tracking-wide text-light mb-2"
           for="grid-type"
@@ -58,7 +58,7 @@
       </div>
     </div>
 
-    <Footer :back="back" :next="proceed" :checkpoint="updateAndExit" />
+    <Footer :back="back" :next="proceed" />
   </div>
 </template>
 
@@ -106,10 +106,20 @@ export default {
     updateAndContinue() {
       this.updateListingState()
 
+      this.$store.dispatch('updateProgress', {
+        step: 1,
+        page: 4,
+      })
+
       this.next()
     },
     updateAndExit() {
       this.updateListingState()
+
+      this.$store.dispatch('updateProgress', {
+        step: 1,
+        page: 3,
+      })
 
       this.checkpoint()
     },

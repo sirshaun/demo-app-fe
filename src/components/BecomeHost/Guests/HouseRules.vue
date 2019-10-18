@@ -25,7 +25,7 @@
       @update-checked-details="updateCheckedDetails"
     />
 
-    <Footer :back="back" :next="proceed" :checkpoint="updateAndExit" />
+    <Footer :back="back" :next="proceed" />
   </div>
 </template>
 
@@ -92,13 +92,23 @@ export default {
         houseDetails: this.checkedDetails,
       })
     },
+    updateProgress(step) {
+      this.$store.dispatch('updateProgress', {
+        step: 3,
+        page: step ? 13 : 12,
+      })
+    },
     updateAndContinue() {
       this.updateListingState()
+
+      this.updateProgress(true)
 
       this.next()
     },
     updateAndExit() {
       this.updateListingState()
+
+      this.updateProgress(false)
 
       this.checkpoint()
     },

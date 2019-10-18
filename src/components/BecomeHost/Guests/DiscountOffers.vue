@@ -102,7 +102,7 @@
     <div class="dummy" id="weeklyDiscountText">{{ weeklyDiscount }}</div>
     <div class="dummy" id="monthlyDiscountText">{{ monthlyDiscount }}</div>
 
-    <Footer :back="back" :next="proceed" :checkpoint="updateAndExit" />
+    <Footer :back="back" :next="proceed" />
   </div>
 </template>
 
@@ -215,9 +215,17 @@ export default {
         monthlyDiscount: this.monthlyDiscount,
       })
     },
+    updateProgress(step) {
+      this.$store.dispatch('updateProgress', {
+        step: 3,
+        page: step ? 24 : 23,
+      })
+    },
     updateAndContinue() {
       if (!this.maxStayError) {
         this.updateListing()
+
+        this.updateProgress(true)
 
         this.next()
       }
@@ -225,6 +233,8 @@ export default {
     updateAndExit() {
       if (!this.maxStayError) {
         this.updateListing()
+
+        this.updateProgress(false)
 
         this.checkpoint()
       }

@@ -1,14 +1,14 @@
 <template>
   <div class="flex flex-col">
-    <h1 class="font-semibold text-2xl text-gray-900 px-4">
+    <h1 class="font-semibold text-2xl text-gray-900">
       What spaces can guests use?
     </h1>
-    <p class="px-4">
+    <p class="font-light tracking-wide">
       Include common areas, but don’t add spaces that aren’t on your property.
     </p>
 
     <div class="flex flex-wrap mt-6">
-      <div class="w-full px-3">
+      <div class="w-full">
         <div class="mb-4" v-for="(option, index) in spaces" :key="index">
           <input
             type="checkbox"
@@ -23,12 +23,7 @@
       </div>
     </div>
 
-    <Footer
-      :back="back"
-      :next="updateAndContinue"
-      :checkpoint="updateAndContinue"
-      next-btn-text="Done"
-    />
+    <Footer :back="back" :next="updateAndContinue" next-btn-text="Done" />
   </div>
 </template>
 
@@ -60,14 +55,28 @@ export default {
     }
   },
   methods: {
-    updateAndContinue() {
+    updateListingState() {
       this.$store.dispatch('updateSharedSpaces', {
         spaces: this.checkedSpaces,
       })
-
+    },
+    updateProgress(step) {
       this.$store.dispatch('updateProgress', {
-        progress: 'step one completed',
+        step: step ? 2 : 1,
+        page: step ? 8 : 7,
       })
+    },
+    updateAndContinue() {
+      this.updateListingState()
+
+      this.updateProgress(true)
+
+      this.checkpoint()
+    },
+    updateAndExit() {
+      this.updateListingState()
+
+      this.updateProgress(false)
 
       this.checkpoint()
     },
@@ -84,7 +93,7 @@ export default {
     exitBtnClicked: {
       immediate: true,
       handler: function(exitBtnClicked) {
-        if (exitBtnClicked) this.checkpoint()
+        if (exitBtnClicked) this.updateAndExit()
       },
     },
   },

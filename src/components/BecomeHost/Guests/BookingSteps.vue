@@ -90,7 +90,7 @@
       </div>
     </div>
 
-    <Footer :back="back" :next="next" :checkpoint="checkpoint" />
+    <Footer :back="back" :next="updateAndContinue" />
   </div>
 </template>
 
@@ -105,11 +105,29 @@ export default {
     checkpoint: { type: Function, required: true },
     exitBtnClicked: { type: Boolean, required: true },
   },
+  methods: {
+    updateProgress(step) {
+      this.$store.dispatch('updateProgress', {
+        step: 3,
+        page: step ? 15 : 14,
+      })
+    },
+    updateAndContinue() {
+      this.updateProgress(true)
+
+      this.next()
+    },
+    updateAndExit() {
+      this.updateProgress(false)
+
+      this.checkpoint()
+    },
+  },
   watch: {
     exitBtnClicked: {
       immediate: true,
       handler: function(exitBtnClicked) {
-        if (exitBtnClicked) this.checkpoint()
+        if (exitBtnClicked) this.updateAndExit()
       },
     },
   },

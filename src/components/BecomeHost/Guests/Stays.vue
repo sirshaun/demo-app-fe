@@ -97,11 +97,7 @@
       <span class="text-indigo-600">Tip:</span> {{ tip }}
     </div>
 
-    <Footer
-      :back="back"
-      :next="updateAndContinue"
-      :checkpoint="updateAndExit"
-    />
+    <Footer :back="back" :next="updateAndContinue" />
   </div>
 </template>
 
@@ -160,9 +156,17 @@ export default {
         stayException: this.limitException,
       })
     },
+    updateProgress(step) {
+      this.$store.dispatch('updateProgress', {
+        step: 3,
+        page: step ? 20 : 19,
+      })
+    },
     updateAndContinue() {
       if (!this.maxStayError) {
         this.updateListing()
+
+        this.updateProgress(true)
 
         this.next()
       }
@@ -170,6 +174,8 @@ export default {
     updateAndExit() {
       if (!this.maxStayError) {
         this.updateListing()
+
+        this.updateProgress(false)
 
         this.checkpoint()
       }

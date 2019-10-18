@@ -181,7 +181,7 @@
       </div>
     </div>
 
-    <Footer :back="back" :next="proceed" :checkpoint="updateAndExit" />
+    <Footer :back="back" :next="proceed" />
   </div>
 </template>
 
@@ -314,9 +314,17 @@ export default {
         checkInEnd: this.to,
       })
     },
+    updateProgress(step) {
+      this.$store.dispatch('updateProgress', {
+        step: 3,
+        page: step ? 18 : 17,
+      })
+    },
     updateAndContinue() {
       if (!this.noticeError) {
         this.updateListing()
+
+        this.updateProgress(true)
 
         this.next()
       }
@@ -324,6 +332,8 @@ export default {
     updateAndExit() {
       if (!this.noticeError) {
         this.updateListing()
+
+        this.updateProgress(false)
 
         this.checkpoint()
       }

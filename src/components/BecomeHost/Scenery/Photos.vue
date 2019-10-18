@@ -71,7 +71,6 @@
     <Footer
       :back="back"
       :next="updateAndContinue"
-      :checkpoint="checkpoint"
       :next-btn-text="nextBtnText"
     />
 
@@ -128,13 +127,23 @@ export default {
         photos: this.photos,
       })
     },
+    updateProgress(step) {
+      this.$store.dispatch('updateProgress', {
+        step: 2,
+        page: step ? 9 : 8,
+      })
+    },
     updateAndContinue() {
       this.updateListingState()
+
+      this.updateProgress(true)
 
       this.next()
     },
     updateAndExit() {
       this.updateListingState()
+
+      this.updateProgress(false)
 
       this.checkpoint()
     },

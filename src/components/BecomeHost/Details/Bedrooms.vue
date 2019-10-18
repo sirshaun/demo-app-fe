@@ -1,15 +1,15 @@
 <template>
   <div class="flex flex-col">
-    <h1 class="font-semibold text-2xl text-gray-900 px-4">
+    <h1 class="font-semibold text-2xl text-gray-900">
       What kind of place are you listing?
     </h1>
-    <p class="px-4">
+    <p class="font-light tracking-wide">
       Check that you have enough beds to accommodate all your guests
       comfortably.
     </p>
 
     <div class="flex flex-wrap mt-6">
-      <div class="w-full px-3">
+      <div class="w-full">
         <div class="flex flex-wrap items-center">
           <div class="w-1/3 font-light leading-none">Guests</div>
           <div class="w-1/3">
@@ -24,7 +24,7 @@
     </div>
 
     <div class="flex flex-wrap mt-6">
-      <div class="w-2/3 px-3">
+      <div class="w-2/3">
         <label
           class="block text-gray-600 tracking-wide text-light mb-2"
           for="grid-bedrooms"
@@ -59,7 +59,7 @@
     </div>
 
     <div class="flex flex-wrap mt-6">
-      <div class="w-full px-3">
+      <div class="w-full">
         <label
           class="block text-gray-600 tracking-wide text-light"
           for="grid-beds"
@@ -104,20 +104,16 @@
       @bedroom-beds-updated="updateBedroomSpaces"
     />
 
-    <Footer
-      :back="back"
-      :next="updateAndContinue"
-      :checkpoint="updateAndExit"
-    />
+    <Footer :back="back" :next="updateAndContinue" />
   </div>
 </template>
 
 <script>
-import Pluralize from "pluralize";
+import Pluralize from 'pluralize'
 
-import Counter from "@/components/Form/Counter";
-import Bedroom from "@/components/BecomeHost/Bedroom";
-import Footer from "@/components/BecomeHost/Footer";
+import Counter from '@/components/Form/Counter'
+import Bedroom from '@/components/BecomeHost/Bedroom'
+import Footer from '@/components/BecomeHost/Footer'
 
 export default {
   components: { Counter, Bedroom, Footer },
@@ -125,109 +121,119 @@ export default {
     back: { type: Function, required: true },
     next: { type: Function, required: true },
     checkpoint: { type: Function, required: true },
-    exitBtnClicked: { type: Boolean, required: true }
+    exitBtnClicked: { type: Boolean, required: true },
   },
   data() {
     return {
       guests: 0,
-      bedrooms: "",
+      bedrooms: '',
       beds: 0,
       bedroomComponents: 0,
-      bedroomSpaces: {}
-    };
+      bedroomSpaces: {},
+    }
   },
   methods: {
     updateNumberOfGuests(num) {
-      this.guests = num;
+      this.guests = num
     },
     updateNumberOfBeds(num) {
-      this.beds = num;
+      this.beds = num
     },
     updateBedroomSpaces(name, data) {
-      var sluggedName = name.toLowerCase().replace(" ", "_");
+      var sluggedName = name.toLowerCase().replace(' ', '_')
 
-      this.bedroomSpaces[sluggedName] = data;
+      this.bedroomSpaces[sluggedName] = data
     },
     pluralize(word, count = 0, inclusive) {
-      return Pluralize(word, count, inclusive);
+      return Pluralize(word, count, inclusive)
     },
     updateListingState() {
-      this.$store.dispatch("updateBedrooms", {
+      this.$store.dispatch('updateBedrooms', {
         guests: this.guests,
         bedrooms: this.bedrooms,
         beds: this.beds,
-        bedroomSpaces: this.bedroomSpaces
-      });
+        bedroomSpaces: this.bedroomSpaces,
+      })
+    },
+    updateProgress(step) {
+      this.$store.dispatch('updateProgress', {
+        step: 1,
+        page: step ? 3 : 2,
+      })
     },
     updateAndContinue() {
-      this.updateListingState();
+      this.updateListingState()
 
-      this.next();
+      this.updateProgress(true)
+
+      this.next()
     },
     updateAndExit() {
-      this.updateListingState();
+      this.updateListingState()
 
-      this.checkpoint();
+      this.updateProgress(false)
+
+      this.checkpoint()
     },
     initializeValues() {
-      let listing = this.$store.state.listing;
+      let listing = this.$store.state.listing
 
-      if (listing.hasOwnProperty("guests")) this.guests = listing.guests;
+      if (listing.hasOwnProperty('guests')) this.guests = listing.guests
 
-      if (listing.hasOwnProperty("bedrooms")) this.bedrooms = listing.bedrooms;
+      if (listing.hasOwnProperty('bedrooms')) this.bedrooms = listing.bedrooms
 
-      if (listing.hasOwnProperty("beds")) this.beds = listing.beds;
+      if (listing.hasOwnProperty('beds')) this.beds = listing.beds
 
-      if (listing.hasOwnProperty("bedroomSpaces")) {
-        this.bedroomSpaces = listing.bedroomSpaces;
+      if (listing.hasOwnProperty('bedroomSpaces')) {
+        this.bedroomSpaces = listing.bedroomSpaces
 
-        this.restoreSpaces();
+        this.restoreSpaces()
       }
     },
     restoreSpaces() {
-      this.bedroomComponents = Object.keys(this.bedroomSpaces).length - 1;
-    }
+      this.bedroomComponents = Object.keys(this.bedroomSpaces).length - 1
+    },
   },
   computed: {
     listingObj() {
-      return this.$store.state.listing;
+      return this.$store.state.listing
     },
     bedroomOptions() {
-      var options = [];
+      var options = []
 
-      options.push("Studio");
+      options.push('Studio')
 
       for (var i = 1; i < 51; i++) {
         if (i == 1) {
-          options.push(i + " bedroom");
+          options.push(i + ' bedroom')
         } else {
-          options.push(i + " bedrooms");
+          options.push(i + ' bedrooms')
         }
       }
 
-      return options;
-    }
+      return options
+    },
   },
   watch: {
     bedrooms: {
       immediate: false,
       handler: function(bedrooms) {
-        if (bedrooms == "Studio") {
-          this.bedroomComponents = 0;
+        if (bedrooms == 'Studio') {
+          this.bedroomComponents = 0
         } else {
-          this.bedroomComponents = parseInt(bedrooms[0]);
+          this.bedroomComponents = parseInt(bedrooms[0])
         }
-      }
+      },
     },
     exitBtnClicked: {
       immediate: true,
       handler: function(exitBtnClicked) {
-        if (exitBtnClicked) this.updateAndExit();
-      }
-    }
+        if (exitBtnClicked) this.updateAndExit()
+      },
+    },
   },
   created() {
-    this.initializeValues();
-  }
-};
+    this.initializeValues()
+  },
+}
 </script>

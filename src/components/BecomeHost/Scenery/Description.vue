@@ -123,7 +123,7 @@
       </div>
     </div>
 
-    <Footer :back="back" :next="proceed" :checkpoint="updateAndExit" />
+    <Footer :back="back" :next="proceed" />
   </div>
 </template>
 
@@ -167,13 +167,23 @@ export default {
         gettingAround: this.travel,
       })
     },
+    updateProgress(step) {
+      this.$store.dispatch('updateProgress', {
+        step: 2,
+        page: step ? 10 : 9,
+      })
+    },
     updateAndContinue() {
       this.updateListingState()
+
+      this.updateProgress(true)
 
       this.next()
     },
     updateAndExit() {
       this.updateListingState()
+
+      this.updateProgress(false)
 
       this.checkpoint()
     },

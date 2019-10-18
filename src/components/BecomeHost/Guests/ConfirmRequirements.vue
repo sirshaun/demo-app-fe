@@ -113,7 +113,7 @@
       <span class="font-light text-lg text-gray-900 ml-4">{{ info }}</span>
     </div>
 
-    <Footer :back="back" :next="next" :checkpoint="checkpoint" />
+    <Footer :back="back" :next="updateAndContinue" />
   </div>
 </template>
 
@@ -233,12 +233,28 @@ export default {
 
       return Array.from(new Set(translateHouseRules))
     },
+    updateProgress(step) {
+      this.$store.dispatch('updateProgress', {
+        step: 3,
+        page: step ? 13 : 12,
+      })
+    },
+    updateAndContinue() {
+      this.updateProgress(true)
+
+      this.next()
+    },
+    updateAndExit() {
+      this.updateProgress(false)
+
+      this.checkpoint()
+    },
   },
   watch: {
     exitBtnClicked: {
       immediate: true,
       handler: function(exitBtnClicked) {
-        if (exitBtnClicked) this.checkpoint()
+        if (exitBtnClicked) this.updateAndExit()
       },
     },
   },

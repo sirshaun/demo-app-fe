@@ -1,44 +1,41 @@
 <template>
   <div class="flex flex-col">
-    <h1 class="font-semibold text-2xl text-gray-900 px-4">
+    <h1 class="font-semibold text-2xl text-gray-900">
       Is the pin in the right place?
     </h1>
-    <p class="px-4">
+    <p class="font-light tracking-wide">
       If needed, you can adjust the map so the pin is in the right location.
       Only confirmed guests will see this, so they know how to get to your
       place.
     </p>
 
     <div class="flex flex-wrap mt-6">
-      <div class="w-full px-3 text-gray-700 text-sm tracking-wide">
+      <div class="w-full text-gray-700 text-sm tracking-wide">
         {{ address }}
       </div>
     </div>
 
     <div class="flex flex-wrap mt-6">
-      <div class="px-3">
-        <GmapMap
-          :center="{ lat: 10, lng: 10 }"
-          :zoom="7"
-          map-type-id="terrain"
-          style="width: 500px; height: 300px"
-        >
-          <GmapMarker
-            :key="index"
-            v-for="(m, index) in markers"
-            :position="m.position"
-            :clickable="true"
-            :draggable="true"
-            @click="center = m.position"
-          />
-        </GmapMap>
-      </div>
+      <GmapMap
+        :center="{ lat: 10, lng: 10 }"
+        :zoom="7"
+        map-type-id="terrain"
+        style="width: 500px; height: 300px"
+      >
+        <GmapMarker
+          :key="index"
+          v-for="(m, index) in markers"
+          :position="m.position"
+          :clickable="true"
+          :draggable="true"
+          @click="center = m.position"
+        />
+      </GmapMap>
     </div>
 
     <Footer
       :back="back"
       :next="updateAndContinue"
-      :checkpoint="updateAndExit"
       next-btn-text="Yes, that's right"
     />
   </div>
@@ -72,13 +69,23 @@ export default {
         lat: this.lat,
       })
     },
+    updateProgress(step) {
+      this.$store.dispatch('updateProgress', {
+        step: 1,
+        page: step ? 6 : 5,
+      })
+    },
     updateAndContinue() {
       this.updateListingState()
+
+      this.updateProgress(true)
 
       this.next()
     },
     updateAndExit() {
       this.updateListingState()
+
+      this.updateProgress(false)
 
       this.checkpoint()
     },

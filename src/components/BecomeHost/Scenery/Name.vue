@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <Footer :back="back" :next="proceed" :checkpoint="updateAndContinue" />
+    <Footer :back="back" :next="proceed" />
   </div>
 </template>
 
@@ -66,8 +66,23 @@ export default {
         title: this.name,
       })
     },
+    updateProgress(step) {
+      this.$store.dispatch('updateProgress', {
+        step: step ? 3 : 2,
+        page: step ? 10 : 9,
+      })
+    },
     updateAndContinue() {
       this.updateListingState()
+
+      this.updateProgress(true)
+
+      this.checkpoint()
+    },
+    updateAndExit() {
+      this.updateListingState()
+
+      this.updateProgress(false)
 
       this.checkpoint()
     },

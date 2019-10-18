@@ -88,7 +88,7 @@
         </p>
       </div>
     </div>
-    <Footer :back="back" :next="proceed" :checkpoint="updateAndExit" />
+    <Footer :back="back" :next="proceed" />
   </div>
 </template>
 
@@ -136,13 +136,23 @@ export default {
         frequency: this.frequency,
       })
     },
+    updateProgress(step) {
+      this.$store.dispatch('updateProgress', {
+        step: 3,
+        page: step ? 17 : 16,
+      })
+    },
     updateAndContinue() {
       this.updateListing()
+
+      this.updateProgress(true)
 
       this.next()
     },
     updateAndExit() {
       this.updateListing()
+
+      this.updateProgress(false)
 
       this.checkpoint()
     },

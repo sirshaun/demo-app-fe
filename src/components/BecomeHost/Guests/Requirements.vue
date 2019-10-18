@@ -59,11 +59,7 @@
       v-if="additionalRequirementsOn"
     />
 
-    <Footer
-      :back="back"
-      :next="updateAndContinue"
-      :checkpoint="updateAndExit"
-    />
+    <Footer :back="back" :next="updateAndContinue" />
   </div>
 </template>
 
@@ -108,13 +104,23 @@ export default {
         additionalRequirements: this.checkedAdditionalRequirements,
       })
     },
+    updateProgress(step) {
+      this.$store.dispatch('updateProgress', {
+        step: 3,
+        page: step ? 12 : 11,
+      })
+    },
     updateAndContinue() {
       this.updateListingState()
+
+      this.updateProgress(true)
 
       this.next()
     },
     updateAndExit() {
       this.updateListingState()
+
+      this.updateProgress(false)
 
       this.checkpoint()
     },

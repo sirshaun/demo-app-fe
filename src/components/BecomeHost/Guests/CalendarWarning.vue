@@ -37,11 +37,7 @@
       </div>
     </div>
 
-    <Footer
-      :back="back"
-      :next="updateAndContinue"
-      :checkpoint="updateAndExit"
-    />
+    <Footer :back="back" :next="updateAndContinue" />
   </div>
 </template>
 
@@ -71,11 +67,19 @@ export default {
         calendarConsent: this.agree,
       })
     },
+    updateProgress(step) {
+      this.$store.dispatch('updateProgress', {
+        step: 3,
+        page: step ? 16 : 15,
+      })
+    },
     updateAndContinue() {
       this.checkAgreement()
 
       if (!this.agreeError) {
         this.updateListing()
+
+        this.updateProgress(true)
 
         this.next()
       }
@@ -85,6 +89,8 @@ export default {
 
       if (!this.agreeError) {
         this.updateListing()
+
+        this.updateProgress(false)
 
         this.checkpoint()
       }

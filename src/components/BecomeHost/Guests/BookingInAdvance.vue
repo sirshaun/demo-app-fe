@@ -38,11 +38,7 @@
       guests by only unblocking dates you can host.
     </div>
 
-    <Footer
-      :back="back"
-      :next="updateAndContinue"
-      :checkpoint="updateAndExit"
-    />
+    <Footer :back="back" :next="updateAndContinue" />
   </div>
 </template>
 
@@ -77,13 +73,23 @@ export default {
         advancePeriod: this.booking,
       })
     },
+    updateProgress(step) {
+      this.$store.dispatch('updateProgress', {
+        step: 3,
+        page: step ? 19 : 18,
+      })
+    },
     updateAndContinue() {
       this.updateListing()
+
+      this.updateProgress(true)
 
       this.next()
     },
     updateAndExit() {
       this.updateListing()
+
+      this.updateProgress(false)
 
       this.checkpoint()
     },
