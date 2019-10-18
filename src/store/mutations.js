@@ -54,7 +54,12 @@ export const mutations = {
   },
 
   UPDATE_LISTING_PROGRESS(state, obj) {
-    Vue.set(state.listing, 'progress', obj.progress)
+    if (obj.hasOwnProperty('step')) Vue.set(state.listing, 'step', obj.step)
+    if (obj.hasOwnProperty('page')) Vue.set(state.listing, 'page', obj.page)
+    if (obj.hasOwnProperty('status'))
+      Vue.set(state.listing, 'status', obj.status)
+    if (obj.hasOwnProperty('checkpoint'))
+      Vue.set(state.listing, 'checkpoint', obj.checkpoint)
   },
 
   SET_LISTING_ID(state, obj) {

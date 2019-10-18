@@ -1,6 +1,15 @@
 export const getters = {
-  progress: state => {
-    return !state.listing.progress
+  step: state => {
+    return state.listing.step
+  },
+  page: state => {
+    return state.listing.page
+  },
+  status: state => {
+    return state.listing.status
+  },
+  checkpoint: state => {
+    return state.listing.checkpoint
   },
   listing_id: state => {
     return state.listing.id
