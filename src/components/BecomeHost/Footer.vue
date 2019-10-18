@@ -41,45 +41,44 @@ export default {
   props: {
     back: { type: Function, required: true },
     next: { type: Function, required: true },
-    checkpoint: { type: Function, required: true },
-    nextBtnText: { type: String, default: "Next" }
+    nextBtnText: { type: String, default: 'Next' },
   },
   data() {
     return {
       yScroll: 0,
-      shadowOn: false
-    };
+      shadowOn: false,
+    }
   },
   methods: {
     onScroll() {
-      var supportPageOffset = window.pageXOffset !== undefined;
-      var isCSS1Compat = (document.compatMode || "") === "CSS1Compat";
+      var supportPageOffset = window.pageXOffset !== undefined
+      var isCSS1Compat = (document.compatMode || '') === 'CSS1Compat'
 
       this.yScroll = supportPageOffset
         ? window.pageYOffset
         : isCSS1Compat
         ? document.documentElement.scrollTop
-        : document.body.scrollTop;
-    }
+        : document.body.scrollTop
+    },
   },
   watch: {
     yScroll: {
       immediate: true,
       handler: function(yScroll) {
-        this.shadowOn = yScroll == 0;
-      }
-    }
+        this.shadowOn = yScroll == 0
+      },
+    },
   },
   mounted() {
-    const listener = () => this.onScroll();
+    const listener = () => this.onScroll()
 
-    window.addEventListener("scroll", listener);
+    window.addEventListener('scroll', listener)
 
-    this.$once("hook:beforeDestroy", () => {
-      window.removeEventListener("scroll", listener);
-    });
-  }
-};
+    this.$once('hook:beforeDestroy', () => {
+      window.removeEventListener('scroll', listener)
+    })
+  },
+}
 </script>
 
 <style scoped>
