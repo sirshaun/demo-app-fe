@@ -110,7 +110,7 @@
     </div>
 
     <div class="flex flex-wrap mt-6">
-      <div class="w-1/2">
+      <div class="w-1/2 pr-2">
         <label
           class="block text-gray-600 tracking-wide text-light mb-2"
           for="grid-city"
@@ -131,7 +131,7 @@
           Please enter city
         </p>
       </div>
-      <div class="w-1/2">
+      <div class="w-1/2 pl-2">
         <label
           class="block text-gray-600 tracking-wide text-light mb-2"
           for="grid-state"
@@ -155,7 +155,7 @@
     </div>
 
     <div class="flex flex-wrap mt-6">
-      <div class="w-1/2">
+      <div class="w-1/2 pr-2">
         <label
           class="block text-gray-600 tracking-wide text-light mb-2"
           for="grid-postcode"
