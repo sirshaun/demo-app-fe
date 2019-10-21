@@ -185,6 +185,18 @@
 <script>
 import Footer from '@/components/BecomeHost/Footer'
 
+import axios from 'axios'
+
+const componentForm = {
+  street_number: 'short_name',
+  route: 'short_name',
+  locality: 'short_name',
+  colloquial_area: 'short_name',
+  administrative_area_level_1: 'short_name',
+  country: 'short_name',
+  postal_code: 'short_name',
+}
+
 export default {
   components: { Footer },
   props: {
@@ -199,6 +211,8 @@ export default {
       address: '',
       country: '',
       street: '',
+      streetNumber: '',
+      streetName: '',
       aptNum: '',
       city: '',
       state: '',
@@ -255,7 +269,8 @@ export default {
       this.$store.dispatch('updateLocation', {
         address: this.address,
         country: this.country,
-        street: this.street,
+        streetNumber: this.streetNumber,
+        streetName: this.streetName,
         aptNum: this.aptNum,
         city: this.city,
         state: this.state,
@@ -297,6 +312,57 @@ export default {
         }
       )
     },
+    fillInAddress() {
+      var address = []
+
+      let place = this.autocomplete.getPlace()
+
+      for (var i = 0; i < place.address_components.length; i++) {
+        var addressType = place.address_components[i].types[0]
+        if (componentForm[addressType]) {
+          address[addressType] =
+            place.address_components[i][componentForm[addressType]]
+        }
+      }
+
+      this.address = document.getElementById('grid-street').value
+      this.street = this.resolveStreetAddress(address)
+      this.streetNumber = address['street_number']
+      this.streetName = address['route']
+      this.suburb = address['locality']
+      this.state = address['administrative_area_level_1']
+      this.country = address['country']
+      this.postcode = address['postal_code']
+      this.lat = place.geometry.location.lat()
+      this.long = place.geometry.location.lng()
+
+      this.accurateAddress()
+    },
+    accurateAddress() {
+      axios
+        .get(
+          'https://maps.googleapis.com/maps/api/geocode/json?latlng=' +
+            this.lat +
+            ',' +
+            this.long +
+            '&result_type=locality&key=' +
+            process.env.VUE_APP_GOOGLE_API_KEY
+        )
+        .then(
+          res => {
+            this.city = res.data.results[1]['address_components'][0].long_name
+          },
+          error => {
+            console.log(error)
+          }
+        )
+    },
+    resolveStreetAddress(address) {
+      if (address['street_number'])
+        return address['street_number'] + ' ' + address['route']
+
+      return this.address.split(',')[0]
+    },
     initializeValues() {
       let listing = this.$store.state.listing
 
@@ -315,6 +381,18 @@ export default {
   },
   mounted() {
     this.fetchCountries()
+
+    this.autocomplete = new google.maps.places.Autocomplete(
+      document.getElementById('grid-street'),
+      { types: ['geocode'] }
+    )
+    const listener = () => this.fillInAddress()
+
+    this.autocomplete.addListener('place_changed', listener)
+
+    /*this.$once('hook:beforeDestroy', () => {
+      this.autocomplete.removeListener('place_changed', listener)
+    })*/
   },
   created() {
     this.initializeValues()
