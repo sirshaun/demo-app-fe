@@ -47,7 +47,7 @@
             type="checkbox"
             :id="sluggedName(option.value)"
             :value="option.value"
-            v-model="checkedSafetyAmenities"
+            v-model="checkedDefaultAmenities"
           />
           <label
             :for="sluggedName(option.value)"
