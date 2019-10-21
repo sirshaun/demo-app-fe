@@ -444,7 +444,10 @@ export default {
     checkpoint: {
       immediate: true,
       handler: function(checkpoint) {
-        if (checkpoint) this.exitBtnClicked = false
+        if (checkpoint) {
+          this.noteLastPage()
+          this.exitBtnClicked = false
+        }
       },
     },
     page: {
