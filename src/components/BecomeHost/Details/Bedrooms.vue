@@ -125,9 +125,9 @@ export default {
   },
   data() {
     return {
-      guests: 0,
+      guests: 1,
       bedrooms: '',
-      beds: 0,
+      beds: 1,
       bedroomComponents: 0,
       bedroomSpaces: {},
     }
