@@ -35,6 +35,7 @@ export const mutations = {
     Vue.set(state.listing, 'streetNumber', obj.streetNumber)
     Vue.set(state.listing, 'streetName', obj.streetName)
     Vue.set(state.listing, 'apartmentNumber', obj.aptNum)
+    Vue.set(state.listing, 'suburb', obj.suburb)
     Vue.set(state.listing, 'city', obj.city)
     Vue.set(state.listing, 'state', obj.state)
     Vue.set(state.listing, 'postcode', obj.postcode)

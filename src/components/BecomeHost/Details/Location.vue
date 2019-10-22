@@ -277,6 +277,7 @@ export default {
         aptNum: this.aptNum,
         city: this.city,
         state: this.state,
+        suburb: this.suburb,
         postcode: this.postcode,
       })
 
@@ -436,6 +437,8 @@ export default {
       if (listing.hasOwnProperty('city')) this.city = listing.city
 
       if (listing.hasOwnProperty('state')) this.state = listing.state
+
+      if (listing.hasOwnProperty('suburb')) this.suburb = listing.suburb
 
       if (listing.hasOwnProperty('postcode')) this.postcode = listing.postcode
 
