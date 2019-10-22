@@ -9,7 +9,8 @@
 
     <div class="flex flex-wrap mt-6">
       <a
-        class="bg-white hover:bg-indigo-500 text-indigo-700 font-semibold hover:text-white p-2 border border-indigo-500 hover:border-transparent rounded flex items-center"
+        class="bg-white hover:bg-indigo-500 text-indigo-700 font-semibold hover:text-white p-2 border border-indigo-500 hover:border-transparent rounded flex items-center cursor-pointer"
+        @click="getCurrentPosition"
       >
         <svg
           class="h-5 fill-current"
@@ -189,9 +190,11 @@ import axios from 'axios'
 
 const componentForm = {
   street_number: 'short_name',
+  street_address: 'long_name',
   route: 'short_name',
   locality: 'short_name',
   colloquial_area: 'short_name',
+  neighborhood: 'long_name',
   administrative_area_level_1: 'short_name',
   country: 'short_name',
   postal_code: 'short_name',
@@ -312,33 +315,82 @@ export default {
         }
       )
     },
-    fillInAddress() {
-      var address = []
-
+    setBounds() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          var geolocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          }
+          var circle = new google.maps.Circle({
+            center: geolocation,
+            radius: position.coords.accuracy,
+          })
+          this.autocomplete.setBounds(circle.getBounds())
+        })
+      }
+    },
+    collateAddressData() {
       let place = this.autocomplete.getPlace()
 
-      for (var i = 0; i < place.address_components.length; i++) {
-        var addressType = place.address_components[i].types[0]
+      this.lat = place.geometry.location.lat()
+      this.long = place.geometry.location.lng()
+
+      this.fillInAddress(place.address_components)
+
+      this.getCityFromCoordinates()
+    },
+    fillInAddress(addressComponents) {
+      var address = []
+
+      for (var i = 0; i < addressComponents.length; i++) {
+        var addressType = addressComponents[i].types[0]
         if (componentForm[addressType]) {
           address[addressType] =
-            place.address_components[i][componentForm[addressType]]
+            addressComponents[i][componentForm[addressType]]
         }
       }
 
       this.address = document.getElementById('grid-street').value
       this.street = this.resolveStreetAddress(address)
-      this.streetNumber = address['street_number']
-      this.streetName = address['route']
-      this.suburb = address['locality']
-      this.state = address['administrative_area_level_1']
-      this.country = address['country']
-      this.postcode = address['postal_code']
-      this.lat = place.geometry.location.lat()
-      this.long = place.geometry.location.lng()
-
-      this.accurateAddress()
+      this.streetNumber = address['street_number'] || ''
+      this.streetName = address['route'] || ''
+      this.suburb = address['locality'] || ''
+      this.state = address['administrative_area_level_1'] || ''
+      this.country = address['country'] || ''
+      this.postcode = address['postal_code'] || ''
+      this.city = ''
     },
-    accurateAddress() {
+    getCurrentPosition() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          this.lat = position.coords.latitude
+          this.long = position.coords.longitude
+
+          this.reverseGeocode()
+        })
+      }
+    },
+    reverseGeocode() {
+      axios
+        .get(
+          'https://maps.googleapis.com/maps/api/geocode/json?latlng=' +
+            this.lat +
+            ',' +
+            this.long +
+            '&location_type=ROOFTOP&result_type=street_number|street_address|route|locality|colloquial_area|neighborhood|administrative_area_level_1|postal_code|country&key=' +
+            process.env.VUE_APP_GOOGLE_API_KEY
+        )
+        .then(
+          res => {
+            this.fillInAddress(res.data.results[0]['address_components'])
+          },
+          error => {
+            console.log(error)
+          }
+        )
+    },
+    getCityFromCoordinates() {
       axios
         .get(
           'https://maps.googleapis.com/maps/api/geocode/json?latlng=' +
@@ -350,7 +402,8 @@ export default {
         )
         .then(
           res => {
-            this.city = res.data.results[1]['address_components'][0].long_name
+            if (res.data.results.length > 1)
+              this.city = res.data.results[1]['address_components'][0].long_name
           },
           error => {
             console.log(error)
@@ -386,7 +439,14 @@ export default {
       document.getElementById('grid-street'),
       { types: ['geocode'] }
     )
-    const listener = () => this.fillInAddress()
+    this.setBounds()
+    this.autocomplete.setFields([
+      'address_component',
+      'formatted_address',
+      'geometry',
+    ])
+
+    const listener = () => this.collateAddressData()
 
     this.autocomplete.addListener('place_changed', listener)
 
