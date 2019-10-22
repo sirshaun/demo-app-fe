@@ -421,7 +421,15 @@ export default {
 
       if (listing.hasOwnProperty('country')) this.country = listing.country
 
+      if (listing.hasOwnProperty('address')) this.address = listing.address
+
       if (listing.hasOwnProperty('street')) this.street = listing.street
+
+      if (listing.hasOwnProperty('streetNumber'))
+        this.streetNumber = listing.streetNumber
+
+      if (listing.hasOwnProperty('streetName'))
+        this.streetName = listing.streetName
 
       if (listing.hasOwnProperty('aptNum')) this.aptNum = listing.aptNum
 
@@ -430,6 +438,10 @@ export default {
       if (listing.hasOwnProperty('state')) this.state = listing.state
 
       if (listing.hasOwnProperty('postcode')) this.postcode = listing.postcode
+
+      if (listing.hasOwnProperty('latitude')) this.lat = listing.latitude
+
+      if (listing.hasOwnProperty('longitude')) this.long = listing.longitude
     },
   },
   mounted() {
