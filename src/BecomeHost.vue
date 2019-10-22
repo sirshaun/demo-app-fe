@@ -424,8 +424,15 @@ export default {
       //
     },
     persist() {
+      var url = ''
+      if (this.$store.getters.listing_id) {
+        url = 'user/listings/' + this.$store.getters.listing_id + '/update'
+      } else {
+        url = 'user/listings/create'
+      }
+
       this.$http
-        .post('/user/listings/create', this.$store.state.listing, {
+        .post(url, this.$store.state.listing, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
