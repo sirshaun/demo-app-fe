@@ -17,18 +17,16 @@
 
     <div class="flex flex-wrap mt-6">
       <GmapMap
-        :center="{ lat: 10, lng: 10 }"
-        :zoom="7"
+        :center="{ lat: lat, lng: long }"
+        :zoom="18"
         map-type-id="terrain"
-        style="width: 500px; height: 300px"
+        style="width: 690px; height: 350px"
       >
         <GmapMarker
-          :key="index"
-          v-for="(m, index) in markers"
-          :position="m.position"
+          :position="position"
           :clickable="true"
           :draggable="true"
-          @click="center = m.position"
+          @click="center = position"
         />
       </GmapMap>
     </div>
@@ -61,6 +59,14 @@ export default {
       long: '',
       lat: '',
     }
+  },
+  computed: {
+    position() {
+      return {
+        lat: this.lat,
+        lng: this.long,
+      }
+    },
   },
   methods: {
     updateListingState() {
@@ -110,8 +116,6 @@ export default {
       if (listing.hasOwnProperty('longitude')) this.long = listing.longitude
 
       if (listing.hasOwnProperty('latitude')) this.lat = listing.latitude
-
-      // '12 Lewton Road, Mount Waverley, VIC 3149, Australia'
     },
   },
   created() {
