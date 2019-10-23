@@ -149,7 +149,7 @@
           <input
             type="radio"
             :id="option.key"
-            :value="option.text"
+            :value="option.key"
             name="room"
             v-model="room"
           />
