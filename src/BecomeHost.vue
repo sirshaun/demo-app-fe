@@ -225,6 +225,12 @@
     </div>
 
     <div class="relative bg-gray-200 w-2/5 px-6 pt-10 pb-20">
+      <Preview
+        :complete="complete"
+        :preview-of-listing="previewListing"
+        v-if="checkpoint"
+      />
+
       <CalendarSnippet v-if="page == 17 && !checkpoint" />
 
       <AdvancedCalendarSnippet v-if="page == 18 && !checkpoint" />
@@ -250,6 +256,7 @@ import LocationConfirm from './components/BecomeHost/Details/LocationConfirm'
 import Amenities from './components/BecomeHost/Details/Amenities'
 import SharedSpaces from './components/BecomeHost/Details/SharedSpaces'
 import Checkpoint from './components/BecomeHost/Checkpoint'
+import Preview from './components/BecomeHost/Checkpoint/Preview'
 import Photos from './components/BecomeHost/Scenery/Photos'
 import Description from './components/BecomeHost/Scenery/Description'
 import Name from './components/BecomeHost/Scenery/Name'
@@ -287,6 +294,7 @@ export default {
     Amenities,
     SharedSpaces,
     Checkpoint,
+    Preview,
     Photos,
     Description,
     Name,
@@ -448,6 +456,9 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+    previewListing() {
+      //
     },
   },
   watch: {
