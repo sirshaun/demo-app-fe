@@ -38,11 +38,11 @@
 </template>
 
 <script>
-import Navigation from "./components/Navigation";
-import FullScreen from "./components/FullScreen";
-import Info from "./components/Wishlist/Info";
-import Settings from "./components/Wishlist/Settings";
-import BackButton from "./components/BackButton";
+import Navigation from './components/Navigation'
+import FullScreen from './components/FullScreen'
+import Info from './components/Wishlist/Info'
+import Settings from './components/Wishlist/Settings'
+import BackButton from './components/BackButton'
 
 export default {
   components: { Navigation, FullScreen, Info, Settings, BackButton },
@@ -51,81 +51,81 @@ export default {
       user: {},
       wishlist: {},
       stays: [],
-      editOn: false
-    };
+      editOn: false,
+    }
   },
   computed: {
     privacy() {
-      return this.wishlist.private ? "Invite only" : "Everyone";
+      return this.wishlist.private ? 'Invite only' : 'Everyone'
     },
     initialDates() {
       if (
         this.wishlist.dates === null &&
-        typeof this.wishlist.dates === "object"
+        typeof this.wishlist.dates === 'object'
       ) {
-        return null;
+        return null
       }
 
       return {
         start: new Date(this.wishlist.dates.start * 1000),
-        end: new Date(this.wishlist.dates.end * 1000)
-      };
-    }
+        end: new Date(this.wishlist.dates.end * 1000),
+      }
+    },
   },
   methods: {
     toggleEdit() {
-      this.editOn = !this.editOn;
+      this.editOn = !this.editOn
     },
     updateInfo(wishlist) {
-      this.wishlist = wishlist;
+      this.wishlist = wishlist
 
-      this.toggleEdit();
+      this.toggleEdit()
     },
     editButtonClicked() {
-      this.toggleEdit();
+      this.toggleEdit()
     },
     fetchProfile() {
       this.$http
-        .get("/user/profile", {
+        .get('/user/profile', {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-          }
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
         })
         .then(
           res => {
-            this.user = res.data.user;
+            this.user = res.data.user
           },
           error => {
-            console.log(error);
+            console.log(error)
           }
-        );
+        )
     },
     fetchStays() {
       this.$http
-        .get("/user/wishlists/" + 1, {
+        .get('/user/wishlists/' + this.$route.params.wishlist, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-          }
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
         })
         .then(
           res => {
-            this.wishlist = res.data.wishlist;
-            this.stays = res.data.stays;
+            this.wishlist = res.data.wishlist
+            this.stays = res.data.stays
           },
           error => {
-            console.log(error);
+            console.log(error)
           }
-        );
-    }
+        )
+    },
   },
   mounted() {
     if (!this.$store.state.isLogged) {
-      window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
     } else {
-      this.fetchStays();
+      this.fetchStays()
 
-      this.fetchProfile();
+      this.fetchProfile()
     }
-  }
-};
+  },
+}
 </script>

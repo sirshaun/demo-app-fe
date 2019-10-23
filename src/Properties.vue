@@ -24,38 +24,38 @@
 </template>
 
 <script>
-import Navigation from "./components/Navigation";
-import PropertyCard from "./components/PropertyCard";
-import BackButton from "./components/BackButton";
+import Navigation from './components/Navigation'
+import PropertyCard from './components/PropertyCard'
+import BackButton from './components/BackButton'
 
 export default {
   components: { PropertyCard, Navigation, BackButton },
-  props: ["city"],
   data() {
     return {
+      city: this.$route.params.city,
       properties: [],
-      searchTerm: ""
-    };
+      searchTerm: '',
+    }
   },
   methods: {
     fetchProperties() {
       let url =
-        typeof this.city == "undefined"
-          ? "/property/"
-          : "/property/?term=" + this.city;
+        typeof this.city == 'undefined'
+          ? '/property/'
+          : '/property/?term=' + this.city
 
       this.$http.get(url).then(
         res => {
-          this.properties = res.data;
+          this.properties = res.data
         },
         error => {
-          console.log(error);
+          console.log(error)
         }
-      );
-    }
+      )
+    },
   },
   mounted() {
-    this.fetchProperties();
-  }
-};
+    this.fetchProperties()
+  },
+}
 </script>
