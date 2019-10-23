@@ -381,7 +381,7 @@ export default {
       this.page = page
     },
     toggleCheckpoint() {
-      this.persist()
+      if (!this.checkpoint) this.persist()
 
       this.checkpoint = !this.checkpoint
     },
