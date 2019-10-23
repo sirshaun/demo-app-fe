@@ -65,6 +65,7 @@
           :next="nextPage"
           :checkpoint="toggleCheckpoint"
           :exit-btn-clicked="exitBtnClicked"
+          @note-last-page="noteLastPage"
         />
 
         <!-- Checkpoint -->
@@ -386,6 +387,8 @@ export default {
       this.checkpoint = !this.checkpoint
     },
     stepOneReview() {
+      this.noteLastPage()
+
       this.step = 1
       this.page = 1
       this.review = true
@@ -452,7 +455,6 @@ export default {
       immediate: true,
       handler: function(checkpoint) {
         if (checkpoint) {
-          this.noteLastPage()
           this.exitBtnClicked = false
         }
       },

@@ -71,6 +71,8 @@ export default {
 
       this.updateProgress(true)
 
+      this.$emit('note-last-page')
+
       this.checkpoint()
     },
     updateAndExit() {
