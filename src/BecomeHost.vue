@@ -226,6 +226,7 @@
 
     <div class="relative bg-gray-200 w-2/5 px-6 pt-10 pb-20">
       <Preview
+        :listing_id="listing.id"
         :complete="complete"
         :preview-of-listing="previewListing"
         v-if="checkpoint"
@@ -458,7 +459,11 @@ export default {
         })
     },
     previewListing() {
-      //
+      let routeData = this.$router.resolve({
+        name: 'listingPreview',
+        query: { listing: this.$store.getters.listing_id },
+      })
+      window.open(routeData.href, '_blank')
     },
   },
   watch: {

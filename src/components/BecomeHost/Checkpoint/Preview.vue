@@ -10,12 +10,14 @@
     >
       <div class="flex flex-col">
         <div class="font-thin">Family home</div>
-        <a
-          class="mt-1 text-indigo-600 cursor-pointer hover:text-indigo-200"
-          @click="previewOfListing"
+        <router-link
+          :to="'/listing/' + listing_id + '/preview'"
+          target="_blank"
         >
-          Preview
-        </a>
+          <a class="mt-1 text-indigo-600 hover:text-indigo-200">
+            Preview
+          </a>
+        </router-link>
       </div>
       <div>
         <img class="h-20" src="/img/undraw_for_sale_viax.svg" />
@@ -27,6 +29,7 @@
 <script>
 export default {
   props: {
+    listing_id: { type: Number },
     complete: { type: Boolean },
     previewOfListing: { type: Function },
   },
