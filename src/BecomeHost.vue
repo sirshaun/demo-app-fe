@@ -238,11 +238,11 @@
 
       <NightsSnippet v-if="page == 19 && !checkpoint" />
 
-      <PricingHelp v-if="page == 20 && !checkpoint" />
+      <PricingHelp v-if="page == 21 && !checkpoint" />
 
-      <SpecialOfferHelp v-if="page == 21 && !checkpoint" />
+      <SpecialOfferHelp v-if="page == 22 && !checkpoint" />
 
-      <DiscountHelper v-if="page == 22 && !checkpoint" />
+      <DiscountHelper v-if="page == 23 && !checkpoint" />
     </div>
   </div>
 </template>
