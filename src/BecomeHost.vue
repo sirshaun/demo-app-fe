@@ -403,8 +403,16 @@ export default {
       this.review = true
     },
     proceedStepTwo() {
+      let lastPageNumber = this.$store.getters.lastPageNumber
       this.step = 2
-      this.page = 8
+      // this.page = 8
+      if (this.page < 8 || this.page > 10) {
+        if (lastPageNumber > 7 && lastPageNumber < 11) {
+          this.page = lastPageNumber
+        } else {
+          this.page = 8
+        }
+      }
     },
     stepTwoReview() {
       this.noteLastPage()
@@ -414,8 +422,16 @@ export default {
       this.review = true
     },
     proceedStepThree() {
+      let lastPageNumber = this.$store.getters.lastPageNumber
       this.step = 3
-      this.page = 11
+      // this.page = 11
+      if (this.page < 11 || this.page > 25) {
+        if (lastPageNumber > 10 && lastPageNumber < 26) {
+          this.page = lastPageNumber
+        } else {
+          this.page = 11
+        }
+      }
     },
     stepThreeReview() {
       this.noteLastPage()
