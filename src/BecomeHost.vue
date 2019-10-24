@@ -504,6 +504,8 @@ export default {
       handler: function(checkpoint) {
         if (checkpoint) {
           this.exitBtnClicked = false
+
+          if (this.review) this.review = false
         }
       },
     },
