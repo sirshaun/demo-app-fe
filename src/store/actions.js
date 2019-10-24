@@ -90,4 +90,8 @@ export const actions = {
   updateListingDiscounts(context, data) {
     context.commit('UPDATE_LISTING_LONG_STAY_DISCOUNTS', data)
   },
+
+  reloadListingFromDatabase(context, data) {
+    context.commit('RELOAD_LISTING_DATA_FROM_DATABASE', data)
+  },
 }

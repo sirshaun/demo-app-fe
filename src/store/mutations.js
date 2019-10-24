@@ -141,4 +141,11 @@ export const mutations = {
     Vue.set(state.listing, 'weeklyDiscount', obj.weeklyDiscount)
     Vue.set(state.listing, 'monthlyDiscounts', obj.monthlyDiscounts)
   },
+
+  RELOAD_LISTING_DATA_FROM_DATABASE(state, obj) {
+    state.listing = { ...obj }
+    /*for (let key in obj) {
+      Vue.set(state.listing, key, obj[key])
+    }*/
+  },
 }
