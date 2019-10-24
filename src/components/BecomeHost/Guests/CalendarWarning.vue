@@ -99,8 +99,11 @@ export default {
       let listing = this.$store.state.listing
 
       if (listing.hasOwnProperty('calendarConsent'))
-        this.agree = listing.calendarConsent
+        this.agree = listing.calendarConsent ? 'Yes' : 'No'
     },
+  },
+  created() {
+    this.initializeValues()
   },
   watch: {
     exitBtnClicked: {
