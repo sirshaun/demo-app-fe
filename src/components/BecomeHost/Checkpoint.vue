@@ -95,7 +95,7 @@ export default {
   methods: {
     updateProgress(checkpoint) {
       this.$store.dispatch('updateProgress', {
-        checkpoint: true,
+        checkpoint: checkpoint,
       })
     },
     reviewStepOne() {
