@@ -241,7 +241,7 @@
         class="text-indigo-600 cursor-pointer hover:text-indigo-200"
         @click="toggleSmartPricing"
       >
-        Use base price only
+        {{ smartPricingOn ? 'Use base price only' : 'Set up Smart Pricing' }}
       </a>
       <span
         class="bg-gray-300 uppercase text-sm font-normal tracking-wide p-1 text-gray-800"
