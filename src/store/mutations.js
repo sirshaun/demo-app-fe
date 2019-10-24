@@ -139,7 +139,7 @@ export const mutations = {
 
   UPDATE_LISTING_LONG_STAY_DISCOUNTS(state, obj) {
     Vue.set(state.listing, 'weeklyDiscount', obj.weeklyDiscount)
-    Vue.set(state.listing, 'monthlyDiscounts', obj.monthlyDiscounts)
+    Vue.set(state.listing, 'monthlyDiscount', obj.monthlyDiscount)
   },
 
   RELOAD_LISTING_DATA_FROM_DATABASE(state, obj) {
