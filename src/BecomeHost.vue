@@ -458,6 +458,22 @@ export default {
           console.log(error)
         })
     },
+    async reload() {
+      let response = await this.$http.get('user/listings/unpublished', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      })
+
+      if (response.data.found) {
+        if (response.data.found) {
+          this.$store.dispatch(
+            'reloadListingFromDatabase',
+            response.data.listing
+          )
+        }
+      }
+    },
     previewListing() {
       let routeData = this.$router.resolve({
         name: 'listingPreview',
@@ -488,6 +504,13 @@ export default {
     if (!this.$store.state.isLogged) {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
     } else {
+      if (
+        Object.entries(this.$store.state.listing).length === 0 &&
+        this.$store.state.listing.constructor === Object
+      ) {
+        this.reload()
+      }
+
       if (this.$store.getters.step) this.step = this.$store.getters.step
 
       if (this.$store.getters.page) this.page = this.$store.getters.page
