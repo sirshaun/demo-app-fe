@@ -62,7 +62,7 @@
           <input
             type="radio"
             id="radio-1"
-            value="Manually review and approve reservation requests"
+            value="review"
             name="overLimit"
             v-model="limitException"
           />
@@ -78,10 +78,7 @@
           <input
             type="radio"
             id="radio-2"
-            :value="
-              'Don\'t allow reservation requests for stays longer than' +
-                pluralize('night', maxStay, true)
-            "
+            value="ignore"
             name="overLimit"
             v-model="limitException"
           />
