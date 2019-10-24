@@ -39,7 +39,7 @@
           <input
             type="radio"
             :id="option.key"
-            :value="option.text"
+            :value="option.key"
             name="privateBathroom"
             v-model="privateBathroom"
           />
