@@ -142,7 +142,7 @@ export default {
     exitBtnClicked: {
       immediate: true,
       handler: function(exitBtnClicked) {
-        if (exitBtnClicked) this.checkpoint()
+        if (exitBtnClicked) this.updateAndExit()
       },
     },
   },
