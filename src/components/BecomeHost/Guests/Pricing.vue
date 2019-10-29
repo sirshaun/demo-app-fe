@@ -395,13 +395,13 @@ export default {
       let listing = this.$store.state.listing
 
       if (listing.hasOwnProperty('basePrice'))
-        this.basePrice = listing.basePrice
+        this.basePrice = parseInt(listing.basePrice)
 
       if (listing.hasOwnProperty('minimumPrice') && listing.minimumPrice)
-        this.minimumPrice = listing.minimumPrice
+        this.minimumPrice = parseInt(listing.minimumPrice)
 
       if (listing.hasOwnProperty('maximumPrice') && listing.maximumPrice)
-        this.maximumPrice = listing.maximumPrice
+        this.maximumPrice = parseInt(listing.maximumPrice)
 
       if (listing.hasOwnProperty('currency')) this.currency = listing.currency
     },
