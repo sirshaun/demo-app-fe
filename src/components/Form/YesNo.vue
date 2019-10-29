@@ -88,7 +88,6 @@ export default {
     choice: {
       immediate: true,
       handler: function(choice) {
-        console.log(choice)
         this.updateChoice(choice)
 
         if (choice == this.yesOption.text) {
