@@ -105,7 +105,7 @@ export default {
     nextBtnClicked: {
       immediate: true,
       handler: function(nextBtnClicked) {
-        if (this.choice == '') {
+        if (this.choice == '' || typeof this.choice == 'undefined') {
           this.error = true
           this.$emit('input-error')
         } else {
