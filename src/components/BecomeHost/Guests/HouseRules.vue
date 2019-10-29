@@ -81,9 +81,11 @@ export default {
       // NOTE: wait an arbitrary number of milliseconds
       // before moving to the next page, this is done to
       // give the emits a chance to catch up (error check)
-      setTimeout(() => {
+      var to = setTimeout(() => {
         if (!this.error) this.updateAndContinue()
       }, 14)
+
+      clearTimeout(to)
     },
     updateListingState() {
       this.$store.dispatch('updateHouseRules', {
