@@ -118,7 +118,7 @@ export default {
       minStay: 0,
       maxStay: 0,
       maxStayError: false,
-      limitException: 'Manually review and approve reservation requests',
+      limitException: null,
       tooltipOn: false,
       tooltipText:
         "Your listing will show up in more guest search results if you allow reservation requests. For stays of this length you'll still be able to manually approve every reservation request",
@@ -126,6 +126,13 @@ export default {
   },
   computed: {
     tip() {
+      if (
+        this.limitException == '' ||
+        typeof this.limitException == 'undefined' ||
+        this.limitException == null
+      )
+        return 'Shorter trips can mean more reservations, but you might have to turn over your space more often.'
+
       if (this.limitException.includes('reservation requests for stays'))
         return (
           'Your maximum trip length setting is set to ' +
