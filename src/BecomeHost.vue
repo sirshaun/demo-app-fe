@@ -386,6 +386,8 @@ export default {
     },
     nextPage() {
       this.page += 1
+
+      if (this.page > 25) this.page = 30
     },
     gotoPage(page) {
       this.page = page
