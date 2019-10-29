@@ -185,7 +185,7 @@ export default {
       if (listing.hasOwnProperty('beds')) this.beds = listing.beds
 
       if (listing.hasOwnProperty('bedroomSpaces')) {
-        this.bedroomSpaces = listing.bedroomSpaces
+        this.bedroomSpaces = listing.bedroomSpaces // error here
 
         this.restoreSpaces()
       }
