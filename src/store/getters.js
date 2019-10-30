@@ -28,4 +28,10 @@ export const getters = {
   stepThreeComplete: state => {
     return state.listing.status == 'complete'
   },
+  listingExists: state => {
+    return !(
+      Object.entries(state.listing).length === 0 &&
+      state.listing.constructor === Object
+    )
+  },
 }

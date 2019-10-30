@@ -532,10 +532,7 @@ export default {
     if (!this.$store.state.isLogged) {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
     } else {
-      if (
-        Object.entries(this.$store.state.listing).length === 0 &&
-        this.$store.state.listing.constructor === Object
-      ) {
+      if (!this.$store.getters.listingExists) {
         this.reload().then(data => {
           if (data.found) {
             this.$store.dispatch('reloadListingFromDatabase', data.listing)
