@@ -484,12 +484,7 @@ export default {
       })
 
       if (response.data.found) {
-        if (response.data.found) {
-          this.$store.dispatch(
-            'reloadListingFromDatabase',
-            response.data.listing
-          )
-        }
+        this.$store.dispatch('reloadListingFromDatabase', response.data.listing)
       }
     },
     previewListing() {
