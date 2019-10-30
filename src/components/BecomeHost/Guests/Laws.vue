@@ -60,6 +60,7 @@ export default {
     review: { type: Boolean, default: false },
     checkpoint: { type: Function, required: true },
     exitBtnClicked: { type: Boolean, required: true },
+    persistToDatabase: { type: Function, required: true },
   },
   data() {
     return {}
@@ -87,6 +88,8 @@ export default {
     },
     updateAndContinue() {
       this.updateProgress(true)
+
+      this.persistToDatabase()
 
       this.next()
     },

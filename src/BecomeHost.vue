@@ -213,6 +213,7 @@
           :next="nextPage"
           :checkpoint="toggleCheckpoint"
           :exit-btn-clicked="exitBtnClicked"
+          :persist-to-database="persist"
         />
 
         <!-- End -->
