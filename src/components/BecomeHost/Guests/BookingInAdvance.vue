@@ -56,7 +56,6 @@ export default {
   data() {
     return {
       booking: 'Dates unavailable by default',
-      bookingError: false,
       bookingOptions: [
         'Any time',
         '3 months in advance',
