@@ -63,9 +63,16 @@ export default {
       } else {
         this.usernameError = false
 
-        this.isUsernameUnique()
+        this.isUsernameUnique().then(data => {
+          if (!data.isUnique) {
+            this.usernameError = true
+            this.usernameErrorMessage = 'Username already in use.'
+          } else {
+            this.usernameError = false
+          }
 
-        this.loginCredentialsAcquired()
+          this.loginCredentialsAcquired()
+        })
       }
     },
     checkPassword() {
@@ -102,12 +109,7 @@ export default {
         '/user/username/' + this.username + '/unique'
       )
 
-      if (!response.data.isUnique) {
-        this.usernameError = true
-        this.usernameErrorMessage = 'Username already in use.'
-      } else {
-        this.usernameError = false
-      }
+      return response.data
     },
   },
 }
