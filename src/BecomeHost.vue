@@ -483,9 +483,7 @@ export default {
         },
       })
 
-      if (response.data.found) {
-        this.$store.dispatch('reloadListingFromDatabase', response.data.listing)
-      }
+      return response.data
     },
     previewListing() {
       let routeData = this.$router.resolve({
@@ -493,6 +491,21 @@ export default {
         query: { listing: this.$store.getters.listing_id },
       })
       window.open(routeData.href, '_blank')
+    },
+    updateStatusFromState(listing, step, page, status, checkpoint) {
+      if (step) this.step = step
+
+      if (page) this.page = page
+
+      if (status) {
+        this.checkpoint = checkpoint
+
+        this.complete = status == 'complete'
+      }
+
+      if (this.complete && this.page < 30) this.review = true
+
+      this.listing = listing
     },
   },
   watch: {
@@ -523,22 +536,27 @@ export default {
         Object.entries(this.$store.state.listing).length === 0 &&
         this.$store.state.listing.constructor === Object
       ) {
-        this.reload()
+        this.reload().then(data => {
+          if (data.found) {
+            this.$store.dispatch('reloadListingFromDatabase', data.listing)
+            this.updateStatusFromState(
+              this.$store.state.listing,
+              this.$store.getters.step,
+              this.$store.getters.page,
+              this.$store.getters.status,
+              this.$store.getters.checkpoint
+            )
+          }
+        })
+      } else {
+        this.updateStatusFromState(
+          this.$store.state.listing,
+          this.$store.getters.step,
+          this.$store.getters.page,
+          this.$store.getters.status,
+          this.$store.getters.checkpoint
+        )
       }
-
-      if (this.$store.getters.step) this.step = this.$store.getters.step
-
-      if (this.$store.getters.page) this.page = this.$store.getters.page
-
-      if (this.$store.getters.status) {
-        this.checkpoint = this.$store.getters.checkpoint
-
-        this.complete = this.$store.getters.status == 'complete'
-      }
-
-      if (this.complete && this.page < 30) this.review = true
-
-      this.listing = this.$store.state.listing
     }
   },
 }
