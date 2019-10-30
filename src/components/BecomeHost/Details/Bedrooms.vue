@@ -185,7 +185,8 @@ export default {
       if (listing.hasOwnProperty('beds')) this.beds = listing.beds
 
       if (listing.hasOwnProperty('bedroomSpaces')) {
-        this.bedroomSpaces = listing.bedroomSpaces
+        // less performant solution for deep cloning an object
+        this.bedroomSpaces = JSON.parse(JSON.stringify(listing.bedroomSpaces))
 
         this.restoreSpaces()
       }
