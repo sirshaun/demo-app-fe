@@ -89,9 +89,13 @@ export default {
     updateAndContinue() {
       this.updateProgress(true)
 
-      this.persistToDatabase()
+      if (this.review) {
+        this.checkpoint()
+      } else {
+        this.persistToDatabase()
 
-      this.next()
+        this.next()
+      }
     },
     updateAndExit() {
       this.updateProgress(false)
