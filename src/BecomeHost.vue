@@ -325,7 +325,6 @@ export default {
   },
   data() {
     return {
-      user: {},
       listing: {},
       page: 1,
       step: 1,
