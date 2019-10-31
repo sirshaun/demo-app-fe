@@ -12,7 +12,7 @@
         </div>
         <div class="float-right">
           <input
-            class="bg-indigo-500 hover:bg-indigo-700 text-white tracking-wider p-2 rounded focus:outline-none focus:shadow-outline"
+            class="bg-indigo-500 hover:bg-indigo-700 text-white tracking-wider p-2 rounded cursor-pointer focus:outline-none focus:shadow-outline"
             type="submit"
             value="Save"
           />
@@ -49,7 +49,7 @@
             <div class="w-full px-3">
               <label
                 class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-name"
+                for="grid-dates"
               >
                 Dates
               </label>
@@ -201,11 +201,11 @@
 </template>
 
 <script>
-import DatePicker from "v-calendar/lib/components/date-picker.umd";
+import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 
-import FriendsList from "./FriendsList";
-import Counter from "@/components/Form/Counter";
-import ConfirmModal from "@/components/ConfirmModal";
+import FriendsList from './FriendsList'
+import Counter from '@/components/Form/Counter'
+import ConfirmModal from '@/components/ConfirmModal'
 
 export default {
   components: { DatePicker, FriendsList, Counter, ConfirmModal },
@@ -217,7 +217,7 @@ export default {
     initialInfants: { type: Number },
     initialPrivacy: { type: String },
     friends: { type: Array },
-    wishlistId: { type: Number }
+    wishlistId: { type: Number },
   },
   data: function() {
     return {
@@ -227,61 +227,61 @@ export default {
       children: this.initialChildren,
       infants: this.initialInfants,
       privacy: this.initialPrivacy,
-      privacyOptions: ["Invite only", "Everyone"],
-      deleteModalOn: false
-    };
+      privacyOptions: ['Invite only', 'Everyone'],
+      deleteModalOn: false,
+    }
   },
   methods: {
     updateNumberOfAdults(num) {
-      this.adults = num;
+      this.adults = num
     },
     updateNumberOfChildren(num) {
-      this.children = num;
+      this.children = num
     },
     updateNumberOfInfants(num) {
-      this.infants = num;
+      this.infants = num
     },
     updateFriendsList(friend) {
-      this.friends.push(friend);
+      this.friends.push(friend)
     },
     convertDate(dateObj, key) {
-      if (dateObj === null && typeof dateObj === "object") {
-        return null;
+      if (dateObj === null && typeof dateObj === 'object') {
+        return null
       }
-      return dateObj[key].toLocaleDateString();
+      return dateObj[key].toLocaleDateString()
     },
     toggleDeleteModal() {
-      this.deleteModalOn = !this.deleteModalOn;
+      this.deleteModalOn = !this.deleteModalOn
     },
     saveChanges() {
       this.$http
         .post(
-          "/user/wishlists/" + this.wishlistId + "/update",
+          '/user/wishlists/' + this.wishlistId + '/update',
           {
             name: this.name,
             adults: this.adults,
             children: this.children,
             infants: this.infants,
             privacy: this.privacy,
-            check_in: this.convertDate(this.dates, "start"),
-            check_out: this.convertDate(this.dates, "end")
+            check_in: this.convertDate(this.dates, 'start'),
+            check_out: this.convertDate(this.dates, 'end'),
           },
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`
-            }
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
           }
         )
         .then(res => {
-          this.$emit("update-wishlist-settings", res.data.wishlist);
+          this.$emit('update-wishlist-settings', res.data.wishlist)
         })
         .catch(error => {
-          console.log(error);
-        });
+          console.log(error)
+        })
     },
     rollbackChanges() {
-      this.$emit("cancel-button-clicked");
-    }
-  }
-};
+      this.$emit('cancel-button-clicked')
+    },
+  },
+}
 </script>
