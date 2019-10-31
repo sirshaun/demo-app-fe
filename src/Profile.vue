@@ -34,7 +34,7 @@
                   />
                 </svg>
                 <span class="font-thin">{{
-                  pluralize("review", user.reviews, true)
+                  pluralize('review', user.reviews, true)
                 }}</span>
               </a>
 
@@ -139,7 +139,7 @@
             <hr class="mx-5" />
             <div class="px-4 py-2 mx-2 my-6" id="profile-reviews">
               <div class="font-semibold text-2xl mb-6">
-                {{ pluralize("review", user.reviews, true) }}
+                {{ pluralize('review', user.reviews, true) }}
               </div>
               <div class="" v-for="(review, index) in reviews" :key="index">
                 <div class="text-xs font-semibold mb-4 tracking-normal">
@@ -181,7 +181,7 @@
                 class="text-indigo-600 hover:text-indigo-200"
                 :class="{
                   'cursor-pointer': !complaintLodged,
-                  'opacity-50 cursor-not-allowed': complaintLodged
+                  'opacity-50 cursor-not-allowed': complaintLodged,
                 }"
                 @click="toggleReportModal"
                 >Report this profile</a
@@ -214,15 +214,15 @@
 </template>
 
 <script>
-import Pluralize from "pluralize";
+import Pluralize from 'pluralize'
 
-import Navigation from "./components/Navigation.vue";
-import Summary from "./components/Profile/Summary.vue";
-import EditSummary from "./components/Profile/EditSummary.vue";
-import ListingsSlide from "./components/Profile/ListingsSlide";
-import BackButton from "./components/BackButton";
-import ReportModal from "./components/Profile/ReportModal";
-import Footer from "./components/Footer";
+import Navigation from './components/Navigation.vue'
+import Summary from './components/Profile/Summary.vue'
+import EditSummary from './components/Profile/EditSummary.vue'
+import ListingsSlide from './components/Profile/ListingsSlide'
+import BackButton from './components/BackButton'
+import ReportModal from './components/Profile/ReportModal'
+import Footer from './components/Footer'
 
 export default {
   components: {
@@ -232,7 +232,7 @@ export default {
     BackButton,
     ListingsSlide,
     ReportModal,
-    Footer
+    Footer,
   },
   data() {
     return {
@@ -241,76 +241,76 @@ export default {
       reviews: [],
       listings: [],
       reportModalOn: false,
-      complaintLodged: false
-    };
+      complaintLodged: false,
+    }
   },
   computed: {
     dateJoined() {
-      if (!this.user.hasOwnProperty("created_at")) return new Date();
+      if (!this.user.hasOwnProperty('created_at')) return new Date()
 
-      var dateTime = this.user.created_at.split(" ");
+      var dateTime = this.user.created_at.split(' ')
 
-      var date = dateTime[0].split("-");
-      var yyyy = date[0];
-      var mm = date[1] - 1;
-      var dd = date[2];
+      var date = dateTime[0].split('-')
+      var yyyy = date[0]
+      var mm = date[1] - 1
+      var dd = date[2]
 
-      var time = dateTime[1].split(":");
-      var h = time[0];
-      var m = time[1];
-      var s = parseInt(time[2]); //get rid of that 00.0;
+      var time = dateTime[1].split(':')
+      var h = time[0]
+      var m = time[1]
+      var s = parseInt(time[2]) //get rid of that 00.0;
 
-      return new Date(yyyy, mm, dd, h, m, s);
-    }
+      return new Date(yyyy, mm, dd, h, m, s)
+    },
   },
   methods: {
     fetchProfile() {
       this.$http
-        .get("/user/profile", {
+        .get('/user/profile', {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-          }
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
         })
         .then(
           res => {
-            this.user = res.data.user;
-            this.reviews = res.data.reviews;
-            this.listings = res.data.listings;
+            this.user = res.data.user
+            this.reviews = res.data.reviews
+            this.listings = res.data.listings
           },
           error => {
-            console.log(error);
+            console.log(error)
           }
-        );
+        )
     },
     scrollTo(hash) {
-      location.hash = "#" + hash;
+      location.hash = '#' + hash
     },
     toggleEdit() {
-      this.editOn = !this.editOn;
+      this.editOn = !this.editOn
     },
     toggleReportModal() {
-      this.reportModalOn = !this.reportModalOn;
+      this.reportModalOn = !this.reportModalOn
     },
     updateProfile(user) {
-      this.user = user;
+      this.user = user
 
-      this.toggleEdit();
+      this.toggleEdit()
     },
     pluralize(word, count = 0, inclusive) {
-      return Pluralize(word, count, inclusive);
+      return Pluralize(word, count, inclusive)
     },
     userFeedback() {
-      this.complaintLodged = !this.complaintLodged;
+      this.complaintLodged = !this.complaintLodged
 
-      this.toggleReportModal();
-    }
+      this.toggleReportModal()
+    },
   },
   created() {
     if (!this.$store.state.isLogged) {
-      window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
     } else {
-      this.fetchProfile();
+      this.fetchProfile()
     }
-  }
-};
+  },
+}
 </script>
