@@ -1,6 +1,6 @@
 <template>
   <div class="" v-if="user.spokenLanguages">
-    <Navigation :profileImage="user.profileImage" :isHost="!!user.host" />
+    <Navigation :profileImage="user.profileImage" :isHost="true" />
     <!-- todo: add sticky nav bar -->
 
     <div class="mt-22 bg-gray-100">
