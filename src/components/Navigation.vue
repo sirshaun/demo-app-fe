@@ -1,6 +1,11 @@
 <template>
-  <div class="mb-10">
-    <nav class="nav-float">
+  <div :class="{ 'mb-10': sticky }">
+    <nav
+      :class="{
+        'nav-float': sticky,
+        'w-full flex items-center justify-between flex-wrap bg-white p-6 border-b border-gray-300': !sticky,
+      }"
+    >
       <div class="flex items-center flex-shrink-0 text-white mr-6">
         <router-link to="/">
           <img class="h-10" src="/img/logo-mini.svg" alt="Workcation" />
@@ -153,6 +158,7 @@ export default {
     showSearch: { type: Boolean, default: true },
     profileImage: { type: String, default: '' },
     isHost: { type: Boolean, default: false },
+    sticky: { type: Boolean, default: true },
   },
   data() {
     return {

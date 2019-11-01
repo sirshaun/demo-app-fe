@@ -1,9 +1,13 @@
 <template>
   <div class="" v-if="user.spokenLanguages">
-    <Navigation :profileImage="user.profileImage" :isHost="true" />
+    <Navigation
+      :profileImage="user.profileImage"
+      :isHost="true"
+      :sticky="false"
+    />
     <!-- todo: add sticky nav bar -->
 
-    <div class="mt-22 bg-gray-100">
+    <div class="bg-gray-100">
       <div class="flex flex-col text-gray-800">
         <div class="">
           <img
