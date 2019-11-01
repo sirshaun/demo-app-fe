@@ -32,12 +32,12 @@
 export default {
   props: {
     show: { required: true },
-    preventBackgroundScrolling: { default: true }
+    preventBackgroundScrolling: { default: true },
   },
   methods: {
     dismiss() {
-      this.$emit("close-modal");
-    }
+      this.$emit('close-modal')
+    },
   },
   watch: {
     show: {
@@ -45,43 +45,42 @@ export default {
       handler: function(show) {
         if (show) {
           this.preventBackgroundScrolling &&
-            document.body.style.setProperty("overflow", "hidden");
+            document.body.style.setProperty('overflow', 'hidden')
+        } else {
+          this.preventBackgroundScrolling &&
+            document.body.style.removeProperty('overflow')
         }
-        /*else {
-                    this.preventBackgroundScrolling &&
-                        document.body.style.removeProperty('overflow')
-                }*/
-      }
-    }
+      },
+    },
   },
   mounted() {
-    const overlay = document.querySelector(".modal-overlay");
-    const listener = () => this.dismiss();
+    const overlay = document.querySelector('.modal-overlay')
+    const listener = () => this.dismiss()
 
-    overlay.addEventListener("click", listener);
+    overlay.addEventListener('click', listener)
 
-    this.$once("hook:beforeDestroy", () => {
+    this.$once('hook:beforeDestroy', () => {
       this.preventBackgroundScrolling &&
-        document.body.style.removeProperty("overflow");
+        document.body.style.removeProperty('overflow')
 
-      overlay.removeEventListener("click", listener);
-    });
+      overlay.removeEventListener('click', listener)
+    })
 
     document.onkeydown = evt => {
-      evt = evt || window.event;
-      var isEscape = false;
-      if ("key" in evt) {
-        isEscape = evt.key === "Escape" || evt.key === "Esc";
+      evt = evt || window.event
+      var isEscape = false
+      if ('key' in evt) {
+        isEscape = evt.key === 'Escape' || evt.key === 'Esc'
       } else {
-        isEscape = evt.keyCode === 27;
+        isEscape = evt.keyCode === 27
       }
 
       if (isEscape && this.show) {
-        this.dismiss();
+        this.dismiss()
       }
-    };
-  }
-};
+    }
+  },
+}
 </script>
 
 <style scoped>
