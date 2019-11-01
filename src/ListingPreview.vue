@@ -29,7 +29,7 @@
           </div>
           <img
             class="object-cover w-full"
-            style="height: 592px;"
+            style="height: 690px;"
             :src="
               cleanImagePath(
                 'file:///Users/ItachiUchiha/Sites/demo-app-be/storage/app/images/airbnb-apartment-appartment-584399.jpg'
