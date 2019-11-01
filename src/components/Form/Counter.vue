@@ -40,6 +40,7 @@ export default {
     min: { type: Number, default: 0 },
     max: { type: Number, default: 100 },
     accuracy: { type: Number, default: 1 },
+    incrementDisabled: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -59,6 +60,8 @@ export default {
       return this.counter == this.min
     },
     ceil() {
+      if (this.incrementDisabled) return true
+
       return this.counter == this.max
     },
   },
