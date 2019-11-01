@@ -20,7 +20,7 @@
           </svg>
         </div>
 
-        <div class="pl-4 md:pl-8">
+        <div class="">
           <div class="leading-normal mb-6">
             <p class="text-2xl font-bold">
               Explain why your listing isn’t suitable for children

@@ -23,7 +23,7 @@
           @dismiss-form-error-message="dismiss"
         />
 
-        <div class="pl-4 md:pl-8">
+        <div class="">
           <div class="tracking-wide mb-6">
             <p class="text-2xl font-bold">What's happening?</p>
             <div class="flex items-center">
@@ -67,56 +67,56 @@
 </template>
 
 <script>
-import Modal from "@/components/Modal";
-import ErrorMessage from "@/components/Form/ErrorMessage";
+import Modal from '@/components/Modal'
+import ErrorMessage from '@/components/Form/ErrorMessage'
 
 export default {
   components: { Modal, ErrorMessage },
   props: {
     reportUrl: { type: String, required: true },
     modalOn: { type: Boolean, required: true },
-    perp: { type: String, required: true }
+    perp: { type: String, required: true },
   },
   data() {
     return {
       options: [
         {
-          key: "scam",
-          text: "I think they’re scamming or spamming me"
+          key: 'scam',
+          text: 'I think they’re scamming or spamming me',
         },
-        { key: "offensive", text: "They’re being offensive" },
-        { key: "other", text: "Something else" }
+        { key: 'offensive', text: 'They’re being offensive' },
+        { key: 'other', text: 'Something else' },
       ],
-      reason: "",
-      error: false
-    };
+      reason: '',
+      error: false,
+    }
   },
   methods: {
     cancel() {
-      this.$emit("close-report-modal");
+      this.$emit('close-report-modal')
     },
     confirm() {
-      if (this.reason != "") {
+      if (this.reason != '') {
         this.$http.post(
           this.reportUrl,
           {
-            reason: this.reason
+            reason: this.reason,
           },
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`
-            }
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
           }
-        );
+        )
 
-        this.$emit("complaint-lodged");
+        this.$emit('complaint-lodged')
       } else {
-        this.error = true;
+        this.error = true
       }
     },
     dismiss() {
-      this.error = !this.error;
-    }
-  }
-};
+      this.error = !this.error
+    },
+  },
+}
 </script>

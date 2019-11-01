@@ -21,7 +21,7 @@
           </svg>
         </div>
 
-        <div class="pl-4 md:pl-8">
+        <div class="">
           <div class="leading-normal mb-6">
             <p class="text-2xl font-bold">Languages I Speak</p>
             <p class="text-sm font-light">
@@ -64,76 +64,76 @@
 </template>
 
 <script>
-import Modal from "@/components/Modal";
+import Modal from '@/components/Modal'
 
 export default {
   components: { Modal },
   props: {
     languagesSelected: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
-    modalOn: { type: Boolean }
+    modalOn: { type: Boolean },
   },
   data() {
     return {
       languages: [],
-      spokenLanguages: []
-    };
+      spokenLanguages: [],
+    }
   },
   computed: {
     languageCheckboxes() {
       return this.languages.map(lng => {
         return {
           language: lng,
-          checked: this.languagesSelected.includes(lng)
-        };
-      });
-    }
+          checked: this.languagesSelected.includes(lng),
+        }
+      })
+    },
   },
   methods: {
     closeModal() {
-      this.$emit("close-language-modal");
+      this.$emit('close-language-modal')
     },
     updateLanguagesSpoken() {
       this.$emit(
-        "update-languages-spoken",
+        'update-languages-spoken',
         this.mergeArrays(this.spokenLanguages, this.languagesSelected)
-      );
+      )
 
-      this.closeModal();
+      this.closeModal()
     },
     fetchLanguages() {
-      this.$http.get("/language").then(
+      this.$http.get('/language').then(
         res => {
-          this.languages = res.data;
+          this.languages = res.data
         },
         error => {
-          console.log(error);
+          console.log(error)
         }
-      );
+      )
     },
     addLanguage(lng) {
-      this.spokenLanguages.push(lng);
+      this.spokenLanguages.push(lng)
     },
     mergeArrays(...arrays) {
-      let jointArray = [];
+      let jointArray = []
 
       arrays.forEach(array => {
-        jointArray = [...jointArray, ...array];
-      });
+        jointArray = [...jointArray, ...array]
+      })
       const uniqueArray = jointArray.reduce((newArray, item) => {
         if (newArray.includes(item)) {
-          return newArray;
+          return newArray
         } else {
-          return [...newArray, item];
+          return [...newArray, item]
         }
-      }, []);
-      return uniqueArray;
-    }
+      }, [])
+      return uniqueArray
+    },
   },
   mounted() {
-    this.fetchLanguages();
-  }
-};
+    this.fetchLanguages()
+  },
+}
 </script>

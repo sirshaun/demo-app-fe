@@ -12,7 +12,7 @@
           />
         </div>
 
-        <div class="pl-4 md:pl-8">
+        <div class="">
           <div class="tracking-wide mb-6">
             <p class="text-2xl font-bold">
               Tips to get great photos of your space
@@ -62,17 +62,17 @@
 </template>
 
 <script>
-import Modal from "@/components/Modal";
+import Modal from '@/components/Modal'
 
 export default {
   components: { Modal },
   props: {
-    modalOn: { type: Boolean, required: true }
+    modalOn: { type: Boolean, required: true },
   },
   methods: {
     dismiss() {
-      this.$emit("close-tips-modal");
-    }
-  }
-};
+      this.$emit('close-tips-modal')
+    },
+  },
+}
 </script>

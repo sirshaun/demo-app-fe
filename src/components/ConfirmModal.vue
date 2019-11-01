@@ -20,7 +20,7 @@
           </svg>
         </div>
 
-        <div class="pl-4 md:pl-8">
+        <div class="">
           <div class="tracking-wide mb-6">
             <p class="font-light">
               {{ message }}
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import Modal from "./Modal";
+import Modal from './Modal'
 
 export default {
   components: { Modal },
@@ -56,28 +56,28 @@ export default {
     name: { type: String },
     deleteUrl: { type: String, required: true },
     redirectRoute: { type: String, required: true },
-    modalOn: { type: Boolean, required: true }
+    modalOn: { type: Boolean, required: true },
   },
   computed: {
     message() {
-      return typeof this.name == "undefined"
-        ? "Proceed with delete action?"
-        : "Are you sure you want to delete " + this.name + "?";
-    }
+      return typeof this.name == 'undefined'
+        ? 'Proceed with delete action?'
+        : 'Are you sure you want to delete ' + this.name + '?'
+    },
   },
   methods: {
     cancel() {
-      this.$emit("close-confirm-modal");
+      this.$emit('close-confirm-modal')
     },
     confirm() {
       this.$http.delete(this.deleteUrl, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        }
-      });
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      })
 
-      this.$router.push(this.redirectRoute);
-    }
-  }
-};
+      this.$router.push(this.redirectRoute)
+    },
+  },
+}
 </script>

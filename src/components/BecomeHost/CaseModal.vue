@@ -12,7 +12,7 @@
           />
         </div>
 
-        <div class="pl-4 md:pl-8">
+        <div class="">
           <div class="tracking-wide mb-6">
             <p class="text-2xl font-bold leading-snug mb-6">
               This listing will go through review
@@ -61,36 +61,36 @@
 </template>
 
 <script>
-import Modal from "@/components/Modal";
+import Modal from '@/components/Modal'
 
 export default {
   components: { Modal },
   data() {
     return {
       types: [
-        "Aparthotel",
-        "Bed & Breakfast",
-        "Boutique Hotel",
-        "Heritage Hotel (India)",
-        "Hotel",
-        "Ryokan (Japan)",
-        "Resort",
-        "Casa particular",
-        "Nature Lodge",
-        "Condohotel",
-        "Pension (Korea)",
-        "Minsu  (Taiwan)",
-        "Hostel",
-        "Pousada",
-        "Serviced Apartment",
-        "Timeshare"
-      ]
-    };
+        'Aparthotel',
+        'Bed & Breakfast',
+        'Boutique Hotel',
+        'Heritage Hotel (India)',
+        'Hotel',
+        'Ryokan (Japan)',
+        'Resort',
+        'Casa particular',
+        'Nature Lodge',
+        'Condohotel',
+        'Pension (Korea)',
+        'Minsu  (Taiwan)',
+        'Hostel',
+        'Pousada',
+        'Serviced Apartment',
+        'Timeshare',
+      ],
+    }
   },
   methods: {
     dismiss() {
-      this.$emit("close-case-modal");
-    }
-  }
-};
+      this.$emit('close-case-modal')
+    },
+  },
+}
 </script>
