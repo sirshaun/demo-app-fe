@@ -160,5 +160,13 @@ export default {
       }
     },
   },
+  watch: {
+    guests: {
+      immediate: true,
+      handler: function(guests) {
+        this.$emit('guests-changed', [this.adults, this.children, this.infants])
+      },
+    },
+  },
 }
 </script>
