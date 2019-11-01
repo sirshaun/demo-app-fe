@@ -199,7 +199,9 @@
                 {{ detectorText }}
               </div>
               <div>
-                <a class="text-indigo-600 cursor-pointer hover:text-indigo-200"
+                <a
+                  class="text-indigo-600 cursor-pointer hover:text-indigo-200"
+                  @click="toggleModal"
                   >Show all {{ totalAmenities }} amenities</a
                 >
               </div>
@@ -393,6 +395,13 @@
       </div>
     </div>
 
+    <AmenitiesModal
+      v-show="modalOn"
+      :toggle-modal="toggleModal"
+      :modalOn="modalOn"
+      :amenities="mergedAmenities"
+    />
+
     <Footer />
   </div>
 </template>
@@ -402,12 +411,14 @@ import googlemap from '@/map/google-map.js'
 import Pluralize from 'pluralize'
 
 import Navigation from './components/Navigation'
+import AmenitiesModal from './components/AmenitiesModal'
 import CheckAvailability from './components/CheckAvailability'
 import Footer from './components/Footer'
 
 export default {
   components: {
     Navigation,
+    AmenitiesModal,
     CheckAvailability,
     Footer,
   },
@@ -417,6 +428,7 @@ export default {
       listing: this.$store.state.listing,
       user: {},
       showSubNavBar: false,
+      modalOn: true,
     }
   },
   computed: {
@@ -502,8 +514,18 @@ export default {
 
       return this.listing.checkInStart
     },
+    mergedAmenities() {
+      return [
+        ...this.listing.amenities,
+        ...this.listing.safetyAmenities,
+        ...this.listing.spaces,
+      ]
+    },
   },
   methods: {
+    toggleModal() {
+      this.modalOn = !this.modalOn
+    },
     cleanImagePath(path) {
       if (process.env.VUE_APP_ENV == 'local') {
         var arr = path.split('/')
