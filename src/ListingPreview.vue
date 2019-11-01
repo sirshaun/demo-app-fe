@@ -315,25 +315,12 @@
                 </div>
               </div>
 
-              <div class="flex flex-wrap mt-4">
-                <div class="w-full">
-                  <label
-                    class="block tracking-wide text-gray-700 text-xs font-medium mb-1"
-                    for="grid-name"
-                  >
-                    Guests
-                  </label>
-                  <input
-                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="grid-guests"
-                    type="text"
-                    placeholder=""
-                    v-model="guests"
-                  />
-                </div>
-              </div>
+              <GuestDropdown
+                :max-guests="listing.guests"
+                :pluralize="pluralize"
+              />
 
-              <div class="mt-4">
+              <div class="">
                 <a
                   class="inline-block w-full text-center bg-indigo-500 text-white p-2 rounded cursor-pointer hover:bg-indigo-700"
                 >
@@ -397,12 +384,14 @@ import googlemap from '@/map/google-map.js'
 import Pluralize from 'pluralize'
 
 import DatePicker from 'v-calendar/lib/components/date-picker.umd'
-import Navigation from './components/Navigation.vue'
+import GuestDropdown from '@/components/Form/GuestDropdown'
+import Navigation from './components/Navigation'
 import Footer from './components/Footer'
 
 export default {
   components: {
     Navigation,
+    GuestDropdown,
     DatePicker,
     Footer,
   },
