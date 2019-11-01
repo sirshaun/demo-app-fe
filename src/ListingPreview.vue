@@ -9,7 +9,24 @@
 
     <div class="bg-gray-100">
       <div class="flex flex-col text-gray-800">
-        <div class="">
+        <div class="relative">
+          <div
+            class="absolute top-0 left-0 h-16 w-full bg-indigo-600 text-white md:px-64 md:py-5"
+          >
+            <div class="flex justify-between">
+              <div class="font-light">
+                <span class="font-medium">Preview mode:</span> This is how
+                guests will receive your listing
+              </div>
+              <div>
+                <router-link to="/become-a-host">
+                  <a class="border border-white rounded px-3 py-2"
+                    >Edit listing</a
+                  >
+                </router-link>
+              </div>
+            </div>
+          </div>
           <img
             class="object-cover w-full"
             style="height: 592px;"
