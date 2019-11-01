@@ -40,6 +40,7 @@ export default {
     min: { type: Number, default: 0 },
     max: { type: Number, default: 100 },
     accuracy: { type: Number, default: 1 },
+    decrementDisabled: { type: Boolean, default: false },
     incrementDisabled: { type: Boolean, default: false },
   },
   data() {
@@ -49,14 +50,16 @@ export default {
   },
   methods: {
     increment() {
-      if (this.counter < this.max) this.counter += this.accuracy
+      if (!this.ceil && this.counter < this.max) this.counter += this.accuracy
     },
     decrement() {
-      if (this.counter > this.min) this.counter -= this.accuracy
+      if (!this.floor && this.counter > this.min) this.counter -= this.accuracy
     },
   },
   computed: {
     floor() {
+      if (this.decrementDisabled) return true
+
       return this.counter == this.min
     },
     ceil() {
