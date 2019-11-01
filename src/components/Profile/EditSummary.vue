@@ -107,19 +107,19 @@
       @close-language-modal="toggleModal"
       @update-languages-spoken="updateLanguagesSpoken"
       v-show="modalOn"
-      :modalOn="modalOn"
-      :languagesSelected="this.languages"
+      :modal-on="modalOn"
+      :languages-selected="this.languages"
       :key="componentKey"
     />
   </div>
 </template>
 
 <script>
-import LanguageModal from "./LanguageModal";
+import LanguageModal from './LanguageModal'
 
 export default {
   components: { LanguageModal },
-  props: ["initialAbout", "initialLocation", "initialLanguages", "initialWork"],
+  props: ['initialAbout', 'initialLocation', 'initialLanguages', 'initialWork'],
   data: function() {
     return {
       about: this.initialAbout,
@@ -127,53 +127,53 @@ export default {
       languages: this.initialLanguages,
       work: this.initialWork,
       modalOn: false,
-      componentKey: 0
-    };
+      componentKey: 0,
+    }
   },
   methods: {
     saveChanges() {
       this.$http
         .post(
-          "/user/profile/update",
+          '/user/profile/update',
           {
             about: this.about,
             location: this.location,
-            languages: this.languages.join(", "),
-            work: this.work
+            languages: this.languages.join(', '),
+            work: this.work,
           },
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`
-            }
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
           }
         )
         .then(res => {
-          this.$emit("update-profile", res.data.user);
+          this.$emit('update-profile', res.data.user)
         })
         .catch(error => {
-          console.log(error);
-        });
+          console.log(error)
+        })
     },
     rollbackChanges() {
-      this.$emit("cancel-edit-profile");
+      this.$emit('cancel-edit-profile')
     },
     toggleModal() {
-      this.modalOn = !this.modalOn;
+      this.modalOn = !this.modalOn
 
-      if (this.modalOn) this.forceRerender();
+      if (this.modalOn) this.forceRerender()
     },
     updateLanguagesSpoken(data) {
-      this.languages = data;
+      this.languages = data
     },
     removeLanguage(lng) {
-      var index = this.languages.indexOf(lng);
+      var index = this.languages.indexOf(lng)
       if (index > -1) {
-        this.languages.splice(index, 1);
+        this.languages.splice(index, 1)
       }
     },
     forceRerender() {
-      this.componentKey += 1;
-    }
-  }
-};
+      this.componentKey += 1
+    },
+  },
+}
 </script>
