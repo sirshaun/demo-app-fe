@@ -5,11 +5,72 @@
       :isHost="true"
       :sticky="false"
     />
-    <!-- todo: add sticky nav bar -->
+
+    <div v-if="showSubNavBar">
+      <nav class="nav-float-alt px-64 h-12 border-b border-gray-400">
+        <div class="flex items-center justify-between h-full">
+          <div class="flex items-center text-gray-600 h-full pt-3">
+            <div
+              class="mr-1 text-indigo-600 hover:text-indigo-200 cursor-pointer h-full border-b-2 border-gray-400"
+            >
+              Overview
+            </div>
+            <div class="mx-1 h-full">&bull;</div>
+            <div
+              class="mx-1 text-indigo-600 hover:text-indigo-200 cursor-pointer h-full"
+            >
+              Reviews
+            </div>
+            <div class="mx-1 h-full">&bull;</div>
+            <div
+              class="mx-1 text-indigo-600 hover:text-indigo-200 cursor-pointer h-full"
+            >
+              The Host
+            </div>
+            <div class="mx-1 h-full">&bull;</div>
+            <div
+              class="mx-1 text-indigo-600 hover:text-indigo-200 cursor-pointer h-full"
+            >
+              Location
+            </div>
+            <div class="mx-1 h-full">&bull;</div>
+            <div
+              class="ml-1 text-indigo-600 hover:text-indigo-200 cursor-pointer h-full"
+            >
+              Policies
+            </div>
+          </div>
+          <div class="flex items-center text-gray-700 h-full">
+            <div class="flex items-center cursor-pointer">
+              <svg
+                class="h-3 mr-2 fill-current"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M13 10v6H7v-6H2l8-8 8 8h-5zM0 18h20v2H0v-2z" />
+              </svg>
+              Share
+            </div>
+            <div class="flex items-center cursor-pointer ml-5">
+              <svg
+                class="h-3 mr-2 fill-current"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M10 3.22l-.61-.6a5.5 5.5 0 0 0-7.78 7.77L10 18.78l8.39-8.4a5.5 5.5 0 0 0-7.78-7.77l-.61.61z"
+                />
+              </svg>
+              Save
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
 
     <div class="bg-gray-100">
       <div class="flex flex-col text-gray-800">
-        <div class="relative">
+        <div id="image-container" class="relative">
           <div
             class="absolute top-0 left-0 h-16 w-full bg-indigo-600 text-white md:px-64 md:py-5"
           >
@@ -355,6 +416,7 @@ export default {
       listing_id: this.$route.params.listing,
       listing: this.$store.state.listing,
       user: {},
+      showSubNavBar: false,
     }
   },
   computed: {
@@ -472,6 +534,25 @@ export default {
           }
         )
     },
+    isElementInViewport(el) {
+      const scroll = window.scrollY || window.pageYOffset
+      const boundsTop = el.getBoundingClientRect().top + scroll
+
+      const viewport = {
+        top: scroll,
+        bottom: scroll + window.innerHeight,
+      }
+
+      const bounds = {
+        top: boundsTop,
+        bottom: boundsTop + el.clientHeight,
+      }
+
+      return (
+        (bounds.bottom >= viewport.top && bounds.bottom <= viewport.bottom) ||
+        (bounds.top <= viewport.bottom && bounds.top >= viewport.top)
+      )
+    },
   },
   created() {
     if (this.listing_id != this.listing.id) {
@@ -479,6 +560,23 @@ export default {
     } else {
       this.fetchProfile()
     }
+  },
+  mounted() {
+    const listener = () => {
+      const imageContainer = document.getElementById('image-container')
+
+      if (!this.isElementInViewport(imageContainer)) {
+        this.showSubNavBar = true
+      } else {
+        this.showSubNavBar = false
+      }
+    }
+
+    window.addEventListener('scroll', listener)
+
+    this.$once('hook:beforeDestroy', () => {
+      window.removeEventListener('scroll', listener)
+    })
   },
 }
 </script>
