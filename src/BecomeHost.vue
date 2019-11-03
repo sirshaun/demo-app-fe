@@ -230,7 +230,7 @@
         :listing_id="listing.id"
         :complete="complete"
         :preview-of-listing="previewListing"
-        v-if="checkpoint"
+        v-if="checkpoint || page == 30"
       />
 
       <CalendarSnippet v-if="page == 17 && !checkpoint" />
