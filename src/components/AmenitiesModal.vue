@@ -42,7 +42,92 @@
             </div>
           </div>
 
-          <div class="">
+          <div class="mt-10" v-if="selectedFacilityAmenities.length">
+            <div class="text-lg font-medium mb-8">
+              Facilities
+            </div>
+            <div
+              class="flex flex-col text-gray-700 leading-relaxed"
+              v-for="(amenity, index) in selectedFacilityAmenities"
+            >
+              {{ amenity }}
+              {{ extraText(amenity) }}
+              <hr
+                class="border-gray-300 my-6"
+                v-show="index != selectedFacilityAmenities.length - 1"
+              />
+            </div>
+          </div>
+
+          <div class="mt-10" v-if="selectedDiningAmenities.length">
+            <div class="text-lg font-medium mb-8">
+              Dining
+            </div>
+            <div
+              class="flex flex-col text-gray-700 leading-relaxed"
+              v-for="(amenity, index) in selectedDiningAmenities"
+            >
+              {{ amenity }}
+              {{ extraText(amenity) }}
+              <hr
+                class="border-gray-300 my-6"
+                v-show="index != selectedDiningAmenities.length - 1"
+              />
+            </div>
+          </div>
+
+          <div class="mt-10" v-if="selectedGuestAccessAmenities.length">
+            <div class="text-lg font-medium mb-8">
+              Guest access
+            </div>
+            <div
+              class="flex flex-col text-gray-700 leading-relaxed"
+              v-for="(amenity, index) in selectedGuestAccessAmenities"
+            >
+              {{ amenity }}
+              {{ extraText(amenity) }}
+              <hr
+                class="border-gray-300 my-6"
+                v-show="index != selectedGuestAccessAmenities.length - 1"
+              />
+            </div>
+          </div>
+
+          <div class="mt-10" v-if="selectedBedsAndBathAmenities.length">
+            <div class="text-lg font-medium mb-8">
+              Beds and baths
+            </div>
+            <div
+              class="flex flex-col text-gray-700 leading-relaxed"
+              v-for="(amenity, index) in selectedBedsAndBathAmenities"
+            >
+              {{ amenity }}
+              {{ extraText(amenity) }}
+              <hr
+                class="border-gray-300 my-6"
+                v-show="index != selectedBedsAndBathAmenities.length - 1"
+              />
+            </div>
+          </div>
+
+          <div class="mt-10" v-if="selectedSafetyFeaturesAmenities.length">
+            <div class="text-lg font-medium mb-8">
+              Safety features
+            </div>
+            <div
+              class="flex flex-col text-gray-700 leading-relaxed"
+              v-for="(amenity, index) in selectedSafetyFeaturesAmenities"
+            >
+              {{ amenity }}
+              {{ extraText(amenity) }}
+              <hr
+                class="border-gray-300 my-6"
+                v-show="index != selectedSafetyFeaturesAmenities.length - 1"
+              />
+            </div>
+          </div>
+
+          <div class="mt-10" v-if="notIncludedAmenities.length">
             <div class="text-lg font-medium mb-8">
               Not included
             </div>
@@ -119,9 +204,55 @@ export default {
   },
   computed: {
     selectedBasicAmenities() {
-      return this.basicAmenities.map(e => {
+      return this.basicAmenities.filter(e => {
         if (this.amenities.includes(e)) {
-          console.log('...' + e)
+          this.removeFromNotIncludedArray(e)
+
+          return e
+        }
+      })
+    },
+    selectedFacilityAmenities() {
+      return this.facilityAmenities.filter(e => {
+        if (this.amenities.includes(e)) {
+          this.removeFromNotIncludedArray(e)
+
+          return e
+        }
+      })
+    },
+    selectedDiningAmenities() {
+      return this.diningAmenities.filter(e => {
+        if (this.amenities.includes(e)) {
+          this.removeFromNotIncludedArray(e)
+
+          return e
+        }
+      })
+    },
+    selectedGuestAccessAmenities() {
+      return this.guestAccessAmenity.filter(e => {
+        if (this.amenities.includes(e)) {
+          this.removeFromNotIncludedArray(e)
+
+          return e
+        }
+      })
+    },
+    selectedBedsAndBathAmenities() {
+      return this.bedAndBathAmenities.filter(e => {
+        if (this.amenities.includes(e)) {
+          this.removeFromNotIncludedArray(e)
+
+          return e
+        }
+      })
+    },
+    selectedSafetyFeaturesAmenities() {
+      return this.safetyFeaturesAmenities.filter(e => {
+        if (this.amenities.includes(e)) {
+          this.removeFromNotIncludedArray(e)
+
           return e
         }
       })
@@ -136,6 +267,13 @@ export default {
         return "The host hasn't reported a smoke detector on the property."
 
       return ''
+    },
+    removeFromNotIncludedArray(val) {
+      var index = this.notIncludedAmenities.indexOf(val)
+
+      if (index >= 0) {
+        this.notIncludedAmenities.splice(index, 1)
+      }
     },
   },
 }
