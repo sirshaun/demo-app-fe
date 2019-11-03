@@ -91,11 +91,7 @@
           <img
             class="object-cover w-full"
             style="height: 690px;"
-            :src="
-              cleanImagePath(
-                'file:///Users/ItachiUchiha/Sites/demo-app-be/storage/app/images/airbnb-apartment-appartment-584399.jpg'
-              )
-            "
+            :src="listingSplashImage"
           />
         </div>
         <div class="px-64 flex">
@@ -428,10 +424,17 @@ export default {
       listing: this.$store.state.listing,
       user: {},
       showSubNavBar: false,
-      modalOn: true,
+      modalOn: false,
     }
   },
   computed: {
+    listingSplashImage() {
+      if (this.listing.photos.length) {
+        return this.cleanImagePath(this.listing.photos[0])
+      }
+
+      return '/img/undraw_for_sale_viax.svg'
+    },
     bedrooms() {
       if (this.listing.bedrooms.toLowerCase() == 'studio') {
         return '1 bedroom'
