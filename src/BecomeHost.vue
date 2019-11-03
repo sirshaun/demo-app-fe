@@ -501,6 +501,11 @@ export default {
         this.checkpoint = checkpoint
 
         this.complete = status == 'complete'
+
+        if (this.complete && this.checkpoint) {
+          this.checkpoint = false
+          this.page = 30
+        }
       }
 
       if (this.complete && this.page < 30) this.review = true
