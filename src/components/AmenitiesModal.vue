@@ -33,8 +33,8 @@
               class="flex flex-col text-gray-700 leading-relaxed"
               v-for="(amenity, index) in selectedBasicAmenities"
             >
-              {{ amenity }}
-              {{ extraText(amenity) }}
+              <span class="">{{ amenity }}</span>
+              <span class="text-xs font-light">{{ extraText(amenity) }}</span>
               <hr
                 class="border-gray-300 my-6"
                 v-show="index != selectedBasicAmenities.length - 1"
@@ -50,8 +50,8 @@
               class="flex flex-col text-gray-700 leading-relaxed"
               v-for="(amenity, index) in selectedFacilityAmenities"
             >
-              {{ amenity }}
-              {{ extraText(amenity) }}
+              <span class="">{{ amenity }}</span>
+              <span class="text-xs font-light">{{ extraText(amenity) }}</span>
               <hr
                 class="border-gray-300 my-6"
                 v-show="index != selectedFacilityAmenities.length - 1"
@@ -67,8 +67,8 @@
               class="flex flex-col text-gray-700 leading-relaxed"
               v-for="(amenity, index) in selectedDiningAmenities"
             >
-              {{ amenity }}
-              {{ extraText(amenity) }}
+              <span class="">{{ amenity }}</span>
+              <span class="text-xs font-light">{{ extraText(amenity) }}</span>
               <hr
                 class="border-gray-300 my-6"
                 v-show="index != selectedDiningAmenities.length - 1"
@@ -84,8 +84,8 @@
               class="flex flex-col text-gray-700 leading-relaxed"
               v-for="(amenity, index) in selectedGuestAccessAmenities"
             >
-              {{ amenity }}
-              {{ extraText(amenity) }}
+              <span class="">{{ amenity }}</span>
+              <span class="text-xs font-light">{{ extraText(amenity) }}</span>
               <hr
                 class="border-gray-300 my-6"
                 v-show="index != selectedGuestAccessAmenities.length - 1"
@@ -101,8 +101,8 @@
               class="flex flex-col text-gray-700 leading-relaxed"
               v-for="(amenity, index) in selectedBedsAndBathAmenities"
             >
-              {{ amenity }}
-              {{ extraText(amenity) }}
+              <span class="">{{ amenity }}</span>
+              <span class="text-xs font-light">{{ extraText(amenity) }}</span>
               <hr
                 class="border-gray-300 my-6"
                 v-show="index != selectedBedsAndBathAmenities.length - 1"
@@ -118,8 +118,8 @@
               class="flex flex-col text-gray-700 leading-relaxed"
               v-for="(amenity, index) in selectedSafetyFeaturesAmenities"
             >
-              {{ amenity }}
-              {{ extraText(amenity) }}
+              <span class="">{{ amenity }}</span>
+              <span class="text-xs font-light">{{ extraText(amenity) }}</span>
               <hr
                 class="border-gray-300 my-6"
                 v-show="index != selectedSafetyFeaturesAmenities.length - 1"
@@ -164,9 +164,11 @@ export default {
       basicAmenities: [
         'Fireplace',
         'Wifi',
+        'Laundry - dryer',
         'Iron',
         'Air conditioning',
         'Desk/workplace',
+        'Laundry - washer',
         'Essentials',
         'TV',
         'Heating',
@@ -175,7 +177,7 @@ export default {
       diningAmenities: ['Breakfast,coffee,tea', 'Kitchen'],
       guestAccessAmenity: ['Private entrance', 'Private living room'],
       bedAndBathAmenities: [
-        'Hnagers',
+        'Closet/drawers',
         'Hair dryer',
         'Shampoo',
         'Lock on bedroom door',
@@ -204,67 +206,156 @@ export default {
   },
   computed: {
     selectedBasicAmenities() {
-      return this.basicAmenities.filter(e => {
-        if (this.amenities.includes(e)) {
-          this.removeFromNotIncludedArray(e)
+      return this.basicAmenities
+        .filter(e => {
+          if (this.amenities.includes(e)) {
+            this.removeFromNotIncludedArray(e)
+
+            return true
+          }
+        })
+        .map(e => {
+          if (e == 'Fireplace') {
+            return 'Indoor fireplace'
+          } else if (e == 'Desk/workplace') {
+            return 'Laptop friendly workspace'
+          } else if (e == 'Laundry - washer') {
+            return 'Washing machine'
+          } else if (e == 'Laundry - dryer') {
+            return 'Dryer'
+          } else if (e == 'Wifi') {
+            return 'Wi-Fi'
+          }
 
           return e
-        }
-      })
+        })
     },
     selectedFacilityAmenities() {
-      return this.facilityAmenities.filter(e => {
-        if (this.amenities.includes(e)) {
-          this.removeFromNotIncludedArray(e)
+      return this.facilityAmenities
+        .filter(e => {
+          if (this.amenities.includes(e)) {
+            this.removeFromNotIncludedArray(e)
+            return true
+          }
+        })
+        .map(e => {
+          if (e == 'Parking') {
+            return 'Free parking on premises'
+          }
 
           return e
-        }
-      })
+        })
     },
     selectedDiningAmenities() {
-      return this.diningAmenities.filter(e => {
-        if (this.amenities.includes(e)) {
-          this.removeFromNotIncludedArray(e)
+      return this.diningAmenities
+        .filter(e => {
+          if (this.amenities.includes(e)) {
+            this.removeFromNotIncludedArray(e)
+
+            return true
+          }
+        })
+        .map(e => {
+          if (e == 'Breakfast,coffee,tea') {
+            return 'Breakfast'
+          }
 
           return e
-        }
-      })
+        })
     },
     selectedGuestAccessAmenities() {
       return this.guestAccessAmenity.filter(e => {
         if (this.amenities.includes(e)) {
           this.removeFromNotIncludedArray(e)
 
-          return e
+          return true
         }
       })
     },
     selectedBedsAndBathAmenities() {
-      return this.bedAndBathAmenities.filter(e => {
-        if (this.amenities.includes(e)) {
-          this.removeFromNotIncludedArray(e)
+      return this.bedAndBathAmenities
+        .filter(e => {
+          if (this.amenities.includes(e)) {
+            this.removeFromNotIncludedArray(e)
+
+            return true
+          }
+        })
+        .map(e => {
+          if (e == 'Closet/drawers') {
+            return 'Hangers'
+          }
 
           return e
-        }
-      })
+        })
     },
     selectedSafetyFeaturesAmenities() {
       return this.safetyFeaturesAmenities.filter(e => {
         if (this.amenities.includes(e)) {
           this.removeFromNotIncludedArray(e)
 
-          return e
+          return true
         }
       })
     },
   },
   methods: {
     extraText(val) {
-      if (val == 'Carbon monoxide detector')
-        return "The host hasn't reported a carbon monoxide detector on the property."
+      if (val == 'Wi-Fi') {
+        return 'Continuous access in the listing'
+      }
 
-      if (val == 'Smoke detector')
+      if (val == 'Dryer') {
+        return 'In the building, free or for a fee'
+      }
+
+      if (val == 'Laptop friendly workspace') {
+        return 'A table or desk with space for a laptop and a chair that’s comfortable to work in'
+      }
+
+      if (val == 'Essentials') {
+        return 'Towels, bed sheets, soap and toilet paper'
+      }
+
+      if (val == 'Heating') {
+        return 'Central heating or a heater in the listing'
+      }
+
+      if (val == 'Elevator') {
+        return 'The home or building has a lift that’s at least 132cm deep and a doorway at least 81cm wide.'
+      }
+
+      if (val == 'Gym') {
+        return 'Free, in the building or nearby'
+      }
+
+      if (val == 'Pool') {
+        return 'Private or Shared'
+      }
+
+      if (val == 'Breakfast') {
+        return 'Breakfast is provided'
+      }
+
+      if (val == 'Kitchen') {
+        return 'Space where guests can cook their own meals'
+      }
+
+      if (val == 'Private entrance') {
+        return 'Separate street or building entrance'
+      }
+
+      if (val == 'Lock on bedroom door') {
+        return 'Private room can be locked for safety and privacy'
+      }
+
+      if (val == 'Carbon monoxide detector') {
+        return "The host hasn't reported a carbon monoxide detector on the property."
+      }
+
+      if (val == 'Smoke detector') {
         return "The host hasn't reported a smoke detector on the property."
+      }
 
       return ''
     },
