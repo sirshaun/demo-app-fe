@@ -87,7 +87,6 @@ export default {
         },
         { value: 'Air conditioning', descr: '' },
         { value: 'Heat', descr: '' },
-        { value: 'Dryer', descr: '' },
         { value: 'Hair dryer', descr: '' },
         { value: 'Closet/drawers', descr: '' },
         { value: 'Iron', descr: '' },
