@@ -133,7 +133,7 @@
             </div>
             <div
               class="flex flex-col text-gray-700 leading-relaxed"
-              v-for="(amenity, index) in notIncludedAmenities"
+              v-for="(amenity, index) in formattedNotIncludedAmenities"
             >
               <span class="line-through">{{ amenity }}</span>
               <span class="text-xs font-light">{{ extraText(amenity) }}</span>
@@ -194,7 +194,7 @@ export default {
         'Hair dryer',
         'Shampoo',
         'Air conditioning',
-        'Washing machine',
+        'Laundry - washer',
         'Essentials',
         'TV',
         'Heating',
@@ -296,6 +296,17 @@ export default {
 
           return true
         }
+      })
+    },
+    formattedNotIncludedAmenities() {
+      return this.notIncludedAmenities.map(e => {
+        if (e == 'Laundry - washer') {
+          return 'Washing machine'
+        } else if (e == 'Wifi') {
+          return 'Wi-Fi'
+        }
+
+        return e
       })
     },
   },
