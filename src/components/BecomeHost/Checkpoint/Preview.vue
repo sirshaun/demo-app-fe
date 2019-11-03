@@ -20,7 +20,7 @@
         </router-link>
       </div>
       <div>
-        <img class="h-20" src="/img/undraw_for_sale_viax.svg" />
+        <img class="h-20" :src="listingImage" />
       </div>
     </div>
   </div>
@@ -30,6 +30,12 @@
 export default {
   props: {
     listing_id: { type: Number },
+    photos: {
+      type: Array,
+      default: () => {
+        return []
+      },
+    },
     complete: { type: Boolean },
     previewOfListing: { type: Function },
   },
@@ -38,6 +44,24 @@ export default {
       if (this.complete) return { bottom: '-150px' }
 
       return { bottom: '-750px' }
+    },
+    listingImage() {
+      if (this.photos.length) {
+        return this.cleanImagePath(this.photos[0])
+      }
+
+      return '/img/undraw_for_sale_viax.svg'
+    },
+  },
+  methods: {
+    cleanImagePath(path) {
+      if (process.env.VUE_APP_ENV == 'local') {
+        var arr = path.split('/')
+
+        return '/stock/' + arr[arr.length - 1]
+      }
+
+      return path
     },
   },
 }

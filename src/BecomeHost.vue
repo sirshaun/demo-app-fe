@@ -228,6 +228,7 @@
     <div class="relative bg-gray-200 w-2/5 px-6 pt-10 pb-20">
       <Preview
         :listing_id="listing.id"
+        :photos="listing.photos"
         :complete="complete"
         :preview-of-listing="previewListing"
         v-if="checkpoint || page == 30"
